@@ -9,6 +9,7 @@ export class ProductService {
   getProductsByOptions(options: QueryOptionsProduct) {
     const { category, fromPrice, toPrice, fromSize, toSize, type, sort } =
       options;
+    console.log('a');
     return this.productRepo.find();
   }
 }
