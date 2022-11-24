@@ -7,6 +7,7 @@ export const getData = (url, header) => {
   header = checkHeader(header);
   return axios.get(url, {
     headers: header,
+    withCredentials: false
   });
 };
 export const getDataWithResponeType = (url, header, responseType) => {

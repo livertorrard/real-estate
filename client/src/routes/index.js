@@ -194,7 +194,7 @@ export default function Router() {
           element: <ProductDetail />,
         },
         {
-          path: 'tat-ca-san-pham',
+          path: 'products',
           element: <CategoryDetail />,
         },
         {

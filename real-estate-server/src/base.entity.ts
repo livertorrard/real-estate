@@ -15,5 +15,5 @@ export class BaseEntity {
     type: 'timestamp',
     default: null,
   })
-  deleteAt: Date;
+  deletedAt: Date;
 }

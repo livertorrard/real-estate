@@ -8,6 +8,7 @@ import { ConnectionModule } from './connection/connection.module';
 import { MailSenderModule } from './mail-sender/mail-sender.module';
 import { NotificationModule } from './notification/notification.module';
 import { PictureModule } from './pictures/picture.module';
+import { ProductModule } from './products/product.module';
 import { routes } from './routes';
 import { UserModule } from './user/user.module';
 
@@ -23,6 +24,7 @@ import { UserModule } from './user/user.module';
     CategoryModule,
     ChatBotModule,
     PictureModule,
+    ProductModule,
   ],
 
   providers: [],
