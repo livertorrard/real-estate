@@ -1,0 +1,116 @@
+.list-product-especical {
+    .h-title-menu {
+        text-align: center;
+        .h-title{
+            .h5-title {
+                color: #fb6b26 !important;
+                font-weight: bold;
+            }
+            .p-title {
+                color: gray;
+            }
+        }
+    }
+
+    .list-item {
+        ._item {
+            .wrap_banner {
+                position: relative;
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                border-radius: 10px;
+
+                &:before {
+                    position: absolute;
+                    display: block;
+                    width: 100%;
+                    height: 22%;
+                    bottom: 0;
+                    left: 0;
+                    content: '';
+                    background: rgba(0,0,0,0.1);
+                    opacity: .95;
+                    text-align: center;
+                    box-sizing: border-box;
+                    transition: all .25s ease-in-out;
+                }
+
+                img {
+                    transition: transform 0.3s;
+                    border-radius: 10px;
+                }
+                
+                .wr_title {
+                    text-align: center;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    padding: 20px;
+                    z-index: 1;
+                    transition: all 0.3s ease 0s;
+                    border-radius: 4px;
+                    overflow: hidden;
+
+                    .wrap_title_ed {
+                        top: auto;
+                        bottom: 20px;
+                        transform: translateY(0);
+                        position: absolute;
+                        width: 100%;
+                        left: 0;
+
+                        .h2 {
+                            font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
+                            font-size: 30px;
+                            font-weight: 700;
+                            line-height: 1.25;
+                            margin: 0;
+                            -webkit-transform: translateY(10px);
+                            -moz-transform: translateY(10px);
+                            -ms-transform: translateY(10px);
+                            -o-transform: translateY(10px);
+                            transform: translateY(10px);
+                            transition: all 0.4s ease-in-out;
+
+                            .tag-a {
+                                color: #fff !important;
+                                text-decoration: none;
+                            }
+                            .tag-a:hover {
+                                color: #00AB55 !important;
+                            }
+                        }
+
+                        p {
+                            font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
+                            font-size: 16px;
+                            color: #fff;
+                            transform: translateY(100px);
+                            transition: all 0.4s ease-in-out;
+                            opacity: 1;
+                        }
+                    }
+                }
+
+                &:hover {
+                    img {
+                        transform: scale(1.12);
+                    }
+
+                    .wrap_title_ed {
+                        .h2 {
+                            transform: translateY(0px);
+                        }
+                        p {
+                            transform: translateY(0px);
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

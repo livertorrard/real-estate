@@ -1,0 +1,45 @@
+._1-search-advanced {
+    margin-right: 20px !important;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    &:last-child {
+        margin-right: 0px !important;
+    }
+    
+
+    .thumbnail {
+        height: 105px;
+        width: 105px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px #565d61 dashed;
+        border-radius: 4px;
+        background: #0000003b;
+        margin-bottom: 8px;
+
+        .img {
+            object-fit: cover;
+            width: 64px;
+            height: 64px;
+        }
+    }
+
+    &:hover {
+        .thumbnail {
+            background-color:  #7dce32;
+        }
+
+        .typography {
+            color: #7dce32 !important;
+        }
+    }
+
+    .typography {
+        font-weight: 600;
+        color: white !important;
+        text-decoration: none !important;
+    }
+}

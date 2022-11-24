@@ -1,0 +1,41 @@
+.dialog-product-image-list .img-thumb {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+.dialog-product-image-list  .dialog-content:hover .list-img {
+    opacity: 1;
+}
+
+.dialog-product-image-list .list-img {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    opacity: 0;
+    display: flex;
+}
+
+.dialog-product-image-list .list-img img {
+    width: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-right: 4px;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+@media (max-width: 920px) {
+    .dialog-product-image-list .list-img img {
+        width: 60px;
+    }
+}
+
+.dialog-product-image-list .list-img img:hover {
+    border: 2px solid #7dce32;
+}
+
+.dialog-product-image-list .list-img img.active {
+    border: 2px solid #7dce32;
+}
