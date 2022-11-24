@@ -1,0 +1,28 @@
+version: "3"
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:11
+    ports:
+    - "5432:5432"
+    volumes:
+    - /data/postgres:/data/postgres
+    env_file:
+    - docker.env
+    networks:
+    - webnet
+ 
+  adminer:
+    image: adminer:latest
+    ports:
+      - 4081:8080
+    volumes:
+    - /data/pgadmin:/root/.pgadmin
+    env_file:
+    - docker.env
+    networks:
+    - webnet
+ 
+networks:
+  webnet:
+    driver: bridge
