@@ -58,13 +58,13 @@ export default function CategoryDetail() {
         }
         let arrDanhMuc = [];
         checked?.map((data) => {
-          arrDanhMuc.push(Number(data));
+          arrDanhMuc.push((data));
           return arrDanhMuc;
         });
         if (!_danhmuc) _danhmuc = arrDanhMuc;
         const res = await getData(
           API_BASE_URL +
-            `/products?category=${_danhmuc}&&fromPrice=${_fromPrice}&&toPrice=${_toPrice}&&fromSize=${_fromSize}&&toSize=${_toSize}&&sort=${radioSort}&&type=${radioType}`,
+            `/products?categoryIds=${_danhmuc}&&fromPrice=${_fromPrice}&&toPrice=${_toPrice}&&fromSize=${_fromSize}&&toSize=${_toSize}&&sort=${radioSort}&&type=${radioType}`,
         );
         const resDanhMuc = await getData(API_BASE_URL + `/categories`);
         setDataDanhMuc(resDanhMuc.data);
@@ -336,14 +336,14 @@ export default function CategoryDetail() {
                     >
                       <li>
                         <FormControlLabel
-                          value="1"
+                          value="fff3b141-08f7-4585-bb75-2f72f2aaaf9a"
                           control={<Radio size="small" name="type" />}
                           label=" Nhà đất - Bán"
                         />
                       </li>
                       <li>
                         <FormControlLabel
-                          value="2"
+                          value="c466a38c-7d44-46c7-9508-5ac7d30c728e"
                           control={<Radio size="small" name="type" />}
                           label=" Nhà đất - Thuê"
                         />
@@ -404,14 +404,14 @@ export default function CategoryDetail() {
                   >
                     <small>
                       <FormControlLabel
-                        value="ASC"
+                        value="asc"
                         control={<Radio size="small" name="sort" />}
                         label=" Giá tăng dần "
                       />
                     </small>
                     <small>
                       <FormControlLabel
-                        value="DESC"
+                        value="desc"
                         control={<Radio size="small" name="type" />}
                         label=" Giá giảm dần"
                       />

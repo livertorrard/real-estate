@@ -1,10 +1,14 @@
+import { ActionEntity } from 'src/actions/entities/action.entity';
+import { AuthorEntity } from 'src/authors/entities/author.entity';
 import { BaseEntity } from 'src/base.entity';
 import { CategoryEntity } from 'src/categories/entities/category.entity';
+import { PictureEntity } from 'src/pictures/entities/picture.entity';
 import {
   Column,
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -46,7 +50,24 @@ export class ProductEntity extends BaseEntity {
   @Column({ type: 'uuid' })
   categoryId: string;
 
+  @Column({ type: 'uuid' })
+  authorId: string;
+
+  @Column({ type: 'uuid' })
+  actionId: string;
+
+  @OneToMany(() => PictureEntity, (picture) => picture.product)
+  pictures: PictureEntity[];
+
   @ManyToOne(() => CategoryEntity)
   @JoinColumn({ name: 'categoryId' })
   category: CategoryEntity;
+
+  @ManyToOne(() => AuthorEntity)
+  @JoinColumn({ name: 'authorId' })
+  author: AuthorEntity;
+
+  @ManyToOne(() => ActionEntity)
+  @JoinColumn({ name: 'actionId' })
+  action: ActionEntity;
 }

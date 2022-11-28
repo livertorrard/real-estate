@@ -28,7 +28,7 @@ export class CreateProductTable1669171277347 implements MigrationInterface {
             name: 'description',
             type: 'varchar',
             isUnique: true,
-            length: '1000',
+            length: '10000000',
           },
           {
             name: 'active',
@@ -40,7 +40,7 @@ export class CreateProductTable1669171277347 implements MigrationInterface {
             type: 'int',
           },
           {
-            name: 'tolet',
+            name: 'toilet',
             type: 'int',
           },
           {
@@ -60,6 +60,8 @@ export class CreateProductTable1669171277347 implements MigrationInterface {
             type: 'float',
           },
           { name: 'categoryId', type: 'uuid' },
+          { name: 'authorId', type: 'uuid' },
+          { name: 'actionId', type: 'uuid' },
           {
             name: 'createdAt',
             type: 'timestamp',
@@ -75,7 +77,7 @@ export class CreateProductTable1669171277347 implements MigrationInterface {
           {
             name: 'deletedAt',
             type: 'timestamp',
-            default: 'now()',
+            default: 'null',
             isNullable: true,
           },
         ],
@@ -83,6 +85,16 @@ export class CreateProductTable1669171277347 implements MigrationInterface {
           {
             columnNames: ['categoryId'],
             referencedTableName: 'Category',
+            referencedColumnNames: ['id'],
+          },
+          {
+            columnNames: ['authorId'],
+            referencedTableName: 'Author',
+            referencedColumnNames: ['id'],
+          },
+          {
+            columnNames: ['actionId'],
+            referencedTableName: 'Action',
             referencedColumnNames: ['id'],
           },
         ],

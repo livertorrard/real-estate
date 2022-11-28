@@ -1,5 +1,12 @@
 import { BaseEntity } from 'src/base.entity';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { ProductEntity } from 'src/products/entities/product.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('Picture')
 export class PictureEntity extends BaseEntity {
@@ -9,9 +16,6 @@ export class PictureEntity extends BaseEntity {
   @Column({ type: 'varchar', length: 250 })
   pictureName: string;
 
-  @Column({ type: 'int', default: 1 })
-  active: number;
-
   @Column('uuid', { nullable: true })
   categoryId?: string;
 
@@ -20,4 +24,8 @@ export class PictureEntity extends BaseEntity {
 
   @Column('uuid', { nullable: true })
   postId?: string;
+
+  @ManyToOne(() => ProductEntity)
+  @JoinColumn({ name: 'productId' })
+  product: ProductEntity;
 }

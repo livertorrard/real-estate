@@ -7,7 +7,6 @@ import './index.scss';
 import { fCurrency } from 'src/utils/formatNumber';
 
 export default function Product(props) {
-  console.log(props);
   // const { product} = props;
   // console.log(product, "product")
   // console.log( props.product.sp_hinhanh[0]?.ha_hinh, 'rong', "trung anh aaaaaaaaaaaaaa")
@@ -25,12 +24,7 @@ export default function Product(props) {
         >
           <img
             style={{ width: '800px', height: '250px' }}
-            // src={
-            //   props?.product
-            //     ? 'http://localhost:4000/public/' +
-            //       props?.product?.sp_hinhanh[0]?.ha_hinh
-            //     : ''
-            // }
+            src= {`http://localhost:3005/public/images/${props.product.pictures[0].pictureName}`}
             alt="Cho thuê căn hộ, biệt thự cao cấp"
           />
         </Link>
@@ -86,14 +80,14 @@ export default function Product(props) {
               <a
                 className="inIcon contact"
                 id="phoneCallProduct"
-                href="tel:0123456789"
+                href={`tel: ${props.product.author.phone}`}
                 title="Gọi ngay"
               >
                 <LocalPhoneIcon
                   sx={{ fontSize: 15 }}
                   id="iconPhoneProduct"
                 ></LocalPhoneIcon>
-                {props.product.tg_phone}
+                {props.product.author.phone}
               </a>
             </li>
           </ul>
@@ -126,7 +120,7 @@ export default function Product(props) {
                 data-lazyload="//bizweb.dktcdn.net/100/336/794/themes/692935/assets/bath.png?1638695199389"
                 alt="Phòng tắm"
               />
-              &nbsp;{props.product.tolet} Tắm
+              &nbsp;{props.product.toilet} Tắm
             </span>
           </li>
           <li>

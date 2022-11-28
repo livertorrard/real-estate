@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { RouterModule } from 'nest-router';
+import { ActionModule } from './actions/action.module';
 import { AuthModule } from './auth/auth.module';
+import { AuthorModule } from './authors/author.module';
 import { CategoryModule } from './categories/category.module';
 import { ChatBotModule } from './chat-bots/chat-bot.module';
 import { DatabaseConfig } from './config/database.config';
@@ -25,6 +27,8 @@ import { UserModule } from './user/user.module';
     ChatBotModule,
     PictureModule,
     ProductModule,
+    AuthorModule,
+    ActionModule,
   ],
 
   providers: [],

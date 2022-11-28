@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class createPictureTable1669177207130 implements MigrationInterface {
+export class CreateActionTable1669171277346 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'Picture',
+        name: 'Action',
         columns: [
           {
             name: 'id',
@@ -14,14 +14,15 @@ export class createPictureTable1669177207130 implements MigrationInterface {
             generationStrategy: 'uuid',
           },
           {
-            name: 'pictureName',
+            name: 'actionName',
             type: 'varchar',
-            isUnique: true,
             length: '250',
           },
-          { name: 'categoryId', type: 'uuid', isNullable: true },
-          { name: 'productId', type: 'uuid', isNullable: true },
-          { name: 'postId', type: 'uuid', isNullable: true },
+          {
+            name: 'active',
+            type: 'int',
+            default: 1,
+          },
           {
             name: 'createdAt',
             type: 'timestamp',
@@ -39,23 +40,6 @@ export class createPictureTable1669177207130 implements MigrationInterface {
             type: 'timestamp',
             default: 'null',
             isNullable: true,
-          },
-        ],
-        foreignKeys: [
-          {
-            columnNames: ['categoryId'],
-            referencedTableName: 'Category',
-            referencedColumnNames: ['id'],
-          },
-          {
-            columnNames: ['productId'],
-            referencedTableName: 'Product',
-            referencedColumnNames: ['id'],
-          },
-          {
-            columnNames: ['postId'],
-            referencedTableName: 'Post',
-            referencedColumnNames: ['id'],
           },
         ],
       }),

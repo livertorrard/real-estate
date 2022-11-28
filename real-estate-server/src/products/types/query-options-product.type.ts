@@ -1,5 +1,6 @@
 export type QueryOptionsProduct = {
-  category: string;
+  categoryIds: string;
+  arrayCategoryIds?: string[];
   fromPrice: number;
   toPrice: number;
   fromSize: number;

@@ -1,16 +1,26 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as compression from 'compression';
 import * as rateLimit from 'express-rate-limit';
 import * as helmet from 'helmet';
+import { join } from 'path';
 import * as requestIp from 'request-ip';
 import { AppModule } from './app.module';
 import { env } from './config/env.config';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    cors: true,
+  });
+
   app.setGlobalPrefix(env.APP_PREFIX);
+  app.useStaticAssets(join(__dirname, '..', 'public'), {
+    index: false,
+    prefix: '/public',
+  });
+
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
   app.enableCors();
 

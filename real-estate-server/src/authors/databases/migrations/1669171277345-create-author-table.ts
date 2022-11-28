@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class createPictureTable1669177207130 implements MigrationInterface {
+export class CreateAuthorTable1669171277345 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'Picture',
+        name: 'Author',
         columns: [
           {
             name: 'id',
@@ -14,14 +14,27 @@ export class createPictureTable1669177207130 implements MigrationInterface {
             generationStrategy: 'uuid',
           },
           {
-            name: 'pictureName',
+            name: 'name',
+            type: 'varchar',
+            length: '250',
+          },
+          {
+            name: 'active',
+            type: 'int',
+            default: 1,
+          },
+          {
+            name: 'email',
             type: 'varchar',
             isUnique: true,
             length: '250',
           },
-          { name: 'categoryId', type: 'uuid', isNullable: true },
-          { name: 'productId', type: 'uuid', isNullable: true },
-          { name: 'postId', type: 'uuid', isNullable: true },
+          {
+            name: 'phone',
+            type: 'varchar',
+            isUnique: true,
+            length: '11',
+          },
           {
             name: 'createdAt',
             type: 'timestamp',
@@ -39,23 +52,6 @@ export class createPictureTable1669177207130 implements MigrationInterface {
             type: 'timestamp',
             default: 'null',
             isNullable: true,
-          },
-        ],
-        foreignKeys: [
-          {
-            columnNames: ['categoryId'],
-            referencedTableName: 'Category',
-            referencedColumnNames: ['id'],
-          },
-          {
-            columnNames: ['productId'],
-            referencedTableName: 'Product',
-            referencedColumnNames: ['id'],
-          },
-          {
-            columnNames: ['postId'],
-            referencedTableName: 'Post',
-            referencedColumnNames: ['id'],
           },
         ],
       }),

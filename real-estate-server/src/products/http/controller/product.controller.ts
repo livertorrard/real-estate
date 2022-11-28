@@ -7,7 +7,7 @@ export class ProductController {
 
   @Get()
   getProductsByOptions(
-    @Query('category') category: string,
+    @Query('categoryIds') categoryIds: string,
     @Query('fromPrice') fromPrice: number,
     @Query('toPrice') toPrice: number,
     @Query('fromSize') fromSize: number,
@@ -16,7 +16,7 @@ export class ProductController {
     @Query('type') type: string,
   ) {
     return this.productService.getProductsByOptions({
-      category,
+      categoryIds,
       fromPrice,
       toPrice,
       fromSize,
