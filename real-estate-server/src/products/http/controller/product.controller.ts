@@ -1,4 +1,5 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
+import { ProductEntity } from 'src/products/entities/product.entity';
 import { ProductService } from 'src/products/services/product.service';
 
 @Controller('products')
@@ -14,7 +15,7 @@ export class ProductController {
     @Query('toSize') toSize: number,
     @Query('sort') sort: string,
     @Query('type') type: string,
-  ) {
+  ): Promise<ProductEntity[]> {
     return this.productService.getProductsByOptions({
       categoryIds,
       fromPrice,
@@ -24,5 +25,24 @@ export class ProductController {
       type,
       sort,
     });
+  }
+
+  @Get('new')
+  getProductNew() {
+    return this.productService.getProductNew();
+  }
+
+  @Get(':productId')
+  getProductDetail(
+    @Param('productId') productId: string,
+  ): Promise<ProductEntity> {
+    return this.productService.getProductDetail(productId);
+  }
+
+  @Get('categories/:categoryId')
+  getProductByCategoryId(
+    @Param('categoryId') categoryId: string,
+  ): Promise<ProductEntity[]> {
+    return this.productService.getProductByCategoryId(categoryId);
   }
 }

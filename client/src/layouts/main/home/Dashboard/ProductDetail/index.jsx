@@ -18,9 +18,7 @@ import Map from '../Map';
 import { Button } from '@material-ui/core';
 import DialogLienHe from '../DiaLogLienHe';
 
-
 export default function ProductDetail() {
- 
   const [open, setOpen] = React.useState(false);
   const [openLienHe, setOpenLienHe] = React.useState(false);
   const [imgActive, setImgActive] = React.useState(0);
@@ -33,16 +31,15 @@ export default function ProductDetail() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await getData(API_BASE_URL + `/book/${params.id}`);
+        const res = await getData(API_BASE_URL + `/products/${params.id}`);
         setDatas(res.data);
-        setListImage(res.data.sp_hinhanh);
+        setListImage(res.data.pictures);
         const rs = await getData(
-          API_BASE_URL + `/books/danhmuc/${res.data.sp_iddm}`,
+          API_BASE_URL + `/products/categories/${res.data.categoryId}`,
         );
         setDataTinCungChuDe(rs.data);
-        console.log(rs.data)
         setImgSrc(
-          `http://localhost:4000/public/${res.data?.sp_hinhanh[0]?.ha_hinh}`,
+          `http://localhost:3005/public/images/${res.data.pictureName}`,
         );
       } catch (e) {
         console.log(e);
@@ -68,7 +65,7 @@ export default function ProductDetail() {
 
   const setImgThumbSrc = (imgSrc, index) => {
     setImgActive(index);
-    setImgSrc(`http://localhost:4000/public/${imgSrc}`);
+    setImgSrc(`http://localhost:3005/public/images/${imgSrc}`);
   };
 
   return (
@@ -90,7 +87,7 @@ export default function ProductDetail() {
             </div>
           </div>
         </Box>
-        {dataImage.length > 0 && (
+        {dataImage?.length > 0 && (
           <DialogListImage
             listProduct={dataImage}
             open={open}
@@ -145,7 +142,7 @@ export default function ProductDetail() {
                 onClick={handleClickOpenDialog}
                 className="rounded"
                 src={imgSrc}
-                alt=""
+                alt={datas.name}
               />
               <Grid container className="product-list-image">
                 {dataImage.map((product, index) => {
@@ -156,9 +153,9 @@ export default function ProductDetail() {
                         width="100px"
                         className={`rouned ${active}`}
                         onClick={() => {
-                          setImgThumbSrc(product?.ha_hinh, index);
+                          setImgThumbSrc(product.pictureName, index);
                         }}
-                        src={'http://localhost:4000/public/' + product.ha_hinh}
+                        src={'http://localhost:3005/public/images/'+product.pictureName}
                         alt=""
                       />
                     </Grid>
@@ -168,34 +165,34 @@ export default function ProductDetail() {
             </Grid>
             <Grid item xs={12} md={5}>
               <Typography variant="h5" className="product-title">
-                {datas.sp_ten}
+                {datas.name}
               </Typography>
               <Typography variant="p">
                 Thuộc Quận/huyện:{' '}
-                <span className="product-details">{datas.sp_diachi}</span>
+                <span className="product-details"> {datas.address}</span>
               </Typography>
               <br />
               <Typography variant="p">
                 Kiểu dự án:{' '}
-                <span className="product-details">{datas.dm_ten}</span>
+                <span className="product-details"> {datas.categoryName}</span>
               </Typography>
               <br />
               <Typography variant="p">
                 Trạng thái:{' '}
-                <span className="product-details">{datas.tl_ten}</span>
+                <span className="product-details"> {datas.actionName}</span>
               </Typography>
               <br />
               <Typography variant="p" className="product-price">
-                {fCurrency(datas.sp_gia)}
+                {fCurrency(datas.price)}
               </Typography>
 
               <div style={{ display: 'flex' }}>
                 <div className="contactphone">
-                  <a className="mobile" href="tel:0793994478">
+                  <a className="mobile" href={`tel: ${datas.phone}`}>
                     <span className="icon"></span>
                     <div className="mb">
-                      <span itemprop="telephone" data-mobile="0793994478">
-                        0793994478
+                      <span itemprop="telephone" data-mobile={`${datas.phone}`}>
+                        {`${datas.phone}`}
                       </span>
                       <small>Liên hệ ngay</small>
                     </div>
@@ -210,15 +207,16 @@ export default function ProductDetail() {
                   Liên hệ tư vấn
                 </Button>
               </div>
-              <a href="http://localhost:3000/Mau-hop.pdf" className='hd-a' target="_blank" rel="noopener noreferrer">
-                <Button
-                  variant="contained"
-                  id="buttonhopdong"
-                >
-                
+              <a
+                href="http://localhost:3000/Mau-hop.pdf"
+                className="hd-a"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button variant="contained" id="buttonhopdong">
                   Hợp đồng mẫu
                 </Button>
-              </a>                
+              </a>
 
               <DialogLienHe
                 open={openLienHe}
@@ -236,27 +234,27 @@ export default function ProductDetail() {
                 <ul className="product-specical-info">
                   <li>
                     <span>Loại tin rao:</span>
-                    {datas.tl_ten}
+                    {datas.actionName}
                   </li>
                   <li>
                     <span>Địa chỉ:</span>
-                    {datas.sp_diachi}
+                    {datas.address}
                   </li>
                   <li>
                     <span>Diện tích (m2):</span>
-                    {datas.sp_dientich}
+                    {datas.area}
                   </li>
                   <li>
                     <span>Phòng ngủ:</span>
-                    {datas.sp_phongngu}
+                    {datas.bedRoom}
                   </li>
                   <li>
                     <span>Phòng WC:</span>
-                    {datas.sp_phongwc}
+                    {datas.toilet}
                   </li>
                   <li>
                     <span>Hướng nhà (dự án):</span>
-                    {datas.sp_huongnha}
+                    {datas.houseDirection}
                   </li>
                 </ul>
               </Grid>
@@ -264,21 +262,21 @@ export default function ProductDetail() {
                 <ul className="product-specical-info info-user">
                   <li>
                     <Avatar
-                      alt={datas.tg_ten}
+                      alt={datas.authorName}
                       sx={{ width: 56, height: 56, mb: 1 }}
                     />
                   </li>
                   <li>
                     <span>Tên liên lạc:</span>
-                    {datas.tg_ten}
+                    {datas.authorName}
                   </li>
                   <li>
                     <span>Số điện thoại:</span>
-                    {datas.tg_phone}
+                    {datas.phone}
                   </li>
                   <li>
                     <span>Email:</span>
-                    {datas.tg_email}
+                    {datas.authorEmail}
                   </li>
                 </ul>
               </Grid>
@@ -290,7 +288,7 @@ export default function ProductDetail() {
             </Typography>
             <Grid container spacing={4}>
               <Grid item xs={12} sx={{ my: 2 }}>
-                <div dangerouslySetInnerHTML={{ __html: datas.sp_mota }}></div>
+                <div dangerouslySetInnerHTML={{ __html: datas.description }}></div>
               </Grid>
             </Grid>
           </Box>
@@ -301,8 +299,8 @@ export default function ProductDetail() {
             <Grid container spacing={4}>
               <Grid item xs={12} sx={{ my: 2 }}>
                 <Map
-                  vtd={datas.sp_lat}
-                  vtc={datas.sp_lng}
+                  vtd='54.69726685890506'
+                  vtc='54.69726685890506'
                   googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyBXCZ_ydtXnMnERAr9beiGj8mKET9OfYm8&callback=initMap`}
                   loadingElement={<div style={{ height: `100%` }} />}
                   containerElement={

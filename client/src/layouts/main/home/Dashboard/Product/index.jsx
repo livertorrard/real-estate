@@ -2,14 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-
 import './index.scss';
 import { fCurrency } from 'src/utils/formatNumber';
 
 export default function Product(props) {
-  // const { product} = props;
-  // console.log(product, "product")
-  // console.log( props.product.sp_hinhanh[0]?.ha_hinh, 'rong', "trung anh aaaaaaaaaaaaaa")
   const product_img_1 = '/images/product_img_1.png';
   const product_img_2 = '/images/product_img_2.png';
   const product_img_3 = '/images/product_img_3.png';
@@ -19,12 +15,12 @@ export default function Product(props) {
       <div className="product-thumbnail">
         <Link
           className="image_thumb p_img"
-          to={`/san-pham/${props.product?.sp_id}`}
-          title={props.product.sp_ten}
+          to={`/products/${props.product.id}`}
+          title={props.product.name}
         >
           <img
             style={{ width: '800px', height: '250px' }}
-            src= {`http://localhost:3005/public/images/${props.product.pictures[0].pictureName}`}
+            src={`http://localhost:3005/public/images/${props.product.pictures[0].pictureName}`}
             alt="Cho thuê căn hộ, biệt thự cao cấp"
           />
         </Link>
@@ -47,7 +43,7 @@ export default function Product(props) {
                     </div>
                 </div> */}
         <Link
-          to={`/san-pham/${props.product?.id}`}
+          to={`/products/${props.product?.id}`}
           title="Dự án hỗ trợ xem ảnh 360 độ"
           className="degrees"
         >
@@ -57,7 +53,7 @@ export default function Product(props) {
       <div className="product-info product-bottom mh">
         <h3 className="product-name">
           <Link
-            to={`/san-pham/${props.product?.id}`}
+            to={`/products/${props.product?.id}`}
             title={props.product.name}
           >
             {props.product.name}

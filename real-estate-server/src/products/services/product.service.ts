@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Many, orderBy } from 'lodash';
+import { ProductEntity } from '../entities/product.entity';
 import { ProductRepository } from '../repositories/product.repository';
 import { QueryOptionsProduct } from '../types/query-options-product.type';
 
@@ -7,7 +8,9 @@ import { QueryOptionsProduct } from '../types/query-options-product.type';
 export class ProductService {
   constructor(private productRepo: ProductRepository) {}
 
-  async getProductsByOptions(options: QueryOptionsProduct) {
+  async getProductsByOptions(
+    options: QueryOptionsProduct,
+  ): Promise<ProductEntity[]> {
     const { fromPrice, toPrice, fromSize, toSize, sort } = options;
     let arrayCategoryIds: string[] = [];
     if (options.categoryIds) {
@@ -44,5 +47,61 @@ export class ProductService {
     }
 
     return products;
+  }
+
+  async getProductDetail(productId: string) {
+    const product = await this.productRepo.findOneOrFail({
+      where: { id: productId },
+      join: {
+        alias: 'product',
+        innerJoinAndSelect: {
+          category: 'product.category',
+          author: 'product.author',
+          pictures: 'product.pictures',
+          action: 'product.action',
+        },
+      },
+    });
+
+    return {
+      ...product,
+      categoryName: product.category.name,
+      actionName: product.action.actionName,
+      phone: product.author.phone,
+      authorName: product.author.name,
+      authorEmail: product.author.email,
+      pictureName: product.pictures[0].pictureName,
+    };
+  }
+
+  getProductByCategoryId(categoryId: string): Promise<ProductEntity[]> {
+    return this.productRepo.find({
+      where: { categoryId },
+      join: {
+        alias: 'product',
+        innerJoinAndSelect: {
+          category: 'product.category',
+          author: 'product.author',
+          pictures: 'product.pictures',
+          action: 'product.action',
+        },
+      },
+    });
+  }
+
+  async getProductNew() {
+    return this.productRepo.find({
+      order: { createdAt: 'DESC' },
+      join: {
+        alias: 'product',
+        innerJoinAndSelect: {
+          category: 'product.category',
+          author: 'product.author',
+          pictures: 'product.pictures',
+          action: 'product.action',
+        },
+      },
+      take: 10,
+    });
   }
 }

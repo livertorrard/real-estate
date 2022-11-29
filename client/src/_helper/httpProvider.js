@@ -1,6 +1,5 @@
 import axios from "axios";
 import * as CONFIG from "../config/configUrl";
-
 axios.defaults.withCredentials = true;
 
 export const getData = (url, header) => {
@@ -10,6 +9,7 @@ export const getData = (url, header) => {
     withCredentials: false
   });
 };
+
 export const getDataWithResponeType = (url, header, responseType) => {
   header = checkHeader(header);
   return axios.get(url, {
@@ -17,6 +17,7 @@ export const getDataWithResponeType = (url, header, responseType) => {
     responseType,
   });
 };
+
 export const getDataWithResponeTypeHaveData = (
   url,
   data,
@@ -29,6 +30,7 @@ export const getDataWithResponeTypeHaveData = (
     responseType: responseType,
   });
 };
+
 export const postDataWithResponeTypeHaveData = (
   url,
   data,
@@ -41,6 +43,7 @@ export const postDataWithResponeTypeHaveData = (
     responseType: responseType,
   });
 };
+
 export const getDataWithResponeTypeNotData = (url, header, responseType) => {
   header = checkHeader(header);
   return axios.get(url, {
@@ -48,6 +51,7 @@ export const getDataWithResponeTypeNotData = (url, header, responseType) => {
     responseType: responseType,
   });
 };
+
 export const postDataWithResponeTypeNotData = (url, header, responseType) => {
   header = checkHeader(header);
   return axios.post(url, {
@@ -55,6 +59,7 @@ export const postDataWithResponeTypeNotData = (url, header, responseType) => {
     responseType: responseType,
   });
 };
+
 export const postData = (url, data, header) => {
   header = checkHeader(header);
   return axios.post(url, data, {

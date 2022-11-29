@@ -190,7 +190,7 @@ export default function Router() {
           element: <Home />,
         },
         {
-          path: 'san-pham/:id',
+          path: 'products/:id',
           element: <ProductDetail />,
         },
         {
@@ -239,7 +239,9 @@ const RoleCreate = Loadable(
 );
 
 //--------------------------Gioi thiue-------------------------------------------
-const GioiThieu = Loadable(lazy(() => import('../layouts/main/home/Dashboard/GioiThieu')));
+const GioiThieu = Loadable(
+  lazy(() => import('../layouts/main/home/Dashboard/GioiThieu')),
+);
 //--------------------------Danh Muc-------------------------------------------
 const DanhMucList = Loadable(lazy(() => import('../pages/dashboard/DanhMuc')));
 //--------------------------Tác giả-------------------------------------------
@@ -261,8 +263,9 @@ const BlogCreate = Loadable(
 
 //--------------------------Thống kê-------------------------------------------/
 
-const GeneralBooking = Loadable(lazy(() => import('../pages/dashboard/GeneralBooking')));
-
+const GeneralBooking = Loadable(
+  lazy(() => import('../pages/dashboard/GeneralBooking')),
+);
 
 const BookCreate = Loadable(
   lazy(() => import('../pages/dashboard/BookCreate')),
@@ -282,7 +285,6 @@ const CategoryDetail = Loadable(
 
 const Home = Loadable(lazy(() => import('../layouts/main/home')));
 //------------------------Bai Viet--------------------------------
-
 
 //-------------------------------------------------------------------------------
 

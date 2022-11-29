@@ -24,7 +24,7 @@ const thumbnail_category =
 
 export default function CategoryDetail() {
   const [searchParams] = useSearchParams();
-  let _danhmuc = searchParams.get('danhmuc');
+  let _danhmuc = searchParams.get('categoryIds');
   const [datas, setDatas] = React.useState([]);
   const [_load, setLoad] = React.useState(0);
   const [dataDanhMuc, setDataDanhMuc] = React.useState([]);

@@ -16,12 +16,12 @@ export default function DialogListImage({
 }) {
   const [imgActive, setImgActive] = React.useState(0);
   const [imgSrc, setImgSrc] = React.useState(
-    `http://localhost:4000/public/${listProduct[0].ha_hinh}`,
+    `http://localhost:3005/public/images/${listProduct[0].pictureName}`,
   );
 
   const setImgThumbSrc = (imgSrc, index) => {
     setImgActive(index);
-    setImgSrc(`http://localhost:4000/public/${imgSrc}`);
+    setImgSrc(`http://localhost:3005/public/images/${imgSrc}`);
   };
 
   return (
@@ -47,18 +47,19 @@ export default function DialogListImage({
                 autoLoad
                 showZoomCtrl={false}
               ></Pannellum>
-              <Box className="list-img" >
+              <Box className="list-img">
                 {listProduct.map((product, index) => {
                   const active = index === imgActive ? 'active' : '';
                   return (
                     <img
                       key={index}
                       onClick={() => {
-                        setImgThumbSrc(product.ha_hinh, index);
+                        setImgThumbSrc(product.pictureName, index);
                       }}
-                      src={'http://localhost:4000/public/' + product.ha_hinh}
+                      src={`http://localhost:3005/public/images/
+                        ${product.pictureName}`}
                       className={active}
-                      alt=""
+                      alt={product.pictureName}
                     />
                   );
                 })}
