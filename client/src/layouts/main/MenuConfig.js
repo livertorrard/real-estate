@@ -1,15 +1,6 @@
 import { Icon } from '@iconify/react';
 import fileFill from '@iconify/icons-eva/file-fill';
 
-// routes
-// import {
-//   PATH_AUTH,
-//   PATH_PAGE,
-//   PATH_DASHBOARD,
-// } from '../../routes/paths';
-
-// ----------------------------------------------------------------------
-
 const ICON_SIZE = {
   width: 22,
   height: 22,
@@ -30,7 +21,7 @@ const menuConfig = [
   },
   {
     title: 'Tất cả sản phẩm',
-    path: '/tat-ca-san-pham',
+    path: '/products',
     icon: <Icon icon={fileFill} {...ICON_SIZE} />,
     
   }

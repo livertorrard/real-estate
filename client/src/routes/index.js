@@ -1,14 +1,10 @@
 import { Suspense, lazy } from 'react';
 import { Navigate, useRoutes, useLocation } from 'react-router-dom';
-// layouts
 import MainLayout from '../layouts/main';
 import DashboardLayout from '../layouts/dashboard';
 import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
-// components
 import LoadingScreen from '../components/LoadingScreen';
 import { useSelector } from 'react-redux';
-
-// ----------------------------------------------------------------------
 
 const Loadable = (Component) => (props) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -53,8 +49,6 @@ export default function Router() {
         { path: 'verify', element: <VerifyCode /> },
       ],
     },
-
-    // Dashboard Routes
     {
       path: 'dashboard',
       element: isAdmin ? <DashboardLayout /> : <Navigate to="/" />,
@@ -170,8 +164,6 @@ export default function Router() {
         },
       ],
     },
-
-    // Main Routes
     {
       path: '*',
       element: <LogoOnlyLayout />,
@@ -211,14 +203,12 @@ export default function Router() {
   ]);
 }
 
-// IMPORT COMPONENTS
-
-// userAccount
 const UserAccount = Loadable(
   lazy(() => import('../pages/dashboard/UserAccount')),
 );
-// Authentication
+
 const Login = Loadable(lazy(() => import('../pages/authentication/Login')));
+
 const Register = Loadable(
   lazy(() => import('../pages/authentication/Register')),
 );
@@ -232,36 +222,31 @@ const UserList = Loadable(lazy(() => import('../pages/dashboard/UserList')));
 const UserCreate = Loadable(
   lazy(() => import('../pages/dashboard/UserCreate')),
 );
-//-------------------------role-------------------------------------
+
 const RoleList = Loadable(lazy(() => import('../pages/dashboard/RoleList')));
+
 const RoleCreate = Loadable(
   lazy(() => import('../pages/dashboard/RoleCreate')),
 );
 
-//--------------------------Gioi thiue-------------------------------------------
 const GioiThieu = Loadable(
   lazy(() => import('../layouts/main/home/Dashboard/GioiThieu')),
 );
-//--------------------------Danh Muc-------------------------------------------
 const DanhMucList = Loadable(lazy(() => import('../pages/dashboard/DanhMuc')));
-//--------------------------Tác giả-------------------------------------------
+
 const TacGiaList = Loadable(lazy(() => import('../pages/dashboard/TacGia')));
-//--------------------------Thể loại-------------------------------------------
+
 const TheLoaiList = Loadable(lazy(() => import('../pages/dashboard/TheLoai')));
 
-//--------------------------Lien he-------------------------------------------
 const LienHeList = Loadable(lazy(() => import('../pages/dashboard/LienHe')));
 
-//--------------------------sanpham-------------------------------------------
 const BookList = Loadable(lazy(() => import('../pages/dashboard/Book')));
 
-//--------------------------Blog-------------------------------------------/
 const BlogList = Loadable(lazy(() => import('../pages/dashboard/Blog')));
+
 const BlogCreate = Loadable(
   lazy(() => import('../pages/dashboard/BlogCreate')),
 );
-
-//--------------------------Thống kê-------------------------------------------/
 
 const GeneralBooking = Loadable(
   lazy(() => import('../pages/dashboard/GeneralBooking')),
@@ -284,9 +269,7 @@ const CategoryDetail = Loadable(
 );
 
 const Home = Loadable(lazy(() => import('../layouts/main/home')));
-//------------------------Bai Viet--------------------------------
-
-//-------------------------------------------------------------------------------
 
 const Page500 = Loadable(lazy(() => import('../pages/Page500')));
+
 const NotFound = Loadable(lazy(() => import('../pages/Page404')));

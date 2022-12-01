@@ -1,8 +1,11 @@
+import { PictureEntity } from 'src/pictures/entities/picture.entity';
+import { ProductEntity } from 'src/products/entities/product.entity';
 import {
   BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -27,4 +30,10 @@ export class CategoryEntity extends BaseEntity {
     type: 'timestamp',
   })
   updatedAt: Date;
+
+  @OneToMany(() => ProductEntity, (product) => product.category)
+  products: ProductEntity[];
+
+  @OneToMany(() => PictureEntity, (picture) => picture.category)
+  pictures: PictureEntity[];
 }

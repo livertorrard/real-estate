@@ -1,4 +1,5 @@
 import { BaseEntity } from 'src/base.entity';
+import { CategoryEntity } from 'src/categories/entities/category.entity';
 import { ProductEntity } from 'src/products/entities/product.entity';
 import {
   Column,
@@ -28,4 +29,8 @@ export class PictureEntity extends BaseEntity {
   @ManyToOne(() => ProductEntity)
   @JoinColumn({ name: 'productId' })
   product: ProductEntity;
+
+  @ManyToOne(() => CategoryEntity)
+  @JoinColumn({ name: 'categoryId' })
+  category: CategoryEntity;
 }

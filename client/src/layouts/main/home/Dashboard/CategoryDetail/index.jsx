@@ -61,6 +61,7 @@ export default function CategoryDetail() {
           arrDanhMuc.push((data));
           return arrDanhMuc;
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         if (!_danhmuc) _danhmuc = arrDanhMuc;
         const res = await getData(
           API_BASE_URL +
@@ -84,6 +85,7 @@ export default function CategoryDetail() {
   ]);
 
   const [sort, setSort] = React.useState(0);
+  // eslint-disable-next-line no-unused-vars
   const [openDrawer, setOpenDrawer] = React.useState(false);
 
   const handleChange = (event) => {
@@ -362,7 +364,7 @@ export default function CategoryDetail() {
                       </Link>
                     </li>
                     <li className="li-category-intro">
-                      <Link to="/tat-ca-san-pham" className="tag-a">
+                      <Link to="/products" className="tag-a">
                         Tất cả sản phẩm
                       </Link>
                     </li>

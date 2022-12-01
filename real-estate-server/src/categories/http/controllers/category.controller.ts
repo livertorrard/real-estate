@@ -9,4 +9,9 @@ export class CategoryController {
   getCategories() {
     return this.categoryService.getCategories();
   }
+
+  @Get('representative')
+  getRepresentativeCategory() {
+    return this.categoryService.getRepresentativeCategory();
+  }
 }

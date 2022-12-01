@@ -58,7 +58,7 @@ export default function NewsDetail() {
 							<Typography className="title" variant="h6">Danh mục tin tức</Typography>
 							<ul className="news-category">
 								<li><Link to="/" className="tag-a">Trang chủ</Link></li>
-								<li><Link to="/tat-ca-san-pham" className="tag-a">Tất cả sản phẩm</Link></li>
+								<li><Link to="/products" className="tag-a">Tất cả sản phẩm</Link></li>
 								<li><Link to="/gioi-thieu" className="tag-a">Giới thiệu</Link> </li>
 								<li><Link to="#" className="tag-a">Liên hệ</Link></li>
 							</ul>

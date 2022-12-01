@@ -27,9 +27,24 @@ export class ProductController {
     });
   }
 
+  @Get('search')
+  getProductsBySearch(@Query('keyWord') keyWord: string) {
+    return this.productService.getProductsBySearch(keyWord);
+  }
+
   @Get('new')
   getProductNew() {
     return this.productService.getProductNew();
+  }
+
+  @Get('rents')
+  getProductForRent() {
+    return this.productService.getProductForRent();
+  }
+
+  @Get('sales')
+  getProductForSales() {
+    return this.productService.getProductForSales();
   }
 
   @Get(':productId')

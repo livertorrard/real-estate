@@ -5,18 +5,22 @@ import menu2Fill from '@iconify/icons-eva/menu-2-fill';
 import { NavLink as RouterLink, useLocation } from 'react-router-dom';
 import arrowIosForwardFill from '@iconify/icons-eva/arrow-ios-forward-fill';
 import arrowIosDownwardFill from '@iconify/icons-eva/arrow-ios-downward-fill';
-// material
 import { alpha, styled } from '@material-ui/core/styles';
-import { Box, List, Drawer, Link, Collapse, ListItemText, ListItemIcon, ListItemButton } from '@material-ui/core';
-// components
+import {
+  Box,
+  List,
+  Drawer,
+  Link,
+  Collapse,
+  ListItemText,
+  ListItemIcon,
+  ListItemButton,
+} from '@material-ui/core';
 import Logo from '../../components/Logo';
 import NavSection from '../../components/NavSection';
 import Scrollbar from '../../components/Scrollbar';
 import { MIconButton } from '../../components/@material-extend';
-//
 import menuConfig from './MenuConfig';
-
-// ----------------------------------------------------------------------
 
 const ICON_SIZE = 22;
 const ITEM_SIZE = 48;
@@ -28,16 +32,14 @@ const ListItemStyle = styled(ListItemButton)(({ theme }) => ({
   textTransform: 'capitalize',
   paddingLeft: theme.spacing(PADDING),
   paddingRight: theme.spacing(2.5),
-  color: theme.palette.text.secondary
+  color: theme.palette.text.secondary,
 }));
-
-// ----------------------------------------------------------------------
 
 MenuMobileItem.propTypes = {
   item: PropTypes.object,
   isOpen: PropTypes.bool,
   isActive: PropTypes.bool,
-  onOpen: PropTypes.func
+  onOpen: PropTypes.func,
 };
 
 function MenuMobileItem({ item, isOpen, isActive, onOpen }) {
@@ -67,8 +69,9 @@ function MenuMobileItem({ item, isOpen, isActive, onOpen }) {
                   backgroundPosition: 'center',
                   bgcolor: 'background.neutral',
                   backgroundRepeat: 'no-repeat',
-                  backgroundImage: 'url(/static/illustrations/illustration_dashboard.png)',
-                  '& > *:not(.MuiTouchRipple-root)': { display: 'none' }
+                  backgroundImage:
+                    'url(/static/illustrations/illustration_dashboard.png)',
+                  '& > *:not(.MuiTouchRipple-root)': { display: 'none' },
                 },
                 '& .MuiListSubheader-root': {
                   pl: PADDING,
@@ -81,13 +84,13 @@ function MenuMobileItem({ item, isOpen, isActive, onOpen }) {
                     height: 2,
                     content: "''",
                     borderRadius: 2,
-                    bgcolor: 'currentColor'
-                  }
+                    bgcolor: 'currentColor',
+                  },
                 },
                 '& .MuiListItem-root': {
                   pl: PADDING,
                   '&:before': { display: 'none' },
-                  '&.active': { color: 'primary.main', bgcolor: 'transparent' }
+                  '&.active': { color: 'primary.main', bgcolor: 'transparent' },
                 },
                 '& .MuiListItemIcon-root': {
                   width: ICON_SIZE,
@@ -97,9 +100,9 @@ function MenuMobileItem({ item, isOpen, isActive, onOpen }) {
                     height: 4,
                     content: "''",
                     borderRadius: '50%',
-                    bgcolor: 'currentColor'
-                  }
-                }
+                    bgcolor: 'currentColor',
+                  },
+                },
               }}
             />
           </Box>
@@ -118,8 +121,12 @@ function MenuMobileItem({ item, isOpen, isActive, onOpen }) {
           ...(isActive && {
             color: 'primary.main',
             fontWeight: 'fontWeightMedium',
-            bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity)
-          })
+            bgcolor: (theme) =>
+              alpha(
+                theme.palette.primary.main,
+                theme.palette.action.selectedOpacity,
+              ),
+          }),
         }}
       >
         <ListItemIcon>{icon}</ListItemIcon>
@@ -136,8 +143,12 @@ function MenuMobileItem({ item, isOpen, isActive, onOpen }) {
         ...(isActive && {
           color: 'primary.main',
           fontWeight: 'fontWeightMedium',
-          bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity)
-        })
+          bgcolor: (theme) =>
+            alpha(
+              theme.palette.primary.main,
+              theme.palette.action.selectedOpacity,
+            ),
+        }),
       }}
     >
       <ListItemIcon>{icon}</ListItemIcon>
@@ -148,7 +159,7 @@ function MenuMobileItem({ item, isOpen, isActive, onOpen }) {
 
 MenuMobile.propTypes = {
   isOffset: PropTypes.bool,
-  isHome: PropTypes.bool
+  isHome: PropTypes.bool,
 };
 
 export default function MenuMobile({ isOffset, isHome }) {
@@ -182,7 +193,7 @@ export default function MenuMobile({ isOffset, isHome }) {
         sx={{
           ml: 1,
           ...(isHome && { color: 'common.white' }),
-          ...(isOffset && { color: 'text.primary' })
+          ...(isOffset && { color: 'text.primary' }),
         }}
       >
         <Icon icon={menu2Fill} />

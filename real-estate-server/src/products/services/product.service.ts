@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Many, orderBy } from 'lodash';
+import { first, Many, orderBy, pick } from 'lodash';
+import { FindManyOptions, Like } from 'typeorm';
 import { ProductEntity } from '../entities/product.entity';
 import { ProductRepository } from '../repositories/product.repository';
 import { QueryOptionsProduct } from '../types/query-options-product.type';
@@ -103,5 +104,64 @@ export class ProductService {
       },
       take: 10,
     });
+  }
+
+  getProductForRent() {
+    return this.productRepo.find({
+      where: { actionId: 'c466a38c-7d44-46c7-9508-5ac7d30c728e' },
+      order: { createdAt: 'DESC' },
+      join: {
+        alias: 'product',
+        innerJoinAndSelect: {
+          category: 'product.category',
+          author: 'product.author',
+          pictures: 'product.pictures',
+          action: 'product.action',
+        },
+      },
+      take: 10,
+    });
+  }
+
+  getProductForSales() {
+    return this.productRepo.find({
+      where: { actionId: 'fff3b141-08f7-4585-bb75-2f72f2aaaf9a' },
+      order: { createdAt: 'DESC' },
+      join: {
+        alias: 'product',
+        innerJoinAndSelect: {
+          category: 'product.category',
+          author: 'product.author',
+          pictures: 'product.pictures',
+          action: 'product.action',
+        },
+      },
+      take: 10,
+    });
+  }
+
+  async getProductsBySearch(keyWord: string) {
+    const products = await this.productRepo.find({
+      relations: ['category', 'author', 'action', 'pictures'],
+      where: [
+        { name: Like(`%${keyWord}%`) },
+        { productCode: Like(`%${keyWord}%`) },
+        { category: { name: Like(`%${keyWord}%`) } },
+        { author: { name: Like(`%${keyWord}%`) } },
+        { author: { name: Like(`%${keyWord}%`) } },
+      ],
+    });
+
+    return products.map((product) => {
+      return {
+        ...pick(product, ['id', 'name', 'productCode', 'price']),
+        pictureName: first(product.pictures).pictureName,
+        actionName: product.action.actionName,
+      };
+    });
+  }
+
+  find(options: FindManyOptions<ProductEntity>): Promise<ProductEntity[]> {
+    return this.productRepo.find(options);
   }
 }
