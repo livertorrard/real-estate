@@ -13,8 +13,8 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { UserEntity } from './../user/entities/user.entity';
-import { Usr } from './../user/user.decorator';
+import { UserEntity } from '../users/entities/user.entity';
+import { Usr } from '../users/user.decorator';
 import { ConnectionService } from './connection.service';
 import { ConnectionRequest } from './models/connection.request';
 

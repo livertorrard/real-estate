@@ -12,7 +12,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { ConnectionEntity } from './../../connection/entities/connection.entity';
+import { ConnectionEntity } from '../../connection/entities/connection.entity';
 
 @Entity('user')
 @Index('index_user_username', ['username'], { unique: true })

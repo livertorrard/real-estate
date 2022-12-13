@@ -1,8 +1,8 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserEntity } from './../user/entities/user.entity';
-import { UserService } from './../user/user.service';
+import { UserEntity } from '../users/entities/user.entity';
+import { UserService } from '../users/user.service';
 import { ConnectionEntity } from './entities/connection.entity';
 import { ConnectionStatus } from './models/connection-status.enum';
 import { ConnectionResponse } from './models/connection.response';

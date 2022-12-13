@@ -1,7 +1,7 @@
 import { customAlphabet } from 'nanoid';
 import { nolookalikes } from 'nanoid-dictionary';
 import { BaseEntity } from 'src/base.entity';
-import { UserEntity } from 'src/user/entities/user.entity';
+import { UserEntity } from 'src/users/entities/user.entity';
 import {
   BeforeInsert,
   Column,

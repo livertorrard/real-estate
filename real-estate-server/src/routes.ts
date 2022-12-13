@@ -2,7 +2,7 @@ import { Routes } from 'nest-router';
 import { AuthModule } from './auth/auth.module';
 import { ConnectionModule } from './connection/connection.module';
 import { NotificationModule } from './notification/notification.module';
-import { UserModule } from './user/user.module';
+import { UserModule } from './users/user.module';
 
 export const routes: Routes = [
   {

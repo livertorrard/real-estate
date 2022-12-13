@@ -13,7 +13,7 @@ import { PictureModule } from './pictures/picture.module';
 import { PostModule } from './posts/post.module';
 import { ProductModule } from './products/product.module';
 import { routes } from './routes';
-import { UserModule } from './user/user.module';
+import { UserModule } from './users/user.module';
 
 @Module({
   imports: [

@@ -14,10 +14,10 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { IpAddress } from 'src/user/ip-address.decorator';
-import { UserEntity } from '../user/entities/user.entity';
-import { UserResponse } from '../user/models';
-import { Usr } from '../user/user.decorator';
+import { IpAddress } from 'src/users/ip-address.decorator';
+import { UserEntity } from '../users/entities/user.entity';
+import { UserResponse } from '../users/models';
+import { Usr } from '../users/user.decorator';
 import { AuthService } from './auth.service';
 import {
   ChangeEmailRequest,

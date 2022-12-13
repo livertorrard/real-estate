@@ -10,7 +10,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { UserEntity } from '../../user/entities/user.entity';
+import { UserEntity } from '../../users/entities/user.entity';
 import { ConnectionStatus } from './../models/connection-status.enum';
 
 @Entity('connection')
