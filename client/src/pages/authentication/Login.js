@@ -1,5 +1,4 @@
-// import { Link as RouterLink } from 'react-router-dom';
-// material
+import { Link as RouterLink } from 'react-router-dom';
 import { styled } from '@material-ui/core/styles';
 import {
   Box,
@@ -8,16 +7,11 @@ import {
   Container,
   Typography,
 } from '@material-ui/core';
-// routes
-// import { PATH_AUTH } from '../../routes/paths';
-// layouts
-// import AuthLayout from '../../layouts/AuthLayout';
-// components
+import { PATH_AUTH } from '../../routes/paths';
+import AuthLayout from '../../layouts/AuthLayout';
 import Page from '../../components/Page';
 import { MHidden } from '../../components/@material-extend';
 import { LoginForm } from '../../components/authentication/login';
-
-// ----------------------------------------------------------------------
 
 const RootStyle = styled(Page)(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
@@ -44,27 +38,26 @@ const ContentStyle = styled('div')(({ theme }) => ({
   padding: theme.spacing(12, 0),
 }));
 
-// ----------------------------------------------------------------------
 
 export default function Login() {
   return (
     <RootStyle title="Login | Minimal-UI">
-      {/* <AuthLayout>
+      <AuthLayout>
         Bạn chưa có tài khoản? &nbsp;
-        <Link
+        <RouterLink
           underline="none"
           variant="subtitle2"
           component={RouterLink}
           to={PATH_AUTH.register}
         >
           Đăng ký
-        </Link>
-      </AuthLayout> */}
+        </RouterLink>
+      </AuthLayout>
 
       <MHidden width="mdDown">
         <SectionStyle>
           <Typography variant="h4" sx={{ px: 5, mt: 10, mb: 5 }}>
-            Bất động sản Delta xin chào!!
+            Bất động sản Q-Land xin chào!!
           </Typography>
           <img src="/static/illustrations/login.png" alt="login" />
         </SectionStyle>
@@ -88,18 +81,18 @@ export default function Login() {
 
           <LoginForm />
 
-          {/* <MHidden width="smUp">
+          <MHidden width="smUp">
             <Typography variant="body2" align="center" sx={{ mt: 3 }}>
               Bạn chưa có tài khoản?&nbsp;
-              <Link
+              <RouterLink
                 variant="subtitle2"
                 component={RouterLink}
                 to={PATH_AUTH.register}
               >
                 Đăng ký
-              </Link>
+              </RouterLink>
             </Typography>
-          </MHidden> */}
+          </MHidden>
         </ContentStyle>
       </Container>
     </RootStyle>

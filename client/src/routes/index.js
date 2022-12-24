@@ -33,7 +33,7 @@ const Loadable = (Component) => (props) => {
 };
 
 export default function Router() {
-  const isAdmin = useSelector((state) => state.user.current.role) === 'ADMIN';
+  //const isAdmin = useSelector((state) => state.user.current.role) === 'ADMIN';
   return useRoutes([
     {
       path: 'auth',
@@ -51,7 +51,7 @@ export default function Router() {
     },
     {
       path: 'dashboard',
-      element: isAdmin ? <DashboardLayout /> : <Navigate to="/" />,
+      element:  <DashboardLayout /> ,
       children: [
         {
           path: 'user',

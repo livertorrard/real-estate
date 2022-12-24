@@ -22,7 +22,7 @@ export class UserEntity extends BaseEntity {
   gender: GenderTypeEnum;
 
   @Column({ type: 'timestamp' })
-  birthday: GenderTypeEnum;
+  birthday: Date;
 
   @Column({ type: 'boolean', default: true })
   verify: boolean;
@@ -32,4 +32,7 @@ export class UserEntity extends BaseEntity {
 
   @Column({ type: 'uuid' })
   authorizationId: string;
+
+  @Column({ type: 'varchar', length: 50 })
+  password: string;
 }

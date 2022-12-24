@@ -34,7 +34,7 @@ export default function UserCreate() {
   }, [id,  isEdit]);
 
   return (
-    <Page title="Dự án | Delta">
+    <Page title="Dự án | Q-Land">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading={!isEdit ? 'Thêm dự án' : 'Chỉnh sửa'}

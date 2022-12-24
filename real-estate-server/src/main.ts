@@ -7,6 +7,7 @@ import * as rateLimit from 'express-rate-limit';
 import * as helmet from 'helmet';
 import { join } from 'path';
 import * as requestIp from 'request-ip';
+import { useContainer } from 'typeorm';
 import { AppModule } from './app.module';
 import { env } from './config/env.config';
 
@@ -21,7 +22,13 @@ async function bootstrap() {
     prefix: '/public',
   });
 
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      stopAtFirstError: true,
+    }),
+  );
+  useContainer(app, { fallbackOnErrors: true });
   app.enableCors();
 
   app.use(requestIp.mw());

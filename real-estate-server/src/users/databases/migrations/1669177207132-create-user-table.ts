@@ -56,6 +56,11 @@ export class CreateUserTable1669177207131 implements MigrationInterface {
             type: 'int',
             default: 1,
           },
+          {
+            name: 'password',
+            type: 'varchar',
+            length: '100',
+          },
           { name: 'authorizationId', type: 'uuid', isNullable: false },
           {
             name: 'createdAt',

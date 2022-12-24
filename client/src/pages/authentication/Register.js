@@ -1,5 +1,4 @@
 import { Link as RouterLink } from 'react-router-dom';
-// material
 import { styled } from '@material-ui/core/styles';
 import {
   Box,
@@ -8,17 +7,11 @@ import {
   Container,
   Typography,
 } from '@material-ui/core';
-// hooks
-// routes
 import { PATH_AUTH } from '../../routes/paths';
-// layouts
 import AuthLayout from '../../layouts/AuthLayout';
-// components
 import Page from '../../components/Page';
 import { MHidden } from '../../components/@material-extend';
 import { RegisterForm } from '../../components/authentication/register';
-
-// ----------------------------------------------------------------------
 
 const RootStyle = styled(Page)(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
@@ -45,7 +38,6 @@ const ContentStyle = styled('div')(({ theme }) => ({
   padding: theme.spacing(12, 0),
 }));
 
-// ----------------------------------------------------------------------
 
 export default function Register() {
 
@@ -66,7 +58,7 @@ export default function Register() {
       <MHidden width="mdDown">
         <SectionStyle>
           <Typography variant="h4" sx={{ px: 5, mt: 10, mb: 5 }}>
-            Chào mừng bạn đến với Delta!
+            Chào mừng bạn đến với Q-Land!
           </Typography>
           <img
             alt="register"

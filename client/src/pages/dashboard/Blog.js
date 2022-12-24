@@ -144,7 +144,7 @@ export default function BlogList() {
     }
   };
   return (
-    <Page title="Bài viết: List | Delta">
+    <Page title="Bài viết: List | Q-Land">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="Bài viết"

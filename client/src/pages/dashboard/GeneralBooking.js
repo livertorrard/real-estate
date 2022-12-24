@@ -20,7 +20,7 @@ export default function GeneralBooking() {
   const { themeStretch } = useSettings();
 
   return (
-    <Page title="Thống kê | Delta">
+    <Page title="Thống kê | Q-Land">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Grid container spacing={3}>
 

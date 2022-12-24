@@ -33,7 +33,7 @@ export default function BlogCreate() {
   }, [id,  isEdit]);
 
   return (
-    <Page title="Dự án | Delta">
+    <Page title="Dự án | Q-Land">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading={!isEdit ? 'Thêm bài viết' : 'Chỉnh sửa'}

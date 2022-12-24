@@ -7,8 +7,6 @@ import eyeFill from '@iconify/icons-eva/eye-fill';
 import closeFill from '@iconify/icons-eva/close-fill';
 import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
 import { useNavigate } from 'react-router-dom';
-
-// material
 import {
   Stack,
   TextField,
@@ -16,13 +14,9 @@ import {
   InputAdornment,
 } from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
-// hooks
-//
 import { MIconButton } from '../../@material-extend';
 import { postData } from 'src/_helper/httpProvider';
 import { API_BASE_URL } from 'src/config/configUrl';
-
-// ----------------------------------------------------------------------
 
 export default function RegisterForm() {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -31,7 +25,7 @@ export default function RegisterForm() {
   const navigate = useNavigate();
 
   const RegisterSchema = Yup.object().shape({
-    fullname: Yup.string()
+    fullName: Yup.string()
       .min(5, 'Họ tên quá ngắn!')
       .max(50, 'Họ tên quá dài!')
       .required('Vui lòng điền họ tên'),
@@ -48,15 +42,16 @@ export default function RegisterForm() {
 
   const formik = useFormik({
     initialValues: {
-      fullname: '',
+      fullName: '',
       email: '',
       password: '',
       repwd: '',
     },
+  
     validationSchema: RegisterSchema,
     onSubmit: async (values, { setErrors, setSubmitting }) => {
       try {
-        await postData(API_BASE_URL + '/user/register', values);
+        await postData(API_BASE_URL + '/users/register', values);
         enqueueSnackbar('Register success', {
           variant: 'success',
           action: (key) => (
@@ -65,10 +60,10 @@ export default function RegisterForm() {
             </MIconButton>
           ),
         });
-        navigate(`/auth/verify?email=${values.email}`)
+        navigate(`/auth/login`)
       } catch (error) {
         console.error(error);
-        enqueueSnackbar(error.response.data, {
+        enqueueSnackbar(error.response.data.message, {
           variant: 'error',
           action: (key) => (
             <MIconButton size="small" onClick={() => closeSnackbar(key)}>
@@ -90,9 +85,9 @@ export default function RegisterForm() {
             <TextField
               fullWidth
               label="Họ và tên"
-              {...getFieldProps('fullname')}
-              error={Boolean(touched.fullname && errors.fullname)}
-              helperText={touched.fullname && errors.fullname}
+              {...getFieldProps('fullName')}
+              error={Boolean(touched.fullName && errors.fullName)}
+              helperText={touched.fullName && errors.fullName}
             />
           </Stack>
 

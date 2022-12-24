@@ -192,7 +192,7 @@ export default function LienHeList() {
     }
   };
   return (
-    <Page title="Liên hệ| Delta">
+    <Page title="Liên hệ| Q-Land">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="Liên hệ"

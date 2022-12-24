@@ -78,7 +78,7 @@ export default function MainNavbar() {
             <Logo />
           </RouterLink>
           <Typography variant="h3" sx={{ ml: 2, color: 'text.primary' }}>
-            Delta
+            Q-Land
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <MHidden width="mdDown">

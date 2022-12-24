@@ -7,7 +7,6 @@ import { Icon } from '@iconify/react';
 import eyeFill from '@iconify/icons-eva/eye-fill';
 import closeFill from '@iconify/icons-eva/close-fill';
 import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
-// material
 import {
   Link,
   Stack,
@@ -16,10 +15,7 @@ import {
   InputAdornment,
 } from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
-// routes
 import { PATH_AUTH } from '../../../routes/paths';
-// hooks
-//
 import { MIconButton } from '../../@material-extend';
 import { postData } from 'src/_helper/httpProvider';
 import { API_BASE_URL } from 'src/config/configUrl';
@@ -27,12 +23,11 @@ import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
 import { login } from 'src/redux/slices/user';
 
-// ----------------------------------------------------------------------
-
 export default function LoginForm() {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email('Địa chỉ email không hợp lệ')
@@ -40,6 +35,7 @@ export default function LoginForm() {
     password: Yup.string().required('Vui lòng nhập mật khẩu'),
   });
   const dispatch = useDispatch();
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -49,11 +45,11 @@ export default function LoginForm() {
     onSubmit: async (values, { resetForm }) => {
       try {
         await postData(API_BASE_URL + '/auth/login', values);
-        // isLogin 
         if(Cookies.get('role') === 'ADMIN'){
           dispatch(login())
           navigate('/dashboard');
         }
+      
         enqueueSnackbar('Login success', {
           variant: 'success',
           action: (key) => (
@@ -114,22 +110,7 @@ export default function LoginForm() {
             helperText={touched.password && errors.password}
           />
         </Stack>
-
-        <LoadingButton
-          fullWidth
-          size="large"
-          sx={{ mt: 2 }}
-          color="error"
-          type="button"
-          variant="contained"
-          loading={isSubmitting}
-          onClick={()=>{
-            window.location.href = API_BASE_URL + '/auth/google';
-          }}
-        >
-          Đăng nhập bằng google
-        </LoadingButton>
-
+  
         <Stack
           direction="row"
           alignItems="center"

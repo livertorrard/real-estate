@@ -23,7 +23,7 @@ const SOCIALS = [
 
 const LINKS = [
   {
-    headline: 'Delta',
+    headline: 'Q-Land',
     children: [
       { name: 'Giới thiệu', href: "/gioi-thieu" },
       { name: 'Tất cả sản phẩm', href: "/tat-ca-san-pham"},
@@ -62,7 +62,7 @@ export default function MainFooter() {
           </Grid>
           <Grid item xs={8} md={3}>
             <Typography variant="body2" sx={{ pr: { md: 5 } }}>
-              Delta Platinum là một sản phẩm của Delta Web, với nỗ lực phát triển bền vững về thị trường bất động sản, Delta Platinum đều có thể giúp bạn.
+              Q-Land Platinum là một sản phẩm của Q-Land Web, với nỗ lực phát triển bền vững về thị trường bất động sản, Q-Land Platinum đều có thể giúp bạn.
               Tìm tin bán nhà đất hoặc cho thuê nhà đất mới nhất bằng cách sử dụng công cụ tìm kiếm hoặc các đường link ngay trên trang chủ.
             </Typography>
 

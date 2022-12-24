@@ -1,18 +1,12 @@
 import { Icon } from '@iconify/react';
 import { Link as RouterLink, useSearchParams } from 'react-router-dom';
 import arrowIosBackFill from '@iconify/icons-eva/arrow-ios-back-fill';
-// material
 import { styled } from '@material-ui/core/styles';
 import { Box, Button, Container, Typography } from '@material-ui/core';
-// layouts
 import LogoOnlyLayout from '../../layouts/LogoOnlyLayout';
-// routes
 import { PATH_AUTH } from '../../routes/paths';
-// components
 import Page from '../../components/Page';
 import { LoadingButton } from '@material-ui/lab';
-
-// ----------------------------------------------------------------------
 
 const RootStyle = styled(Page)(({ theme }) => ({
   display: 'flex',
@@ -20,8 +14,6 @@ const RootStyle = styled(Page)(({ theme }) => ({
   alignItems: 'center',
   padding: theme.spacing(12, 0),
 }));
-
-// ----------------------------------------------------------------------
 
 export default function VerifyCode() {
   const [searchParams] = useSearchParams();
@@ -56,7 +48,7 @@ export default function VerifyCode() {
             type="button"
             variant="contained"
             sx={{ mt: 3 }}
-            onClick={()=>{
+            onClick={() => {
               window.open("https://mail.google.com", "_blank");
             }}
           >

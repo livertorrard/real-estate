@@ -1,41 +1,17 @@
-import { Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
+import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import config from '../config';
-import { MailSenderModule } from '../mail-sender/mail-sender.module';
-import { UserEntity } from '../users/entities/user.entity';
-import { UserModule } from '../users/user.module';
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
-import { EmailChange } from './entities/email-change.entity';
-import { EmailVerification } from './entities/email-verification.entity';
-import { PasswordReset } from './entities/password-reset.entity';
-import { RefreshToken } from './entities/refresh-token.entity';
-import { JwtRefreshStrategy } from './jwt.refreshtoken.strategy';
-import { JwtStrategy } from './jwt.strategy';
-
+import { UserModule } from 'src/users/user.module';
+import { AuthEntity } from './entities/auth.entity';
+import { AuthController } from './http/controllers/auth.controller';
+import { AuthRepository } from './repositories/auth.repository';
+import { AuthService } from './services/auth.service';
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      UserEntity,
-      RefreshToken,
-      EmailVerification,
-      EmailChange,
-      PasswordReset,
-    ]),
-    UserModule,
-    PassportModule.register({ defaultStrategy: 'jwt' }),
-    JwtModule.register({
-      secret: config.jwt.secretOrKey,
-      signOptions: {
-        expiresIn: config.jwt.expiresIn,
-      },
-    }),
-    MailSenderModule,
+    TypeOrmModule.forFeature([AuthEntity, AuthRepository]),
+    forwardRef(() => UserModule),
   ],
-  providers: [AuthService, JwtStrategy, JwtRefreshStrategy],
+  providers: [AuthService],
   controllers: [AuthController],
-  exports: [JwtModule, AuthService],
+  exports: [AuthService],
 })
 export class AuthModule {}

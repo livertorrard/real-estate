@@ -64,6 +64,7 @@ export const postData = (url, data, header) => {
   header = checkHeader(header);
   return axios.post(url, data, {
     headers: header,
+    withCredentials: false
   });
 };
 
