@@ -1,8 +1,8 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as compression from 'compression';
+import * as cookieParser from 'cookie-parser';
 import * as rateLimit from 'express-rate-limit';
 import * as helmet from 'helmet';
 import { join } from 'path';
@@ -21,6 +21,7 @@ async function bootstrap() {
     index: false,
     prefix: '/public',
   });
+  app.use(cookieParser());
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -28,8 +29,12 @@ async function bootstrap() {
       stopAtFirstError: true,
     }),
   );
+
   useContainer(app, { fallbackOnErrors: true });
-  app.enableCors();
+  app.enableCors({
+    credentials: true,
+    origin: env.FRONTEND_URL,
+  });
 
   app.use(requestIp.mw());
   app.use(helmet());
@@ -53,19 +58,6 @@ async function bootstrap() {
     keyGenerator: (req) => requestIp.getClientIp(req),
   });
   app.use('/auth/signup', signupLimiter);
-
-  // Swagger API Documentation
-  const options = new DocumentBuilder()
-    .setTitle('Real-Estate API Documentation')
-    .setVersion('0.0.1')
-    .addTag('auth')
-    .addTag('connection')
-    .addTag('notification')
-    .addTag('user')
-    .addBearerAuth()
-    .build();
-  const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('', app, document);
 
   await app.listen(env.APP_PORT, () => {
     console.log(`Server listening on port ${env.APP_PORT}`);

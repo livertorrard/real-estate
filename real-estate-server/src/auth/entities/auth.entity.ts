@@ -1,5 +1,6 @@
 import { BaseEntity } from 'src/base.entity';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { UserEntity } from 'src/users/entities/user.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { UserTypeEnum } from '../enums/user-type.enum';
 
 @Entity('Authorization')
@@ -21,4 +22,7 @@ export class AuthEntity extends BaseEntity {
 
   @Column({ type: 'int', default: 1 })
   active: number;
+
+  @OneToMany(() => UserEntity, (user) => user.auth)
+  users: UserEntity[];
 }

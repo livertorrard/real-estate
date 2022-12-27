@@ -1,20 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-// material
 import { Container } from '@material-ui/core';
-// redux
-// routes
 import { PATH_DASHBOARD } from '../../routes/paths';
-// hooks
 import useSettings from '../../hooks/useSettings';
-// components
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import { API_BASE_URL } from 'src/config/configUrl';
 import { getData } from 'src/_helper/httpProvider';
 import RoleNewForm from 'src/components/_dashboard/Role/RoleNewForm';
-
-// ----------------------------------------------------------------------
 
 export default function RoleCreate() {
   const { themeStretch } = useSettings();

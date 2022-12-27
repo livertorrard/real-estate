@@ -127,14 +127,13 @@ export default function UserList() {
   const isUserNotFound = users.length === 0;
 
   const changeActiveUser = async (id, active) => {
-    console.log(id, active);
     try {
-      const res = await postData(API_BASE_URL + '/user/active', {
+       await postData(API_BASE_URL + '/users/active', {
         id: id,
         active: active,
       });
       setLoad((e) => e + 1);
-      enqueueSnackbar(res.data, {
+      enqueueSnackbar('Update Successfully ', {
         variant: 'success',
         action: (key) => (
           <MIconButton size="small" onClick={() => closeSnackbar(key)}>

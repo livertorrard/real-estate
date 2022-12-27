@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
-// material
 import { alpha, styled } from '@material-ui/core/styles';
 import {
   Box,
@@ -12,17 +11,13 @@ import {
   Typography,
   CardActionArea,
 } from '@material-ui/core';
-// hooks
 import useCollapseDrawer from '../../hooks/useCollapseDrawer';
-// routes
 import { PATH_DASHBOARD } from '../../routes/paths';
-// components
 import Logo from '../../components/Logo';
 import MyAvatar from '../../components/MyAvatar';
 import Scrollbar from '../../components/Scrollbar';
 import NavSection from '../../components/NavSection';
 import { MHidden } from '../../components/@material-extend';
-//
 import { LoadingButton } from '@material-ui/lab';
 import sidebarConfig from './SidebarConfig';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,7 +25,6 @@ import { getData } from 'src/_helper/httpProvider';
 import { API_BASE_URL } from 'src/config/configUrl';
 import { logout } from 'src/redux/slices/user';
 
-// ----------------------------------------------------------------------
 
 const DRAWER_WIDTH = 280;
 const COLLAPSE_WIDTH = 102;
@@ -52,7 +46,6 @@ const AccountStyle = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.grey[500_12],
 }));
 
-// ----------------------------------------------------------------------
 
 IconCollapse.propTypes = {
   onToggleCollapse: PropTypes.func,
@@ -160,7 +153,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
           <Box component={RouterLink} to="/" sx={{ display: 'inline-flex' }}>
             <Logo />
           </Box>
-          <Typography variant="h5">HYBE</Typography>
+          <Typography variant="h5">Q-Land</Typography>
 
           <MHidden width="lgDown">
             {!isCollapse && (

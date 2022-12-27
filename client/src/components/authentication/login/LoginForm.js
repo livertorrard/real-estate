@@ -59,7 +59,7 @@ export default function LoginForm() {
           ),
         });
       } catch (error) {
-        enqueueSnackbar(error.response.data, {
+        enqueueSnackbar(error.response.data.message, {
           variant: 'error',
           action: (key) => (
             <MIconButton size="small" onClick={() => closeSnackbar(key)}>

@@ -2,7 +2,6 @@ import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 import { useSnackbar } from 'notistack5';
 import { Form, FormikProvider, useFormik } from 'formik';
-// material
 import { LoadingButton, MobileDatePicker } from '@material-ui/lab';
 import {
   Box,
@@ -21,9 +20,6 @@ import {
   Stack,
   TextField,
 } from '@material-ui/core';
-// utils
-// routes
-//
 import { useEffect, useState } from 'react';
 import { getData, postData, putData } from 'src/_helper/httpProvider';
 import { API_BASE_URL } from 'src/config/configUrl';
@@ -36,15 +32,11 @@ import closeFill from '@iconify/icons-eva/close-fill';
 import { useDispatch } from 'react-redux';
 import { login } from 'src/redux/slices/user';
 
-// ----------------------------------------------------------------------
-
 UserNewForm.propTypes = {
   isEdit: PropTypes.bool,
   currentUser: PropTypes.object,
   id: PropTypes.string,
 };
-
-// ----------------------------------------------------------------------
 
 export default function UserNewForm({ isEdit, currentUser, id }) {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -56,6 +48,7 @@ export default function UserNewForm({ isEdit, currentUser, id }) {
   const handleShowPassword = () => {
     setShowPassword((show) => !show);
   };
+
   function makePwd(length) {
     var result = '';
     var characters =
@@ -68,7 +61,7 @@ export default function UserNewForm({ isEdit, currentUser, id }) {
   }
   useEffect(() => {
     (async () => {
-      const _roles = await getData(API_BASE_URL + '/role');
+      const _roles = await getData(API_BASE_URL + '/auth/role');
       setRoles(_roles.data);
     })();
   }, []);
@@ -82,7 +75,7 @@ export default function UserNewForm({ isEdit, currentUser, id }) {
     phone: Yup.string(),
     gender: Yup.string(),
     birthday: Yup.date(),
-    role_id: Yup.string().required('Vui lòng chọn quyền'),
+    id: Yup.string().required('Vui lòng chọn quyền'),
     credential: Yup.string().when('showPassword', {
       is: true,
       then: Yup.string()
@@ -98,10 +91,10 @@ export default function UserNewForm({ isEdit, currentUser, id }) {
       fullname: currentUser?.fullname || '',
       email: currentUser?.email || '',
       phone: currentUser?.phone || '',
-      birthday: currentUser?.birthday || '2000-01-10',
-      role_id: currentUser?.role_id || '3',
+      birthday: currentUser?.birthday || new Date().getFullYear(),
+      id: currentUser?.id || '',
       credential: '',
-      gender: currentUser?.gender || 'male',
+      gender: currentUser?.gender || 'Male',
     },
     validationSchema: NewUserSchema,
     onSubmit: async (values, { resetForm, setFieldValue }) => {
@@ -110,12 +103,12 @@ export default function UserNewForm({ isEdit, currentUser, id }) {
         values.birthday = formatDate(values.birthday);
         if (isEdit) {
           delete values.credential;
-          await putData(API_BASE_URL + `/user/${id}/edit`, values);
-          await dispatch(login());
+          await putData(API_BASE_URL + `/users/${id}/edit`, values);
+          dispatch(login());
           resetForm();
         } else {
           values.verify = true;
-          await postData(API_BASE_URL + `/user/create`, values);
+          await postData(API_BASE_URL + `/users/create`, values);
         }
         enqueueSnackbar(
           !isEdit ? 'Tạo tài khoản thành công' : 'Cập nhật thành công!',
@@ -126,7 +119,7 @@ export default function UserNewForm({ isEdit, currentUser, id }) {
         setFieldValue('credential', makePwd(8));
       } catch (error) {
         console.error(error);
-        enqueueSnackbar(error.response.data, {
+        enqueueSnackbar(error.response.data.message, {
           variant: 'error',
           action: (key) => (
             <MIconButton size="small" onClick={() => closeSnackbar(key)}>
@@ -137,6 +130,7 @@ export default function UserNewForm({ isEdit, currentUser, id }) {
       }
     },
   });
+
   const {
     errors,
     touched,
@@ -152,7 +146,7 @@ export default function UserNewForm({ isEdit, currentUser, id }) {
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reset]);
-  console.log(errors);
+
   return (
     <FormikProvider value={formik}>
       <Form noValidate autoComplete="off" onSubmit={handleSubmit}>
@@ -206,12 +200,12 @@ export default function UserNewForm({ isEdit, currentUser, id }) {
                     <FormLabel id="gender-i">Giới tính</FormLabel>
                     <RadioGroup row {...getFieldProps('gender')}>
                       <FormControlLabel
-                        value="male"
+                        value="Male"
                         control={<Radio />}
                         label="Nam"
                       />
                       <FormControlLabel
-                        value="female"
+                        value="Female"
                         control={<Radio />}
                         label="Nữ"
                       />
@@ -221,14 +215,15 @@ export default function UserNewForm({ isEdit, currentUser, id }) {
                 <FormControl>
                   <InputLabel id="role-select">Quyền</InputLabel>
                   <Select
+                    defaultValue=''
                     labelId="role-select"
                     label="Quyền"
-                    {...getFieldProps('role_id')}
-                    values={values.role}
+                    {...getFieldProps('authorizationId')}
+                    value={values?.role}
                   >
                     {roles.map((role) => (
-                      <MenuItem key={role.q_id} value={role.q_id}>
-                        {role.q_vaitro}
+                      <MenuItem key={role.id} value={role.id}>
+                        {role.role}
                       </MenuItem>
                     ))}
                   </Select>
@@ -259,7 +254,7 @@ export default function UserNewForm({ isEdit, currentUser, id }) {
                 <Box
                   sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}
                 >
-                  <LoadingButton type="submit" variant="contained">
+                  <LoadingButton type="submit" variant="contained" >
                     {!isEdit ? 'Thêm' : 'Lưu'}
                   </LoadingButton>
                 </Box>

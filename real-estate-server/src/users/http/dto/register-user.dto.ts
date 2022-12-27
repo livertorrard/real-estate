@@ -8,7 +8,7 @@ export class RegisterUserDto {
   @MaxLength(MAX_FULL_NAME_LENGTH)
   @IsString()
   @IsNotEmpty()
-  fullName: string;
+  fullname: string;
 
   @ApiProperty()
   @IsEmail()

@@ -1,20 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-// material
 import { Container } from '@material-ui/core';
-// redux
-// routes
 import { PATH_DASHBOARD } from '../../routes/paths';
-// hooks
 import useSettings from '../../hooks/useSettings';
-// components
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import UserNewForm from '../../components/_dashboard/user/UserNewForm';
 import { API_BASE_URL } from 'src/config/configUrl';
 import { getData } from 'src/_helper/httpProvider';
-
-// ----------------------------------------------------------------------
 
 export default function UserCreate() {
   const { themeStretch } = useSettings();
@@ -25,9 +18,12 @@ export default function UserCreate() {
 
   useEffect(() => {
     (async () => {
-      const _user = await getData(API_BASE_URL + `/user/${id}`);
-      setCurrentUser(_user.data[0]);
+      if (isEdit) {
+        const _user = await getData(API_BASE_URL + `/users/${id}`);
+        setCurrentUser(_user.data);
+      }
     })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return (
@@ -38,7 +34,7 @@ export default function UserCreate() {
           links={[
             { name: 'Quản lý', href: PATH_DASHBOARD.root },
             { name: 'Người dùng', href: PATH_DASHBOARD.user.list },
-            { name: !isEdit ? 'Thêm tài khoản' : id },
+            { name: !isEdit ? 'Thêm tài khoản' : '' },
           ]}
         />
 

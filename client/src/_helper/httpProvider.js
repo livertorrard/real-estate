@@ -64,14 +64,14 @@ export const postData = (url, data, header) => {
   header = checkHeader(header);
   return axios.post(url, data, {
     headers: header,
-    withCredentials: false
+    withCredentials: false,
   });
 };
 
 export const putData = (url, data, header) => {
   header = checkHeader(header);
   return axios.put(url, data, {
-    headers: header,
+    headers: header, withCredentials: false,
   });
 };
 

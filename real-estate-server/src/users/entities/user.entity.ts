@@ -1,5 +1,12 @@
+import { AuthEntity } from 'src/auth/entities/auth.entity';
 import { BaseEntity } from 'src/base.entity';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { GenderTypeEnum } from '../enums/gender.enum';
 @Entity('User')
 export class UserEntity extends BaseEntity {
@@ -10,7 +17,7 @@ export class UserEntity extends BaseEntity {
   email: string;
 
   @Column({ type: 'varchar', length: 100 })
-  fullName: string;
+  fullname: string;
 
   @Column({ type: 'varchar', length: 250 })
   credential: string;
@@ -35,4 +42,8 @@ export class UserEntity extends BaseEntity {
 
   @Column({ type: 'varchar', length: 50 })
   password: string;
+
+  @ManyToOne(() => AuthEntity)
+  @JoinColumn({ name: 'authorizationId' })
+  auth: AuthEntity;
 }
