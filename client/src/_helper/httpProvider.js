@@ -77,7 +77,7 @@ export const putData = (url, data, header) => {
 
 export const deleteData = (url, data, header) => {
   header = checkHeader(header);
-  return axios.delete(url, { data, headers: header });
+  return axios.delete(url, { data, headers: header,withCredentials:false });
 };
 
 const checkHeader = (header) => {

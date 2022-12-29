@@ -18,12 +18,9 @@ export default function UserCreate() {
 
   useEffect(() => {
     (async () => {
-      if (isEdit) {
-        const _user = await getData(API_BASE_URL + `/users/${id}`);
-        setCurrentUser(_user.data);
-      }
+      const _user = await getData(API_BASE_URL + `/users/${id}`);
+      setCurrentUser(_user.data);
     })();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return (
@@ -37,7 +34,6 @@ export default function UserCreate() {
             { name: !isEdit ? 'Thêm tài khoản' : '' },
           ]}
         />
-
         <UserNewForm isEdit={isEdit} currentUser={currentUser} id={id} />
       </Container>
     </Page>

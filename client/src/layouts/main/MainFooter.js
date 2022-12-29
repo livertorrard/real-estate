@@ -5,14 +5,9 @@ import facebookFill from '@iconify/icons-eva/facebook-fill';
 import linkedinFill from '@iconify/icons-eva/linkedin-fill';
 import { Link as ScrollLink } from 'react-scroll';
 import { Link as RouterLink } from 'react-router-dom';
-// material
 import { styled } from '@material-ui/core/styles';
 import { Grid, Link, Divider, Container, Typography, IconButton, Stack } from '@material-ui/core';
-// routes
-//
 import Logo from '../../components/Logo';
-
-// ----------------------------------------------------------------------
 
 const SOCIALS = [
   { name: 'FaceBook', icon: facebookFill },
@@ -26,14 +21,14 @@ const LINKS = [
     headline: 'Q-Land',
     children: [
       { name: 'Giới thiệu', href: "/gioi-thieu" },
-      { name: 'Tất cả sản phẩm', href: "/tat-ca-san-pham"},
+      { name: 'Tất cả sản phẩm', href: "/tat-ca-san-pham" },
     ]
   },
   {
     headline: 'Địa chỉ liên hệ',
     children: [
-      { name: 'viettrung0601@gmail.com', href: '#' },
-      { name: 'Châu Thành A, Hậu Giang', href: '#' }
+      { name: 'Bvvquy.18IT5@vku.udn.vn', href: '#' },
+      { name: 'Khu đô thị Đại học Đà Nẵng, 470 Đường Trần Đại Nghĩa, phường Hòa Quý, quận Ngũ Hành Sơn, Đà Nẵng', href: '#' }
     ]
   }
 ];
@@ -42,8 +37,6 @@ const RootStyle = styled('div')(({ theme }) => ({
   position: 'relative',
   backgroundColor: theme.palette.background.default
 }));
-
-// ----------------------------------------------------------------------
 
 export default function MainFooter() {
   return (
@@ -118,7 +111,7 @@ export default function MainFooter() {
             textAlign: { xs: 'center', md: 'left' }
           }}
         >
-          © 2022. Trung B1805931
+          © 2022 - Bùi Văn Vạn Quý - Trường Đại Học Công Nghệ Thông Tin Và Truyền Thông Việt - Hàn
         </Typography>
       </Container>
     </RootStyle>

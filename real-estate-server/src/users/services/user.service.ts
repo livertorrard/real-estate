@@ -6,9 +6,11 @@ import {
 } from '@nestjs/common';
 import { genSaltSync, hash } from 'bcrypt';
 import { AuthService } from 'src/auth/services/auth.service';
-import { FindOneOptions } from 'typeorm';
+import { FindOneOptions, In } from 'typeorm';
 import { UserEntity } from '../entities/user.entity';
 import { ActiveUserDto } from '../http/dto/active-user.dto';
+import { ChangePasswordDto } from '../http/dto/change-password.dto';
+import { CreateUserDto } from '../http/dto/create-user.dto';
 import { RegisterUserDto } from '../http/dto/register-user.dto';
 import { UpdateUserDto } from '../http/dto/update-user.dto';
 import { UserRepository } from '../repositories/user.repository';
@@ -22,11 +24,7 @@ export class UserService {
   private readonly saltRound = 10;
 
   async register(dto: RegisterUserDto): Promise<void> {
-    const existedUser = await this.userRepo.findOne({ email: dto.email });
-    if (existedUser) {
-      throw new BadRequestException('Email already exists');
-    }
-
+    await this.validateExistedUserEmailAndPhone(dto.email);
     const { id } = await this.authService.findIdOfAdmin();
     const salt = genSaltSync(this.saltRound);
     const hashPassword = await hash(dto.password, salt);
@@ -76,12 +74,60 @@ export class UserService {
   }
 
   async getUserById(id: string) {
-    const user = await this.userRepo.findOne(id);
+    if (id === 'undefined') {
+      return {};
+    }
 
-    return { ...user };
+    return this.userRepo.findOne(id);
   }
 
-  async updateUser(dto: UpdateUserDto) {
+  async updateUser(dto: UpdateUserDto): Promise<void> {
     await this.userRepo.save(dto);
+  }
+
+  async createUser(dto: CreateUserDto): Promise<UserEntity> {
+    await this.validateExistedUserEmailAndPhone(dto.email);
+    await this.validateExistedUserPhone(dto.phone);
+
+    const salt = genSaltSync(this.saltRound);
+    const hashPassword = await hash(dto.password, salt);
+
+    return this.userRepo.save({ ...dto, password: hashPassword });
+  }
+
+  async validateExistedUserEmailAndPhone(email: string): Promise<void> {
+    const existedUser = await this.userRepo.findOne({
+      where: { email },
+    });
+
+    if (existedUser) {
+      throw new BadRequestException('Email or Number Phone already exists');
+    }
+  }
+
+  async validateExistedUserPhone(phone: string): Promise<void> {
+    const existedUser = await this.userRepo.findOne({
+      where: { phone },
+    });
+
+    if (existedUser) {
+      throw new BadRequestException('Number Phone already exists');
+    }
+  }
+
+  async deleteUsers(ids: string[]): Promise<void> {
+    await this.userRepo.softDelete({ id: In(ids) });
+  }
+
+  async changePassword(dto: ChangePasswordDto, id: string): Promise<void> {
+    const { confirmNewPassword, newPassword, oldPassword } = dto;
+    const existedUser = await this.userRepo.findOne(id);
+
+    this.authService.comparePassword(oldPassword, existedUser.password);
+
+    if (newPassword !== confirmNewPassword) {
+      throw new BadRequestException('Password does not match');
+    }
+    await this.userRepo.update(id, { password: newPassword });
   }
 }

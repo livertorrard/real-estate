@@ -1,25 +1,21 @@
 import * as Yup from 'yup';
 import { useSnackbar } from 'notistack5';
+import Cookies from 'js-cookie';
 import { useFormik, Form, FormikProvider } from 'formik';
-// material
 import { Stack, Card, TextField } from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
-// utils
 import { API_BASE_URL } from 'src/config/configUrl';
 import { postData } from 'src/_helper/httpProvider';
-import Cookies from 'js-cookie';
-
-// ----------------------------------------------------------------------
 
 export default function AccountChangePassword() {
   const { enqueueSnackbar } = useSnackbar();
-  
+
   const ChangePassWordSchema = Yup.object().shape({
     oldPassword: Yup.string().required('Old Password is required'),
     newPassword: Yup.string().min(6, 'Password must be at least 6 characters').required('New Password is required'),
     confirmNewPassword: Yup.string().oneOf([Yup.ref('newPassword'), null], 'Passwords must match')
   });
-  const email = Cookies.get('email');
+  const id = Cookies.get('id');
   const formik = useFormik({
     initialValues: {
       oldPassword: '',
@@ -28,10 +24,16 @@ export default function AccountChangePassword() {
     },
 
     validationSchema: ChangePassWordSchema,
-   
+
     onSubmit: async (values, { setSubmitting }) => {
-      await postData(API_BASE_URL + `/users/${email}/change-password`, values);
-      enqueueSnackbar('Đổi mật khẩu thành công', { variant: 'success' });
+      try {
+        await postData(API_BASE_URL + `/users/${id}/change-password`, values);
+        enqueueSnackbar('Đổi mật khẩu thành công', { variant: 'success' });
+      } catch (error) {
+        enqueueSnackbar(error.response.data.message, {
+          variant: 'error'
+        });
+      };
     }
   });
 

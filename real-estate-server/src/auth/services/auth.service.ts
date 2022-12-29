@@ -38,11 +38,7 @@ export class AuthService {
     if (!user) {
       throw new BadRequestException('Email does not exist !');
     }
-
-    const passwordIsValid = compareSync(password, user.password);
-    if (!passwordIsValid) {
-      throw new BadRequestException('Password is not valid !');
-    }
+    this.comparePassword(password, user.password);
 
     const token = this.jwtService.sign(
       {
@@ -53,10 +49,25 @@ export class AuthService {
       { expiresIn: env.JWT_EXPIRE, secret: env.JWT_SECRET },
     );
 
-    return { token, role: user.auth.role, name: user.fullname };
+    return { token, role: user.auth.role, name: user.fullname, id: user.id };
   }
 
   findAll(): Promise<AuthEntity[]> {
     return this.authRepo.find();
+  }
+
+  comparePassword(password: string, hashPassword: string): void {
+    const passwordIsValid = compareSync(password, hashPassword);
+    if (!passwordIsValid) {
+      throw new BadRequestException('Password is not valid !');
+    }
+  }
+
+  getRoles(keySearch: string): Promise<AuthEntity[]> {
+    if (!keySearch) {
+      return this.authRepo.find();
+    }
+
+    return this.authRepo.searchRoles(keySearch);
   }
 }

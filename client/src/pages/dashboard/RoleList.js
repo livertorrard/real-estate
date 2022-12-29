@@ -55,7 +55,7 @@ export default function RoleList() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await getData(API_BASE_URL + `/role?search=${filterName}`);
+        const res = await getData(API_BASE_URL + `/auth/role?search=${filterName}`);
         setRoles(res.data);
         console.log(res.data);
       } catch (e) {
@@ -116,7 +116,6 @@ export default function RoleList() {
   const isRoleNotFound = roles.length === 0;
 
   const changeActiveRole = async (id, active) => {
-    console.log(id, active);
     try {
       const res = await postData(API_BASE_URL + '/role/active', {
         id: id,
@@ -180,12 +179,12 @@ export default function RoleList() {
                   {roles
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => {
-                      const { q_id, q_ten, q_vaitro, q_mota, active } = row;
-                      const isItemSelected = selected.indexOf(q_id) !== -1;
+                      const { id,typeUser , role, description, active } = row;
+                      const isItemSelected = selected.indexOf(id) !== -1;
                       return (
                         <TableRow
                           hover
-                          key={q_id}
+                          key={id}
                           tabIndex={-1}
                           role="checkbox"
                           selected={isItemSelected}
@@ -194,7 +193,7 @@ export default function RoleList() {
                           <TableCell padding="checkbox">
                             <Checkbox
                               checked={isItemSelected}
-                              onChange={(event) => handleClick(event, q_id)}
+                              onChange={(event) => handleClick(event, id)}
                             />
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
@@ -204,23 +203,23 @@ export default function RoleList() {
                               spacing={2}
                             >
                               <Typography variant="subtitle2" noWrap>
-                                {q_ten}
+                                {typeUser}
                               </Typography>
                             </Stack>
                           </TableCell>
-                          <TableCell align="left">{q_vaitro}</TableCell>
-                          <TableCell align="left">{q_mota}</TableCell>
+                          <TableCell align="left">{role}</TableCell>
+                          <TableCell align="left">{description}</TableCell>
                           <TableCell align="left">
                             <Switch
                               checked={active === 1}
                               onChange={() => {
-                                changeActiveRole(q_id, !active);
+                                changeActiveRole(id, !active);
                               }}
                             />
                           </TableCell>
 
                           <TableCell align="right">
-                            <RoleMoreMenu id={q_id} />
+                            <RoleMoreMenu id={id} />
                           </TableCell>
                         </TableRow>
                       );

@@ -75,8 +75,8 @@ export default function UserNewForm({ isEdit, currentUser, id }) {
     phone: Yup.string(),
     gender: Yup.string(),
     birthday: Yup.date(),
-    id: Yup.string().required('Vui lòng chọn quyền'),
-    credential: Yup.string().when('showPassword', {
+    authorizationId: Yup.string().required('Vui lòng chọn quyền'),
+    password: Yup.string().when('showPassword', {
       is: true,
       then: Yup.string()
         .min(8, 'Mật khẩu ít nhất 8 ký tự!')
@@ -93,11 +93,12 @@ export default function UserNewForm({ isEdit, currentUser, id }) {
       phone: currentUser?.phone || '',
       birthday: currentUser?.birthday || new Date().getFullYear(),
       id: currentUser?.id || '',
-      credential: '',
+      password: '',
       gender: currentUser?.gender || 'Male',
+      authorizationId: currentUser?.authorizationId || '',
     },
     validationSchema: NewUserSchema,
-    onSubmit: async (values, { resetForm, setFieldValue }) => {
+    onSubmit: async (values, { setFieldValue }) => {
       try {
         delete values.showPassword;
         values.birthday = formatDate(values.birthday);
@@ -105,9 +106,9 @@ export default function UserNewForm({ isEdit, currentUser, id }) {
           delete values.credential;
           await putData(API_BASE_URL + `/users/${id}/edit`, values);
           dispatch(login());
-          resetForm();
         } else {
           values.verify = true;
+          delete values.id;
           await postData(API_BASE_URL + `/users/create`, values);
         }
         enqueueSnackbar(
@@ -116,7 +117,7 @@ export default function UserNewForm({ isEdit, currentUser, id }) {
             variant: 'success',
           },
         );
-        setFieldValue('credential', makePwd(8));
+        setFieldValue('password', makePwd(8));
       } catch (error) {
         console.error(error);
         enqueueSnackbar(error.response.data.message, {
@@ -142,7 +143,7 @@ export default function UserNewForm({ isEdit, currentUser, id }) {
 
   useEffect(() => {
     (() => {
-      setFieldValue('credential', makePwd(8));
+      setFieldValue('password', makePwd(8));
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reset]);
@@ -198,7 +199,7 @@ export default function UserNewForm({ isEdit, currentUser, id }) {
                   />
                   <FormControl sx={{ width: '50%' }}>
                     <FormLabel id="gender-i">Giới tính</FormLabel>
-                    <RadioGroup row {...getFieldProps('gender')}>
+                    <RadioGroup row {...getFieldProps('gender')} value={values?.gender}>
                       <FormControlLabel
                         value="Male"
                         control={<Radio />}
@@ -215,11 +216,11 @@ export default function UserNewForm({ isEdit, currentUser, id }) {
                 <FormControl>
                   <InputLabel id="role-select">Quyền</InputLabel>
                   <Select
-                    defaultValue=''
+                    defaultValue='906eb44d-6f6b-4754-a97b-6343815c8dec'
                     labelId="role-select"
                     label="Quyền"
                     {...getFieldProps('authorizationId')}
-                    value={values?.role}
+                    value={values?.authorizationId}
                   >
                     {roles.map((role) => (
                       <MenuItem key={role.id} value={role.id}>
@@ -232,7 +233,7 @@ export default function UserNewForm({ isEdit, currentUser, id }) {
                 {!isEdit && (
                   <TextField
                     label="Mật khẩu"
-                    {...getFieldProps('credential')}
+                    {...getFieldProps('password')}
                     type={showPassword ? 'text' : 'password'}
                     InputProps={{
                       endAdornment: (

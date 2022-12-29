@@ -1,14 +1,9 @@
 import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
-// material
 import { styled } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-// components
 import Logo from '../components/Logo';
-//
 import { MHidden } from '../components/@material-extend';
-
-// ----------------------------------------------------------------------
 
 const HeaderStyle = styled('header')(({ theme }) => ({
   top: 0,
@@ -25,8 +20,6 @@ const HeaderStyle = styled('header')(({ theme }) => ({
     padding: theme.spacing(7, 5, 0, 7)
   }
 }));
-
-// ----------------------------------------------------------------------
 
 AuthLayout.propTypes = {
   children: PropTypes.node
