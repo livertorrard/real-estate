@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-// material
 import { visuallyHidden } from '@material-ui/utils';
 import {
   Box,
@@ -9,8 +8,6 @@ import {
   TableHead,
   TableSortLabel,
 } from '@material-ui/core';
-
-// ----------------------------------------------------------------------
 
 RoleListHead.propTypes = {
   order: PropTypes.oneOf(['asc', 'desc']),

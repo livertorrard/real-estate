@@ -7,7 +7,7 @@ export class AuthRepository extends Repository<AuthEntity> {
     return this.createQueryBuilder('auth')
       .where(
         new Brackets((subQb) => {
-          subQb.orWhere(`user.typeUser LIKE :typeUser`, {
+          subQb.orWhere(`auth.typeUser LIKE :typeUser`, {
             typeUser: `${keySearch}%`,
           });
 

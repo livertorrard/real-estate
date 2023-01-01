@@ -2,27 +2,19 @@ import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 import { useSnackbar } from 'notistack5';
 import { Form, FormikProvider, useFormik } from 'formik';
-// material
 import { LoadingButton } from '@material-ui/lab';
 import { Box, Card, Grid, Stack, TextField } from '@material-ui/core';
-// utils
-// routes
-//
 import { postData, putData } from 'src/_helper/httpProvider';
 import { API_BASE_URL } from 'src/config/configUrl';
 import { Icon } from '@iconify/react';
 import { MIconButton } from 'src/components/@material-extend';
 import closeFill from '@iconify/icons-eva/close-fill';
 
-// ----------------------------------------------------------------------
-
 RoleNewForm.propTypes = {
   isEdit: PropTypes.bool,
   currentRole: PropTypes.object,
   id: PropTypes.string,
 };
-
-// ----------------------------------------------------------------------
 
 export default function RoleNewForm({ isEdit, currentRole, id }) {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();

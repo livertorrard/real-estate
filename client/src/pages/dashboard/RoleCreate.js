@@ -24,14 +24,14 @@ export default function RoleCreate() {
   }, [id]);
 
   return (
-    <Page title="Role | Hype">
+    <Page title="Role">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading={!isEdit ? 'Tạo quyền' : 'Chỉnh sửa'}
           links={[
             { name: 'Quản lý', href: PATH_DASHBOARD.root },
             { name: 'quyền', href: PATH_DASHBOARD.role.root },
-            { name: !isEdit ? 'Thêm quyền' : id },
+            { name: !isEdit ? 'Thêm quyền' : '' },
           ]}
         />
 

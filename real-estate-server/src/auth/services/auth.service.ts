@@ -7,7 +7,9 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { compareSync } from 'bcrypt';
 import { env } from 'process';
+import { ActiveUserDto } from 'src/users/http/dto/active-user.dto';
 import { UserService } from 'src/users/services/user.service';
+import { In } from 'typeorm';
 import { AuthEntity } from '../entities/auth.entity';
 import { UserTypeEnum } from '../enums/user-type.enum';
 import { LoginDto } from '../http/dto/login.dto';
@@ -69,5 +71,31 @@ export class AuthService {
     }
 
     return this.authRepo.searchRoles(keySearch);
+  }
+
+  async changeActiveRole(dto: ActiveUserDto) {
+    const { id, active } = dto;
+    let numberActive: number;
+
+    if (active) {
+      numberActive = 1;
+    } else {
+      numberActive = 0;
+    }
+
+    const role = await this.authRepo.findOne(id);
+    if (!role) {
+      throw new BadRequestException('Role does not exist !');
+    }
+
+    return this.authRepo.save({ ...role, active: numberActive });
+  }
+
+  async deleteRoles(ids: string[]): Promise<void> {
+    const roles = await this.authRepo.find({ id: In(ids) });
+    if (!roles.length) {
+      throw new BadRequestException('Role does not exist !');
+    }
+    await this.authRepo.softDelete({ id: In(ids) });
   }
 }

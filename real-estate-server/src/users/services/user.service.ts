@@ -124,10 +124,12 @@ export class UserService {
     const existedUser = await this.userRepo.findOne(id);
 
     this.authService.comparePassword(oldPassword, existedUser.password);
-
     if (newPassword !== confirmNewPassword) {
       throw new BadRequestException('Password does not match');
     }
-    await this.userRepo.update(id, { password: newPassword });
+
+    const salt = genSaltSync(this.saltRound);
+    const hashPassword = await hash(newPassword, salt);
+    await this.userRepo.update(id, { password: hashPassword });
   }
 }

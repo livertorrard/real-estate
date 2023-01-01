@@ -2,7 +2,6 @@ import { Icon } from '@iconify/react';
 import { useState, useEffect } from 'react';
 import plusFill from '@iconify/icons-eva/plus-fill';
 import { Link as RouterLink } from 'react-router-dom';
-// material
 import {
   Card,
   Table,
@@ -18,11 +17,8 @@ import {
   TablePagination,
   Switch,
 } from '@material-ui/core';
-// routes
 import { PATH_DASHBOARD } from '../../routes/paths';
-// hooks
 import useSettings from '../../hooks/useSettings';
-// components
 import Page from '../../components/Page';
 import Scrollbar from '../../components/Scrollbar';
 import SearchNotFound from '../../components/SearchNotFound';
@@ -38,8 +34,6 @@ import { useSnackbar } from 'notistack5';
 import { MIconButton } from 'src/components/@material-extend';
 import closeFill from '@iconify/icons-eva/close-fill';
 
-// ----------------------------------------------------------------------
-
 const TABLE_HEAD = [
   { id: 'fullname', label: 'Họ tên', alignRight: false },
   { id: 'email', label: 'Email', alignRight: false },
@@ -49,8 +43,6 @@ const TABLE_HEAD = [
   { id: 'status', label: 'Trạng thái', alignRight: false },
   { id: '' },
 ];
-
-// ----------------------------------------------------------------------
 
 export default function UserList() {
   const { themeStretch } = useSettings();

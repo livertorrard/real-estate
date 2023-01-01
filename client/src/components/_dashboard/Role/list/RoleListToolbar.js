@@ -3,7 +3,6 @@ import { Icon } from '@iconify/react';
 import searchFill from '@iconify/icons-eva/search-fill';
 import trash2Fill from '@iconify/icons-eva/trash-2-fill';
 import roundFilterList from '@iconify/icons-ic/round-filter-list';
-// material
 import { useTheme, styled } from '@material-ui/core/styles';
 import {
   Box,
@@ -21,8 +20,6 @@ import { MIconButton } from 'src/components/@material-extend';
 import closeFill from '@iconify/icons-eva/close-fill';
 import { useState } from 'react';
 import DialogConfirm from '../../DialogConfirm';
-
-// ----------------------------------------------------------------------
 
 const RootStyle = styled(Toolbar)(({ theme }) => ({
   height: 96,
@@ -44,8 +41,6 @@ const SearchStyle = styled(OutlinedInput)(({ theme }) => ({
   },
 }));
 
-// ----------------------------------------------------------------------
-
 RoleListToolbar.propTypes = {
   numSelected: PropTypes.number,
   filterName: PropTypes.string,
@@ -53,7 +48,7 @@ RoleListToolbar.propTypes = {
   setLoad: PropTypes.func,
   setSelected: PropTypes.func,
 };
-// ----------------------------------------------------------------------
+
 export default function RoleListToolbar({
   selected,
   filterName,
@@ -77,12 +72,14 @@ export default function RoleListToolbar({
 
   const deleteUser = async () => {
     try {
-      const res = await deleteData(API_BASE_URL + '/role/delete', {
-        arrID: JSON.stringify(selected),
+      const res = await deleteData(API_BASE_URL + '/auth/role/delete', {
+        ids: selected
       });
+  
       if (setLoad) setLoad((e) => e + 1);
       if (setSelected) setSelected([]);
-      enqueueSnackbar(res.data, {
+
+      enqueueSnackbar(res.data.message || 'Deleted Successfully', {
         variant: 'success',
         action: (key) => (
           <MIconButton size="small" onClick={() => closeSnackbar(key)}>

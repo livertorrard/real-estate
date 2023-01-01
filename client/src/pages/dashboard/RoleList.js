@@ -72,7 +72,7 @@ export default function RoleList() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = roles.map((n) => n.q_id);
+      const newSelecteds = roles.map((n) => n.id);
       setSelected(newSelecteds);
       return;
     }
@@ -117,13 +117,13 @@ export default function RoleList() {
 
   const changeActiveRole = async (id, active) => {
     try {
-      const res = await postData(API_BASE_URL + '/role/active', {
+      const res = await postData(API_BASE_URL + '/auth/role/active', {
         id: id,
         active: active,
       });
       setLoad((e) => e + 1);
-      enqueueSnackbar(res.data, {
-        variant: 'success',
+      enqueueSnackbar(res.data.message || 'Updated Successfully', {
+        variant: 'Success',
         action: (key) => (
           <MIconButton size="small" onClick={() => closeSnackbar(key)}>
             <Icon icon={closeFill} />
@@ -134,8 +134,9 @@ export default function RoleList() {
       console.log(error);
     }
   };
+
   return (
-    <Page title="Quyền|HYPE">
+    <Page title="Quyền">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="Quyền"

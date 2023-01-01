@@ -1,6 +1,16 @@
-import { Body, Controller, Get, Post, Query, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Post,
+  Query,
+  Res,
+} from '@nestjs/common';
 import { LOGGED_IN_SUCCESSFULLY } from 'src/auth/constant/message-logged.constant';
 import { AuthEntity } from 'src/auth/entities/auth.entity';
+import { ActiveUserDto } from 'src/users/http/dto/active-user.dto';
+import { DeleteUserDto } from 'src/users/http/dto/delete-user.dto';
 import { AuthService } from '../../services/auth.service';
 import { LoginDto } from '../dto/login.dto';
 
@@ -25,5 +35,15 @@ export class AuthController {
   @Get('role')
   getRoles(@Query('search') keySearch: string): Promise<AuthEntity[]> {
     return this.authService.getRoles(keySearch);
+  }
+
+  @Post('role/active')
+  changeActiveRole(@Body() dto: ActiveUserDto) {
+    return this.authService.changeActiveRole(dto);
+  }
+
+  @Delete('role/delete')
+  deleteRoles(@Body() dto: DeleteUserDto): Promise<void> {
+    return this.authService.deleteRoles(dto.ids);
   }
 }
