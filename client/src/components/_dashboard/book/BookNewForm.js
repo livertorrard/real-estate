@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useSnackbar } from 'notistack5';
 import { useCallback, useEffect, useState } from 'react';
 import { Form, FormikProvider, useFormik } from 'formik';
-// material
 import { styled } from '@material-ui/core/styles';
 import { LoadingButton } from '@material-ui/lab';
 import {
@@ -17,9 +16,6 @@ import {
   FormControlLabel,
   Icon,
 } from '@material-ui/core';
-// utils
-// routes
-//
 import { QuillEditor } from '../../editor';
 import { UploadMultiFile } from '../../upload';
 import { getData, postData, putData } from 'src/_helper/httpProvider';
@@ -27,15 +23,11 @@ import { API_BASE_URL, URL_PUBLIC_IMAGES } from 'src/config/configUrl';
 import { MIconButton } from 'src/components/@material-extend';
 import closeFill from '@iconify/icons-eva/close-fill';
 
-// ----------------------------------------------------------------------
-
 const LabelStyle = styled(Typography)(({ theme }) => ({
   ...theme.typography.subtitle2,
   color: theme.palette.text.secondary,
   marginBottom: theme.spacing(1),
 }));
-
-// ----------------------------------------------------------------------
 
 ProductNewForm.propTypes = {
   isEdit: PropTypes.bool,
@@ -50,11 +42,11 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
 
   useEffect(() => {
     (async () => {
-      const _tacgia = await getData(API_BASE_URL + '/tacgia');
+      const _tacgia = await getData(API_BASE_URL + '/authors');
       setTacgiaList(_tacgia.data);
-      const _tl = await getData(API_BASE_URL + '/theloai');
+      const _tl = await getData(API_BASE_URL + '/actions');
       setTlList(_tl.data);
-      const _dm = await getData(API_BASE_URL + '/category');
+      const _dm = await getData(API_BASE_URL + '/categories');
       setDmList(_dm.data);
     })();
   }, []);
@@ -120,7 +112,7 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
         const formDt = new FormData();
         if (values.sp_hinhanh.length > 0) {
           values.sp_hinhanh.map((value) => {
-            return formDt.append('sp_hinhanh', value);
+            return formDt.append('file', value);
           });
         }
         formDt.append('data', JSON.stringify(_values));
@@ -133,7 +125,7 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
             },
           );
         } else {
-          await postData(API_BASE_URL + '/book/create', formDt, {
+          await postData(API_BASE_URL + '/products/create', formDt, {
             'content-type': 'multipart/form-data',
           });
           resetForm();
@@ -315,8 +307,8 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                       setFieldValue('sp_idtg', newValue);
                     }}
                     options={tacgiaList?.map((option) => ({
-                      tg_id: option.tg_id,
-                      tg_ten: option.tg_ten,
+                      tg_id: option.id,
+                      tg_ten: option.name,
                     }))}
                     renderInput={(params) => (
                       <TextField label="Chủ sở hữu" {...params} />
@@ -330,8 +322,8 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                       setFieldValue('sp_iddm', newValue);
                     }}
                     options={dmList?.map((option) => ({
-                      dm_id: option.dm_id,
-                      dm_ten: option.dm_ten,
+                      dm_id: option.id,
+                      dm_ten: option.name,
                     }))}
                     renderInput={(params) => (
                       <TextField label="Danh mục" {...params} />
@@ -345,8 +337,8 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                       setFieldValue('sp_idtl', newValue);
                     }}
                     options={tlList?.map((option) => ({
-                      tl_id: option.tl_id,
-                      tl_ten: option.tl_ten,
+                      tl_id: option.id,
+                      tl_ten: option.actionName,
                     }))}
                     renderInput={(params) => (
                       <TextField label="Thể loại" {...params} />

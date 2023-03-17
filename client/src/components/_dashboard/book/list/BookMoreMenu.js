@@ -4,7 +4,6 @@ import { useRef, useState } from 'react';
 import editFill from '@iconify/icons-eva/edit-fill';
 import { Link as RouterLink } from 'react-router-dom';
 import moreVerticalFill from '@iconify/icons-eva/more-vertical-fill';
-// material
 import {
   Menu,
   MenuItem,
@@ -12,10 +11,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@material-ui/core';
-// routes
 import { PATH_DASHBOARD } from '../../../../routes/paths';
-
-// ----------------------------------------------------------------------
 
 BookMoreMenu.propTypes = {
   id: PropTypes.string,

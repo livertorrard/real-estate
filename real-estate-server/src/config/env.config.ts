@@ -14,8 +14,9 @@ export const env = {
     NAME: process.env.DATABASE_NAME,
   },
   JWT: {
-    EXPIRE: process.env.JWT_EXPIRE || '7d',
+    EXPIRE: process.env.JWT_EXPIRE || '2d',
     SECRET: process.env.SECRET || 'vanquy',
+    EXPIRE_REFRESH: process.env.JWT_EXPIRE_REFRESH_TOKEN || '7d',
   },
   ROOT_PATH: process.cwd(),
   FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:3000',

@@ -1,9 +1,6 @@
 import { alpha } from '@material-ui/core/styles';
 import { Box, Grid, Paper, Radio, RadioGroup, CardActionArea, FormControlLabel } from '@material-ui/core';
-// hooks
 import useSettings from '../../hooks/useSettings';
-
-// ----------------------------------------------------------------------
 
 export default function SettingColor() {
   const { themeColor, onChangeColor, colorOption } = useSettings();

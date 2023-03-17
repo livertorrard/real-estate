@@ -6,7 +6,7 @@ import { PictureRepository } from '../repositories/picture.repository';
 export class PictureService {
   constructor(private pictureRepo: PictureRepository) {}
 
-  getCategories(): Promise<PictureEntity[]> {
-    return this.pictureRepo.find();
+  createPicture(data: Partial<PictureEntity>) {
+    return this.pictureRepo.save(data);
   }
 }

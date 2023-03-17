@@ -19,8 +19,6 @@ import MenuMobile from './MenuMobile';
 import navConfig from './MenuConfig';
 // import Searchbar from './Searchbar';
 
-// ----------------------------------------------------------------------
-
 const APP_BAR_MOBILE = 64;
 const APP_BAR_DESKTOP = 88;
 
@@ -47,8 +45,6 @@ const ToolbarShadowStyle = styled('div')(({ theme }) => ({
   width: `calc(100% - 48px)`,
   boxShadow: theme.customShadows.z8,
 }));
-
-// ----------------------------------------------------------------------
 
 export default function MainNavbar() {
   const isOffset = useOffSetTop(100);

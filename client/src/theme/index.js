@@ -1,12 +1,8 @@
 import PropTypes from 'prop-types';
-
 import { useMemo } from 'react';
-// material
 import { CssBaseline } from '@material-ui/core';
 import { createTheme, ThemeProvider, StyledEngineProvider } from '@material-ui/core/styles';
-// hooks
 import useSettings from '../hooks/useSettings';
-//
 import shape from './shape';
 import palette from './palette';
 import typography from './typography';
@@ -14,8 +10,6 @@ import breakpoints from './breakpoints';
 import GlobalStyles from './globalStyles';
 import componentsOverride from './overrides';
 import shadows, { customShadows } from './shadows';
-
-// ----------------------------------------------------------------------
 
 ThemeConfig.propTypes = {
   children: PropTypes.node

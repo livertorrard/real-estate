@@ -1,22 +1,22 @@
 {"intents": [
         {"tag": "greeting",
-         "patterns": ["Hi there", "How are you", "Is anyone there?","Hey","Hola", "Hello", "Good day"],
-         "responses": ["Hello, thanks for asking", "Good to see you again", "Hi there, how can I help?"],
+         "patterns": ["Chào bạn", "Xin chào", "Chào admin","Chào ad","Bạn ơi cho mình hỏi ?", "Bạn ơi , bạn có thể giúp mình ?","Hello","Hi"],
+         "responses": ["Chào bạn, Q-Land có thể giúp gì được cho bạn ?", "Chào bạn,  bạn cần tìm gì ở đây ?", "Q-Land chào bạn , mình có thể giúp được gì cho bạn ?"],
          "context": [""]
         },
         {"tag": "goodbye",
-         "patterns": ["Bye", "See you later", "Goodbye", "Nice chatting to you, bye", "Till next time"],
-         "responses": ["See you!", "Have a nice day", "Bye! Come back again soon."],
+         "patterns": ["Hẹn gặp lại", "Tạm biệt , cảm ơn rất nhiều", "Goodbye", "See you", "Bye"],
+         "responses": ["Hẹn gặp lại bạn, chúc bạn một ngày làm việc thật hiệu quả !", "Hẹn gặp lại bạn vào một ngày không xa !", "Bye! Come back again soon.","Cảm ơn bạn đã ghé Q Land, chúng tôi lúc nào cũng sẵn lòng phục vụ bạn , tạm biệt !"],
          "context": [""]
         },
         {"tag": "thanks",
-         "patterns": ["Thanks", "Thank you", "That's helpful", "Awesome, thanks", "Thanks for helping me"],
-         "responses": ["Happy to help!", "Any time!", "My pleasure"],
+         "patterns": ["Cảm ơn", "Cảm ơn bạn rất nhiều", "Cảm ơn vì sự giúp đỡ của bạn", "Xin chân thành cảm ơn", "Cảm ơn bạn nhiều nhé"],
+         "responses": ["Không có gì ,chúng tôi rất hân hạnh phục vụ bạn !", "Không có chi nè !", "Rất mong được phục vụ bạn , không cần cảm ơn đâu !"],
          "context": [""]
         },
         {"tag": "noanswer",
          "patterns": [],
-         "responses": ["Sorry, can't understand you", "Please give me more info", "Not sure I understand"],
+         "responses": ["Xin lỗi , tôi không hiểu ý bạn .", "Vui lòng cung cấp thêm thông tin cho tôi , tôi không hiểu ý bạn .", "Tôi vẫn còn đang trong quá trình học , tôi chưa hiểu ý bạn ,  thông cảm nhiều nha ."],
          "context": [""]
         },
         {"tag": "options",

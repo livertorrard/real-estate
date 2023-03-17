@@ -1,6 +1,5 @@
 import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-// material
 import {
   Slide,
   Dialog,
@@ -10,8 +9,6 @@ import {
   DialogContent,
 } from '@material-ui/core';
 
-// ----------------------------------------------------------------------
-
 DialogConfirm.propTypes = {
   open: PropTypes.bool,
   handleClose: PropTypes.func,
@@ -19,13 +16,10 @@ DialogConfirm.propTypes = {
   excFunc: PropTypes.func,
 };
 
-// ----------------------------------------------------------------------
 
 const Transition = forwardRef((props, ref) => (
   <Slide direction="up" ref={ref} {...props} />
 ));
-
-// ----------------------------------------------------------------------
 
 export default function DialogConfirm({ open, handleClose, message, excFunc }) {
   const handleConfirm = async () => {

@@ -34,6 +34,9 @@ async function bootstrap() {
   app.enableCors({
     credentials: true,
     origin: env.FRONTEND_URL,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders:
+      'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe,Authorization,Access-Control-Allow-Origin',
   });
 
   app.use(requestIp.mw());

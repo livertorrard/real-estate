@@ -1,6 +1,32 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ProductEntity } from 'src/products/entities/product.entity';
 import { ProductService } from 'src/products/services/product.service';
+import { diskStorage } from 'multer';
+import path = require('path');
+
+export const storage = {
+  storage: diskStorage({
+    destination: './public/images',
+    filename: (req, file, cb) => {
+      const filename: string = path
+        .parse(file.originalname)
+        .name.replace(/\s/g, '');
+      const extension: string = path.parse(file.originalname).ext;
+
+      cb(null, `${filename}${extension}`);
+    },
+  }),
+};
 
 @Controller('products')
 export class ProductController {
@@ -25,6 +51,12 @@ export class ProductController {
       type,
       sort,
     });
+  }
+
+  @Post('create')
+  @UseInterceptors(FileInterceptor('file', storage))
+  createProduct(@UploadedFile() file, @Body() data) {
+    return this.productService.createProduct(file, data.data);
   }
 
   @Get('search')
@@ -61,3 +93,10 @@ export class ProductController {
     return this.productService.getProductByCategoryId(categoryId);
   }
 }
+
+export const imageFileFilter = (req, file, callback) => {
+  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+    return callback(new Error('Only image files are allowed!'), false);
+  }
+  callback(null, true);
+};

@@ -2,8 +2,6 @@ import { Icon } from '@iconify/react';
 import { useState, useEffect } from 'react';
 import plusFill from '@iconify/icons-eva/plus-fill';
 import { Link as RouterLink } from 'react-router-dom';
-
-// material
 import {
   Card,
   Table,
@@ -20,11 +18,8 @@ import {
   Switch,
   Avatar,
 } from '@material-ui/core';
-// routes
 import { PATH_DASHBOARD } from '../../routes/paths';
-// hooks
 import useSettings from '../../hooks/useSettings';
-// components
 import Page from '../../components/Page';
 import Scrollbar from '../../components/Scrollbar';
 import SearchNotFound from '../../components/SearchNotFound';
@@ -39,8 +34,6 @@ import BookListHead from 'src/components/_dashboard/book/list/BookListHead';
 import BookMoreMenu from 'src/components/_dashboard/book/list/BookMoreMenu';
 import { fCurrency } from 'src/utils/formatNumber';
 
-// ----------------------------------------------------------------------
-
 const TABLE_HEAD = [
   { id: 'sp_masp', label: 'Giá', alignRight: false },
   { id: 'sp_ten', label: 'Tên dự án', alignRight: false },
@@ -50,8 +43,6 @@ const TABLE_HEAD = [
   { id: 'status', label: 'Trạng thái', alignRight: false },
   { id: '' },
 ];
-
-// ----------------------------------------------------------------------
 
 export default function BookList() {
   const { themeStretch } = useSettings();
@@ -68,7 +59,7 @@ export default function BookList() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await getData(API_BASE_URL + `/books?search=${filterName}`);
+        const res = await getData(API_BASE_URL + `/products/search?keyWord=${filterName}`);
         setDatas(res.data);
         console.log(res.data);
       } catch (e) {
@@ -85,7 +76,7 @@ export default function BookList() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = _datas.map((n) => n.sp_id);
+      const newSelecteds = _datas.map((n) => n.id);
       setSelected(newSelecteds);
       return;
     }
@@ -195,21 +186,23 @@ export default function BookList() {
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => {
                       const {
-                        sp_id,
-                        sp_masp,
-                        sp_gia,
-                        sp_ten,
-                        sp_hinhanh,
-                        tg_ten,
-                        tl_ten,
-                        dm_ten,
+                        id,
+                        productCode,
+                        price,
+                        name,
+                        actionName,
+                        pictureName,
                         active,
                       } = row;
-                      const isItemSelected = selected.indexOf(sp_id) !== -1;
+
+                      const dm_ten =row.category.name
+                      const tg_ten = row.author.name
+                      const isItemSelected = selected.indexOf(id) !== -1;
+                
                       return (
                         <TableRow
                           hover
-                          key={sp_id}
+                          key={id}
                           tabIndex={-1}
                           role="checkbox"
                           selected={isItemSelected}
@@ -218,7 +211,7 @@ export default function BookList() {
                           <TableCell padding="checkbox">
                             <Checkbox
                               checked={isItemSelected}
-                              onChange={(event) => handleClick(event, sp_id)}
+                              onChange={(event) => handleClick(event, id)}
                             />
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
@@ -228,7 +221,7 @@ export default function BookList() {
                               spacing={2}
                             >
                               <Typography variant="subtitle2" noWrap>
-                                {fCurrency(sp_gia)}đ
+                                {fCurrency(price)}đ
                               </Typography>
                             </Stack>
                           </TableCell>
@@ -240,29 +233,29 @@ export default function BookList() {
                             >
                               <Avatar
                                 variant="square"
-                                alt={sp_masp}
+                                alt={productCode}
                                 sx={{ mr: 1}}
                                 src={`${
-                                  URL_PUBLIC_IMAGES + sp_hinhanh[0]?.ha_hinh
+                                  URL_PUBLIC_IMAGES + pictureName
                                 }`}
                               />
-                              {sp_ten}
+                              {name}
                             </Stack>
                           </TableCell>
                           <TableCell align="left">{dm_ten}</TableCell>
                           <TableCell align="left">{tg_ten}</TableCell>
-                          <TableCell align="left">{tl_ten}</TableCell>
+                          <TableCell align="left">{actionName}</TableCell>
                           <TableCell align="left">
                             <Switch
                               checked={active === 1}
                               onChange={() => {
-                                changeActiveUser(sp_id, !active);
+                                changeActiveUser(id, !active);
                               }}
                             />
                           </TableCell>
 
                           <TableCell align="right">
-                            <BookMoreMenu id={sp_id} />
+                            <BookMoreMenu id={id} />
                           </TableCell>
                         </TableRow>
                       );

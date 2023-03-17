@@ -7,7 +7,9 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from 'src/auth/http/guards/auth.guard';
 import { UserEntity } from 'src/users/entities/user.entity';
 import { UserService } from 'src/users/services/user.service';
 import { ActiveUserDto } from '../dto/active-user.dto';
@@ -18,6 +20,7 @@ import { RegisterUserDto } from '../dto/register-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 
 @Controller('users')
+@UseGuards(AuthGuard)
 export class UserController {
   constructor(private userService: UserService) {}
 

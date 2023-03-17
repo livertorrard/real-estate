@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Post,
-  Query,
-  Res,
-} from '@nestjs/common';
-import { LOGGED_IN_SUCCESSFULLY } from 'src/auth/constant/message-logged.constant';
+import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
 import { AuthEntity } from 'src/auth/entities/auth.entity';
 import { ActiveUserDto } from 'src/users/http/dto/active-user.dto';
 import { DeleteUserDto } from 'src/users/http/dto/delete-user.dto';
@@ -19,17 +10,8 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('login')
-  async login(
-    @Body() dto: LoginDto,
-    @Res({ passthrough: true }) response,
-  ): Promise<string> {
-    const { token, role, name, id } = await this.authService.login(dto);
-    response.cookie('token', token, { expire: Number(new Date()) + 86400 });
-    response.cookie('role', role);
-    response.cookie('fullname', name);
-    response.cookie('id', id);
-
-    return LOGGED_IN_SUCCESSFULLY;
+  async login(@Body() dto: LoginDto) {
+    return this.authService.login(dto);
   }
 
   @Get('role')

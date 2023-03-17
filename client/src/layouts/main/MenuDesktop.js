@@ -5,11 +5,8 @@ import { useState, useEffect } from 'react';
 import { NavLink as RouterLink, useLocation } from 'react-router-dom';
 import arrowIosUpwardFill from '@iconify/icons-eva/arrow-ios-upward-fill';
 import arrowIosDownwardFill from '@iconify/icons-eva/arrow-ios-downward-fill';
-// material
 import { styled } from '@material-ui/core/styles';
 import { Box, Link, Grid, List, Stack, Popover, ListItem, ListSubheader, CardActionArea } from '@material-ui/core';
-
-// ----------------------------------------------------------------------
 
 const LinkStyle = styled(Link)(({ theme }) => ({
   ...theme.typography.subtitle2,
@@ -23,8 +20,6 @@ const LinkStyle = styled(Link)(({ theme }) => ({
     textDecoration: 'none'
   }
 }));
-
-// ----------------------------------------------------------------------
 
 IconBullet.propTypes = {
   type: PropTypes.oneOf(['subheader', 'item'])

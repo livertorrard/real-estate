@@ -25,7 +25,7 @@ export default function RegisterForm() {
   const navigate = useNavigate();
 
   const RegisterSchema = Yup.object().shape({
-    fullName: Yup.string()
+    fullname: Yup.string()
       .min(5, 'Họ tên quá ngắn!')
       .max(50, 'Họ tên quá dài!')
       .required('Vui lòng điền họ tên'),
@@ -42,7 +42,7 @@ export default function RegisterForm() {
 
   const formik = useFormik({
     initialValues: {
-      fullName: '',
+      fullname: '',
       email: '',
       password: '',
       repwd: '',
@@ -85,9 +85,9 @@ export default function RegisterForm() {
             <TextField
               fullWidth
               label="Họ và tên"
-              {...getFieldProps('fullName')}
-              error={Boolean(touched.fullName && errors.fullName)}
-              helperText={touched.fullName && errors.fullName}
+              {...getFieldProps('fullname')}
+              error={Boolean(touched.fullname && errors.fullname)}
+              helperText={touched.fullname && errors.fullname}
             />
           </Stack>
 

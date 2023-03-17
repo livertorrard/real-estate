@@ -10,7 +10,7 @@ export default function New_2(props) {
         <div className="image-blog-left">
           <Link className="tag-a" to={`/tin-tuc/${props.new?.id}`}>
             <img
-              src={`http://localhost:4000/public/`}
+              src={`http://localhost:3000/public/`}
               data-lazyload="//bizweb.dktcdn.net/thumb/1024x1024/100/336/794/articles/20180615142644-cd98.jpg?v=1540401640587"
               title="Những lí do đầy thu hút của dự án chung cư New City"
               alt=""

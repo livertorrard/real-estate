@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import closeFill from '@iconify/icons-eva/close-fill';
 import options2Fill from '@iconify/icons-eva/options-2-fill';
-// material
 import {
   Box,
   Backdrop,
@@ -12,14 +11,11 @@ import {
   Typography,
   Stack,
 } from '@material-ui/core';
-//
 import Scrollbar from '../Scrollbar';
 import { MIconButton } from '../@material-extend';
 import SettingMode from './SettingMode';
 import SettingColor from './SettingColor';
 import SettingFullscreen from './SettingFullscreen';
-
-// ----------------------------------------------------------------------
 
 const DRAWER_WIDTH = 260;
 

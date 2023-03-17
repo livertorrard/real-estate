@@ -1,10 +1,5 @@
-// routes
 import Router from './routes';
-// theme
 import ThemeConfig from './theme';
-// hooks
-
-// components
 import Settings from './components/settings';
 import RtlLayout from './components/RtlLayout';
 import ScrollToTop from './components/ScrollToTop';
@@ -13,9 +8,6 @@ import NotistackProvider from './components/NotistackProvider';
 import ThemePrimaryColor from './components/ThemePrimaryColor';
 import ThemeLocalization from './components/ThemeLocalization';
 
-
-// ----------------------------------------------------------------------
-
 export default function App() {
   return (
     <ThemeConfig>
@@ -23,10 +15,10 @@ export default function App() {
         <ThemeLocalization>
           <RtlLayout>
             <NotistackProvider>
-              <Settings />
               <ScrollToTop />
               <GoogleAnalytics />
               <Router />
+              <Settings />
             </NotistackProvider>
           </RtlLayout>
         </ThemeLocalization>

@@ -1,9 +1,10 @@
 import axios from "axios";
+import Cookies from 'js-cookie';
 import * as CONFIG from "../config/configUrl";
 axios.defaults.withCredentials = true;
 
 export const getData = (url, header) => {
-  header = checkHeader(header);
+  header = checkHeader();
   return axios.get(url, {
     headers: header,
     withCredentials: false
@@ -80,17 +81,13 @@ export const deleteData = (url, data, header) => {
   return axios.delete(url, { data, headers: header,withCredentials:false });
 };
 
-const checkHeader = (header) => {
-  if (typeof header === "undefined" || typeof header === "undefined")
-    header = {};
-  if (
-    typeof window.localStorage.getItem(CONFIG.ACCESS_TOKEN) !== "undefined" &&
-    window.localStorage.getItem(CONFIG.ACCESS_TOKEN) !== null
-  ) {
-    let token = JSON.parse(window.localStorage.getItem(CONFIG.ACCESS_TOKEN));
-    header["Authorization"] = token.tokenType + " " + token.accessToken;
+const checkHeader = () => {
+  const token = Cookies.get('token');
+  if(!token){
+    return {}
   }
-  return header;
+ 
+  return { Authorization: "Bearer " + token };
 };
 
 export const getAuthenHeader = () => {

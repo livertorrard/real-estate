@@ -5,12 +5,9 @@ import infoFill from '@iconify/icons-eva/info-fill';
 import alertCircleFill from '@iconify/icons-eva/alert-circle-fill';
 import alertTriangleFill from '@iconify/icons-eva/alert-triangle-fill';
 import checkmarkCircle2Fill from '@iconify/icons-eva/checkmark-circle-2-fill';
-// material
 import { makeStyles, createStyles } from '@material-ui/styles';
 import { alpha } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
-
-// ----------------------------------------------------------------------
 
 const useStyles = makeStyles((theme) => {
   const isLight = theme.palette.mode === 'light';
@@ -56,8 +53,6 @@ const useStyles = makeStyles((theme) => {
   });
 });
 
-// ----------------------------------------------------------------------
-
 SnackbarIcon.propTypes = {
   icon: PropTypes.object,
   color: PropTypes.string
@@ -95,7 +90,6 @@ export default function NotistackProvider({ children }) {
     <SnackbarProvider
       dense
       maxSnack={5}
-      // preventDuplicate
       autoHideDuration={3000}
       anchorOrigin={{
         vertical: 'top',

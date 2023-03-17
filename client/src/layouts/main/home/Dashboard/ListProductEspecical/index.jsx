@@ -51,7 +51,7 @@ export default function ListProductEspecical() {
                         <Link
                           className="tag-a"
                           id="link-danh-muc"
-                          to={`/tat-ca-san-pham?danhmuc=${product.id}`}
+                          to={`/products?categoryIds=${product.id}`}
                           title={product.name}
                         >
                           {product.name}

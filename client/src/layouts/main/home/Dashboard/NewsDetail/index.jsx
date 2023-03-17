@@ -70,7 +70,7 @@ export default function NewsDetail() {
 									dataListNews.map((news, index) => {
 										return (
 											<li key={index} className="once-new">
-												<Link to={`/tin-tuc/${news.bv_id}`}><img id="imageListNews" src={`http://localhost:4000/public/${news.bv_hinhanh[0]?.abv_hinh}`} alt="" /></Link>
+												<Link to={`/tin-tuc/${news.bv_id}`}><img id="imageListNews" src={`http://localhost:3000/public/${news.bv_hinhanh[0]?.abv_hinh}`} alt="" /></Link>
 												<Link to={`/tin-tuc/${news.bv_id}`} className="tag-a title">{news.bv_ten}</Link>
 											</li>
 										)

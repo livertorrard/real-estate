@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compareSync } from 'bcrypt';
-import { env } from 'process';
+import { env } from 'src/config/env.config';
 import { ActiveUserDto } from 'src/users/http/dto/active-user.dto';
 import { UserService } from 'src/users/services/user.service';
 import { In } from 'typeorm';
@@ -42,16 +42,23 @@ export class AuthService {
     }
     this.comparePassword(password, user.password);
 
-    const token = this.jwtService.sign(
-      {
-        id: user.id,
-        email: user.email,
-        name: user.fullname,
-      },
-      { expiresIn: env.JWT_EXPIRE, secret: env.JWT_SECRET },
-    );
+    const payload = {
+      id: user.id,
+      email: user.email,
+      name: user.fullname,
+    };
 
-    return { token, role: user.auth.role, name: user.fullname, id: user.id };
+    const token = this.jwtService.sign(payload, {
+      expiresIn: env.JWT.EXPIRE,
+      secret: env.JWT.SECRET,
+    });
+
+    const refreshToken = this.jwtService.sign(payload, {
+      expiresIn: env.JWT.EXPIRE_REFRESH,
+      secret: env.JWT.SECRET,
+    });
+
+    return { ...payload, role: user.auth.role, token, refreshToken };
   }
 
   findAll(): Promise<AuthEntity[]> {
@@ -97,5 +104,9 @@ export class AuthService {
       throw new BadRequestException('Role does not exist !');
     }
     await this.authRepo.softDelete({ id: In(ids) });
+  }
+
+  verifyToken(token: string) {
+    return this.jwtService.verify(token);
   }
 }

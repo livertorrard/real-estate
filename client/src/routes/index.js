@@ -56,10 +56,6 @@ export default function Router() {
         {
           path: 'user',
           children: [
-            {
-              path: '',
-              element: <UserList />,
-            },
             { path: 'account', element: <UserAccount /> },
             { path: 'list', element: <UserList /> },
             { path: 'new', element: <UserCreate /> },

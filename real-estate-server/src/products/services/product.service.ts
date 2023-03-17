@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { first, Many, orderBy, pick } from 'lodash';
+import { PictureService } from 'src/pictures/services/picture.service';
 import { FindManyOptions, Like } from 'typeorm';
 import { ProductEntity } from '../entities/product.entity';
 import { ProductRepository } from '../repositories/product.repository';
@@ -7,7 +8,10 @@ import { QueryOptionsProduct } from '../types/query-options-product.type';
 
 @Injectable()
 export class ProductService {
-  constructor(private productRepo: ProductRepository) {}
+  constructor(
+    private pictureService: PictureService,
+    private productRepo: ProductRepository,
+  ) {}
 
   async getProductsByOptions(
     options: QueryOptionsProduct,
@@ -155,13 +159,48 @@ export class ProductService {
     return products.map((product) => {
       return {
         ...pick(product, ['id', 'name', 'productCode', 'price']),
-        pictureName: first(product.pictures).pictureName,
+        pictureName: first(product?.pictures)?.pictureName,
         actionName: product.action.actionName,
+        ...product,
       };
     });
   }
 
   find(options: FindManyOptions<ProductEntity>): Promise<ProductEntity[]> {
     return this.productRepo.find(options);
+  }
+
+  async createProduct(file, rawData) {
+    const data = JSON.parse(rawData);
+    let numberActive: number;
+
+    if (data.active) {
+      numberActive = 1;
+    } else {
+      numberActive = 0;
+    }
+
+    const product = await this.productRepo.save({
+      active: numberActive,
+      productCode: data.sp_masp,
+      name: data.sp_ten,
+      description: data.sp_mota,
+      bedRoom: data.sp_phongngu,
+      toilet: data.sp_phongwc,
+      area: data.sp_dientich,
+      houseDirection: data.sp_huongnha,
+      address: data.sp_diachi,
+      price: data.sp_gia,
+      categoryId: data.sp_iddm,
+      authorId: data.sp_idtg,
+      actionId: data.sp_idtl,
+    });
+
+    await this.pictureService.createPicture({
+      pictureName: file.originalname,
+      productId: product.id,
+    });
+
+    return product;
   }
 }

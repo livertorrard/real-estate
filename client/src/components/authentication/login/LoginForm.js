@@ -44,10 +44,16 @@ export default function LoginForm() {
     validationSchema: LoginSchema,
     onSubmit: async (values, { resetForm }) => {
       try {
-        await postData(API_BASE_URL + '/auth/login', values);
-        if(Cookies.get('role') === 'ADMIN'){
+        const {data} = await postData(API_BASE_URL + '/auth/login', values);
+
+        if(data){
+          Cookies.set('token', data.token, { expires: Number(new Date()) + 86400 });
+          Cookies.set('role', data.role);
+          Cookies.set('fullname', data.name);
+          Cookies.set('id', data.id);
+      
           dispatch(login())
-          navigate('/dashboard');
+          navigate('/dashboard/user/list');
         }
       
         enqueueSnackbar('Login success', {
@@ -58,8 +64,8 @@ export default function LoginForm() {
             </MIconButton>
           ),
         });
-      } catch (error) {
-        enqueueSnackbar(error.response.data.message, {
+      } catch (data) {
+        enqueueSnackbar( data.message, {
           variant: 'error',
           action: (key) => (
             <MIconButton size="small" onClick={() => closeSnackbar(key)}>
