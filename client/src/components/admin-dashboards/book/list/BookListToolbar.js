@@ -72,12 +72,11 @@ export default function BookListToolbar({
 
   const deleteUser = async () => {
     try {
-      const res = await deleteData(API_BASE_URL + '/book/delete', {
-        arrID: JSON.stringify(selected),
-      });
+      const res = await deleteData(API_BASE_URL + '/products/delete', { ids: selected });
       if (setLoad) setLoad((e) => e + 1);
       if (setSelected) setSelected([]);
-      enqueueSnackbar(res.data, {
+
+      enqueueSnackbar(res.affected ? 'Delete Failded' : 'Delete Success', {
         variant: 'success',
         action: (key) => (
           <MIconButton size="small" onClick={() => closeSnackbar(key)}>

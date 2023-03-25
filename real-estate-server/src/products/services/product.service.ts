@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { first, Many, orderBy, pick } from 'lodash';
 import { PictureService } from 'src/pictures/services/picture.service';
-import { FindManyOptions, Like } from 'typeorm';
+import { FindManyOptions, Like, UpdateResult } from 'typeorm';
 import { ProductEntity } from '../entities/product.entity';
 import { ProductRepository } from '../repositories/product.repository';
 import { QueryOptionsProduct } from '../types/query-options-product.type';
@@ -170,7 +170,7 @@ export class ProductService {
     return this.productRepo.find(options);
   }
 
-  async createProduct(file, rawData) {
+  async createProduct(file, rawData, productId?: string) {
     const data = JSON.parse(rawData);
     let numberActive: number;
 
@@ -181,6 +181,7 @@ export class ProductService {
     }
 
     const product = await this.productRepo.save({
+      id: productId,
       active: numberActive,
       productCode: data.sp_masp,
       name: data.sp_ten,
@@ -196,11 +197,17 @@ export class ProductService {
       actionId: data.sp_idtl,
     });
 
-    await this.pictureService.createPicture({
-      pictureName: file.originalname,
-      productId: product.id,
-    });
+    if (file) {
+      await this.pictureService.createPicture({
+        pictureName: file.originalname,
+        productId: product.id,
+      });
+    }
 
     return product;
+  }
+
+  deleteProducts(ids: string[]): Promise<UpdateResult> {
+    return this.productRepo.softDelete(ids);
   }
 }

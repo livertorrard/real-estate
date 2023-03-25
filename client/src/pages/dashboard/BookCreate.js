@@ -33,7 +33,7 @@ export default function UserCreate() {
           links={[
             { name: 'Quản lý', href: PATH_DASHBOARD.root },
             { name: 'Dự án', href: PATH_DASHBOARD.book.root },
-            { name: !isEdit ? 'Thêm dự án' : id },
+            { name: !isEdit ? 'Thêm dự án' : current.name },
           ]}
         />
 

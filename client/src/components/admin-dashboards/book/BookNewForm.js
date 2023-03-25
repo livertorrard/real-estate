@@ -69,39 +69,39 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      sp_ten: currentProduct?.sp_ten || '',
-      sp_mota: currentProduct?.sp_mota || '',
+      sp_ten: currentProduct?.name || '',
+      sp_mota: currentProduct?.description || '',
       sp_hinhanh:
-        currentProduct?.sp_hinhanh?.map(
-          (e) => `${URL_PUBLIC_IMAGES + e.ha_hinh}`,
+        currentProduct?.pictures?.map(
+          (e) => `${URL_PUBLIC_IMAGES + e.pictureName}`,
         ) || [],
-      sp_gia: currentProduct?.sp_gia || 1000000,
-      sp_phongngu: currentProduct?.sp_phongngu || 1,
-      sp_dientich: currentProduct?.sp_dientich || 1,
-      sp_phongwc: currentProduct?.sp_phongwc || 1,
-      sp_huongnha: currentProduct?.sp_huongnha || '',
-      sp_diachi: currentProduct?.sp_diachi || '',
+      sp_gia: currentProduct?.price || 1000000,
+      sp_phongngu: currentProduct?.bedRoom || 1,
+      sp_dientich: currentProduct?.area || 1,
+      sp_phongwc: currentProduct?.toilet || 1,
+      sp_huongnha: currentProduct?.houseDirection || '',
+      sp_diachi: currentProduct?.address || '',
       sp_lat: currentProduct?.sp_lat || 1.0,
       sp_lng: currentProduct?.sp_lng || 1.0,
-      sp_thanhpho: currentProduct?.sp_thanhpho || '',
+      sp_thanhpho: currentProduct?.address || '',
       sp_idtl:
         {
-          tl_ten: currentProduct?.tl_ten,
-          tl_id: currentProduct?.sp_idtl,
+          tl_ten: currentProduct?.actionName,
+          tl_id: currentProduct?.actionId,
         } || '',
       sp_iddm:
         {
-          dm_ten: currentProduct?.dm_ten,
-          dm_id: currentProduct?.sp_iddm,
+          dm_ten: currentProduct?.categoryName,
+          dm_id: currentProduct?.categoryId,
         } || '',
       sp_idtg:
         {
-          tg_ten: currentProduct?.tg_ten,
-          tg_id: currentProduct?.sp_idtg,
+          tg_ten: currentProduct?.authorName,
+          tg_id: currentProduct?.authorId,
         } || '',
       active: Boolean(currentProduct?.active) || true,
-      sp_masp: currentProduct?.sp_masp || '',
-      sp_hinhanh_old: currentProduct?.sp_hinhanh || [],
+      sp_masp: currentProduct?.productCode || '',
+      sp_hinhanh_old: currentProduct?.pictureName || [],
     },
     validationSchema: NewProductSchema,
     onSubmit: async (values, { setSubmitting, resetForm, setErrors }) => {
@@ -119,7 +119,7 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
         formDt.append('data', JSON.stringify(_values));
         if (isEdit) {
           await putData(
-            API_BASE_URL + `/book/${currentProduct.sp_id}`,
+            API_BASE_URL + `/products/${currentProduct.id}`,
             formDt,
             {
               'content-type': 'multipart/form-data',

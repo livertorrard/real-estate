@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
+  Put,
   Query,
   UploadedFile,
   UseInterceptors,
@@ -13,6 +15,7 @@ import { ProductEntity } from 'src/products/entities/product.entity';
 import { ProductService } from 'src/products/services/product.service';
 import { diskStorage } from 'multer';
 import path = require('path');
+import { DeleteProducts } from '../dto/delete-products.dto';
 
 export const storage = {
   storage: diskStorage({
@@ -51,6 +54,21 @@ export class ProductController {
       type,
       sort,
     });
+  }
+
+  @Delete('delete')
+  deleteProducts(@Body() deleteProducts: DeleteProducts) {
+    return this.productService.deleteProducts(deleteProducts.ids);
+  }
+
+  @Put(':productId')
+  @UseInterceptors(FileInterceptor('file', storage))
+  updateProduct(
+    @UploadedFile() file,
+    @Body() data,
+    @Param('productId') productId: string,
+  ) {
+    return this.productService.createProduct(file, data.data, productId);
   }
 
   @Post('create')
