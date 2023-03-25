@@ -34,9 +34,9 @@ import { API_BASE_URL, URL_PUBLIC_IMAGES } from 'src/config/configUrl';
 import { useSnackbar } from 'notistack5';
 import { MIconButton } from 'src/components/@material-extend';
 import closeFill from '@iconify/icons-eva/close-fill';
-import LienHeToolbar from 'src/components/_dashboard/lienhe/list/LienHeListToolbar';
-import LienHeListHead from 'src/components/_dashboard/lienhe/list/LienHeListHead';
-import DialogMoreDetail from 'src/components/_dashboard/lienhe/list/DiaLogMoreDetail';
+import LienHeToolbar from 'src/components/admin-dashboards/lienhe/list/LienHeListToolbar';
+import LienHeListHead from 'src/components/admin-dashboards/lienhe/list/LienHeListHead';
+import DialogMoreDetail from 'src/components/admin-dashboards/lienhe/list/DiaLogMoreDetail';
 import { fCurrency } from 'src/utils/formatNumber';
 import { styled } from '@material-ui/core/styles';
 // ----------------------------------------------------------------------

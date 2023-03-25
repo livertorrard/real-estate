@@ -27,7 +27,7 @@ import {
   UserListHead,
   UserListToolbar,
   UserMoreMenu,
-} from '../../components/_dashboard/user/list';
+} from '../../components/admin-dashboards/user/list';
 import { getData, postData } from 'src/_helper/httpProvider';
 import { API_BASE_URL } from 'src/config/configUrl';
 import { useSnackbar } from 'notistack5';

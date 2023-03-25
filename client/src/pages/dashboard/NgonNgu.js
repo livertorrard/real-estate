@@ -31,9 +31,9 @@ import { API_BASE_URL } from 'src/config/configUrl';
 import { useSnackbar } from 'notistack5';
 import { MIconButton } from 'src/components/@material-extend';
 import closeFill from '@iconify/icons-eva/close-fill';
-import NgonNguNewForm from 'src/components/_dashboard/ngonngu/NgonNguNewForm';
-import NgonNguListToolbar from 'src/components/_dashboard/ngonngu/list/NgonNguListToolbar';
-import NgonNguListHead from 'src/components/_dashboard/ngonngu/list/NgonNguListHead';
+import NgonNguNewForm from 'src/components/admin-dashboards/ngonngu/NgonNguNewForm';
+import NgonNguListToolbar from 'src/components/admin-dashboards/ngonngu/list/NgonNguListToolbar';
+import NgonNguListHead from 'src/components/admin-dashboards/ngonngu/list/NgonNguListHead';
 
 // ----------------------------------------------------------------------
 

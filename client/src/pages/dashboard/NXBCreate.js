@@ -12,7 +12,7 @@ import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import { API_BASE_URL } from 'src/config/configUrl';
 import { getData } from 'src/_helper/httpProvider';
-import NXBNewForm from 'src/components/_dashboard/nhaxuatban/NXBNewForm';
+import NXBNewForm from 'src/components/admin-dashboards/nhaxuatban/NXBNewForm';
 
 // ----------------------------------------------------------------------
 

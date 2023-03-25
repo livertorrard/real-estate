@@ -7,7 +7,7 @@ import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import { API_BASE_URL } from 'src/config/configUrl';
 import { getData } from 'src/_helper/httpProvider';
-import RoleNewForm from 'src/components/_dashboard/Role/RoleNewForm';
+import RoleNewForm from 'src/components/admin-dashboards/Role/RoleNewForm';
 
 export default function RoleCreate() {
   const { themeStretch } = useSettings();

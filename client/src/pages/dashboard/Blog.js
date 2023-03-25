@@ -33,9 +33,9 @@ import { API_BASE_URL, URL_PUBLIC_IMAGES } from 'src/config/configUrl';
 import { useSnackbar } from 'notistack5';
 import { MIconButton } from 'src/components/@material-extend';
 import closeFill from '@iconify/icons-eva/close-fill';
-import BlogListToolbar from 'src/components/_dashboard/blog/list/BlogListToolbar';
-import BookListHead from 'src/components/_dashboard/blog/list/BlogListHead';
-import BlogMoreMenu from 'src/components/_dashboard/blog/list/BlogMoreMenu';
+import BlogListToolbar from 'src/components/admin-dashboards/blog/list/BlogListToolbar';
+import BookListHead from 'src/components/admin-dashboards/blog/list/BlogListHead';
+import BlogMoreMenu from 'src/components/admin-dashboards/blog/list/BlogMoreMenu';
 
 // ----------------------------------------------------------------------
 

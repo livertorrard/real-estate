@@ -8,7 +8,7 @@ import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-import AccountChangePassword from 'src/components/_dashboard/user/account/AccountChangePassword';
+import AccountChangePassword from 'src/components/admin-dashboards/user/account/AccountChangePassword';
 
 // ----------------------------------------------------------------------
 

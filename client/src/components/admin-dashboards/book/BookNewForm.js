@@ -35,6 +35,7 @@ ProductNewForm.propTypes = {
 };
 
 export default function ProductNewForm({ isEdit, currentProduct }) {
+  
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [tacgiaList, setTacgiaList] = useState([]);
   const [tlList, setTlList] = useState([]);

@@ -28,9 +28,9 @@ import { API_BASE_URL } from 'src/config/configUrl';
 import { useSnackbar } from 'notistack5';
 import { MIconButton } from 'src/components/@material-extend';
 import closeFill from '@iconify/icons-eva/close-fill';
-import RoleListToolbar from 'src/components/_dashboard/Role/list/RoleListToolbar';
-import RoleListHead from 'src/components/_dashboard/Role/list/RoleListHead';
-import RoleMoreMenu from 'src/components/_dashboard/Role/list/RoleMoreMenu';
+import RoleListToolbar from 'src/components/admin-dashboards/Role/list/RoleListToolbar';
+import RoleListHead from 'src/components/admin-dashboards/Role/list/RoleListHead';
+import RoleMoreMenu from 'src/components/admin-dashboards/Role/list/RoleMoreMenu';
 
 const TABLE_HEAD = [
   { id: 'tên', label: 'Tên', alignRight: false },

@@ -31,9 +31,9 @@ import { API_BASE_URL, URL_PUBLIC_IMAGES } from 'src/config/configUrl';
 import { useSnackbar } from 'notistack5';
 import { MIconButton } from 'src/components/@material-extend';
 import closeFill from '@iconify/icons-eva/close-fill';
-import DanhMucNewForm from 'src/components/_dashboard/danhmuc/DanhMucNewForm';
-import DanhMucListToolbar from 'src/components/_dashboard/danhmuc/list/DanhMucListToolbar';
-import DanhMucListHead from 'src/components/_dashboard/danhmuc/list/DanhMucListHead';
+import DanhMucNewForm from 'src/components/admin-dashboards/danhmuc/DanhMucNewForm';
+import DanhMucListToolbar from 'src/components/admin-dashboards/danhmuc/list/DanhMucListToolbar';
+import DanhMucListHead from 'src/components/admin-dashboards/danhmuc/list/DanhMucListHead';
 
 // ----------------------------------------------------------------------
 

@@ -32,9 +32,9 @@ import { API_BASE_URL } from 'src/config/configUrl';
 import { useSnackbar } from 'notistack5';
 import { MIconButton } from 'src/components/@material-extend';
 import closeFill from '@iconify/icons-eva/close-fill';
-import NCCListToolbar from 'src/components/_dashboard/nhacungcap/list/NCCListToolbar';
-import NCCListHead from 'src/components/_dashboard/nhacungcap/list/NCCListHead';
-import NCCMoreMenu from 'src/components/_dashboard/nhacungcap/list/NCCMoreMenu';
+import NCCListToolbar from 'src/components/admin-dashboards/nhacungcap/list/NCCListToolbar';
+import NCCListHead from 'src/components/admin-dashboards/nhacungcap/list/NCCListHead';
+import NCCMoreMenu from 'src/components/admin-dashboards/nhacungcap/list/NCCMoreMenu';
 
 // ----------------------------------------------------------------------
 

@@ -31,9 +31,9 @@ import { API_BASE_URL } from 'src/config/configUrl';
 import { useSnackbar } from 'notistack5';
 import { MIconButton } from 'src/components/@material-extend';
 import closeFill from '@iconify/icons-eva/close-fill';
-import TacGiaNewForm from 'src/components/_dashboard/tacgia/TacGiaNewForm';
-import TacGiaListToolbar from 'src/components/_dashboard/tacgia/list/TacGiaListToolbar';
-import TacGiaListHead from 'src/components/_dashboard/tacgia/list/TacGiaListHead';
+import TacGiaNewForm from 'src/components/admin-dashboards/tacgia/TacGiaNewForm';
+import TacGiaListToolbar from 'src/components/admin-dashboards/tacgia/list/TacGiaListToolbar';
+import TacGiaListHead from 'src/components/admin-dashboards/tacgia/list/TacGiaListHead';
 
 // ----------------------------------------------------------------------
 

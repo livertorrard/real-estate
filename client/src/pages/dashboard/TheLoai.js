@@ -30,9 +30,9 @@ import { API_BASE_URL } from 'src/config/configUrl';
 import { useSnackbar } from 'notistack5';
 import { MIconButton } from 'src/components/@material-extend';
 import closeFill from '@iconify/icons-eva/close-fill';
-import TheLoaiNewForm from 'src/components/_dashboard/theloai/TheLoaiNewForm';
-import TheLoaiToolbar from 'src/components/_dashboard/theloai/list/TheLoaiListToolbar';
-import TheLoaiListHead from 'src/components/_dashboard/theloai/list/TheLoaiListHead';
+import TheLoaiNewForm from 'src/components/admin-dashboards/theloai/TheLoaiNewForm';
+import TheLoaiToolbar from 'src/components/admin-dashboards/theloai/list/TheLoaiListToolbar';
+import TheLoaiListHead from 'src/components/admin-dashboards/theloai/list/TheLoaiListHead';
 
 // ----------------------------------------------------------------------
 

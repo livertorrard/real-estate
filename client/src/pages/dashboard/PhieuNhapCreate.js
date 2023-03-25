@@ -12,7 +12,7 @@ import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import { API_BASE_URL } from 'src/config/configUrl';
 import { getData } from 'src/_helper/httpProvider';
-import PhieuNhapNewForm from 'src/components/_dashboard/phieunhap/PhieuNhapNewForm';
+import PhieuNhapNewForm from 'src/components/admin-dashboards/phieunhap/PhieuNhapNewForm';
 import { useSelector } from 'react-redux';
 
 // ----------------------------------------------------------------------

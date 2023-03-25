@@ -11,8 +11,8 @@ import {
   BookingRoomAvailable,
   BookingCheckInWidgets,
   BookingReservationStats,
-} from '../../components/_dashboard/general-booking';
-import BookingLienHeChuaMua from 'src/components/_dashboard/general-booking/BookingLienHeChuaMua';
+} from '../../components/admin-dashboards/general-booking';
+import BookingLienHeChuaMua from 'src/components/admin-dashboards/general-booking/BookingLienHeChuaMua';
 
 // ----------------------------------------------------------------------
 

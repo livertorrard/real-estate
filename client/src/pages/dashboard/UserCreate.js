@@ -5,7 +5,7 @@ import { PATH_DASHBOARD } from '../../routes/paths';
 import useSettings from '../../hooks/useSettings';
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-import UserNewForm from '../../components/_dashboard/user/UserNewForm';
+import UserNewForm from '../../components/admin-dashboards/user/UserNewForm';
 import { API_BASE_URL } from 'src/config/configUrl';
 import { getData } from 'src/_helper/httpProvider';
 

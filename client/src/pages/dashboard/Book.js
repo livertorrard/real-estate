@@ -29,9 +29,9 @@ import { API_BASE_URL, URL_PUBLIC_IMAGES } from 'src/config/configUrl';
 import { useSnackbar } from 'notistack5';
 import { MIconButton } from 'src/components/@material-extend';
 import closeFill from '@iconify/icons-eva/close-fill';
-import BookListToolbar from 'src/components/_dashboard/book/list/BookListToolbar';
-import BookListHead from 'src/components/_dashboard/book/list/BookListHead';
-import BookMoreMenu from 'src/components/_dashboard/book/list/BookMoreMenu';
+import BookListToolbar from 'src/components/admin-dashboards/book/list/BookListToolbar';
+import BookListHead from 'src/components/admin-dashboards/book/list/BookListHead';
+import BookMoreMenu from 'src/components/admin-dashboards/book/list/BookMoreMenu';
 import { fCurrency } from 'src/utils/formatNumber';
 
 const TABLE_HEAD = [

@@ -32,9 +32,9 @@ import { API_BASE_URL } from 'src/config/configUrl';
 import { useSnackbar } from 'notistack5';
 import { MIconButton } from 'src/components/@material-extend';
 import closeFill from '@iconify/icons-eva/close-fill';
-import NXBListToolbar from 'src/components/_dashboard/nhaxuatban/list/NXBListToolbar';
-import NXBListHead from 'src/components/_dashboard/nhaxuatban/list/NXBListHead';
-import NXBMoreMenu from 'src/components/_dashboard/nhaxuatban/list/NXBMoreMenu';
+import NXBListToolbar from 'src/components/admin-dashboards/nhaxuatban/list/NXBListToolbar';
+import NXBListHead from 'src/components/admin-dashboards/nhaxuatban/list/NXBListHead';
+import NXBMoreMenu from 'src/components/admin-dashboards/nhaxuatban/list/NXBMoreMenu';
 
 // ----------------------------------------------------------------------
 
