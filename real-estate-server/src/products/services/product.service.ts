@@ -199,7 +199,7 @@ export class ProductService {
 
     if (file) {
       await this.pictureService.createPicture({
-        pictureName: file.originalname,
+        pictureName: file.filename,
         productId: product.id,
       });
     }

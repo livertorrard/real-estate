@@ -8,6 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Pannellum } from 'pannellum-react';
 import './index.scss';
+import { URL_PUBLIC_IMAGES } from 'src/config/configUrl';
 
 export default function DialogListImage({
   open,
@@ -16,12 +17,12 @@ export default function DialogListImage({
 }) {
   const [imgActive, setImgActive] = React.useState(0);
   const [imgSrc, setImgSrc] = React.useState(
-    `http://localhost:3005/public/images/${listProduct[0].pictureName}`,
+    `${URL_PUBLIC_IMAGES + listProduct[0].pictureName}`,
   );
 
   const setImgThumbSrc = (imgSrc, index) => {
     setImgActive(index);
-    setImgSrc(`http://localhost:3005/public/images/${imgSrc}`);
+    setImgSrc(`${URL_PUBLIC_IMAGES + imgSrc}`);
   };
 
   return (
@@ -56,8 +57,7 @@ export default function DialogListImage({
                       onClick={() => {
                         setImgThumbSrc(product.pictureName, index);
                       }}
-                      src={`http://localhost:3005/public/images/
-                        ${product.pictureName}`}
+                      src={`${URL_PUBLIC_IMAGES + product.pictureName}`}
                       className={active}
                       alt={product.pictureName}
                     />

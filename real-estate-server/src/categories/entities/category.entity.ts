@@ -1,7 +1,7 @@
+import { BaseEntity } from 'src/base.entity';
 import { PictureEntity } from 'src/pictures/entities/picture.entity';
 import { ProductEntity } from 'src/products/entities/product.entity';
 import {
-  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,

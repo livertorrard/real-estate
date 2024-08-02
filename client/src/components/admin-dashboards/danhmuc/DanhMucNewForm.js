@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import { useSnackbar } from 'notistack5';
 import { styled } from '@material-ui/core/styles';
 import { Form, FormikProvider, useFormik } from 'formik';
-// material
 import { LoadingButton } from '@material-ui/lab';
-import { Box, Card, Grid, Stack, TextField, Typography } from '@material-ui/core';
-// utils
-// routes
-//
+import {
+  Box,
+  Card,
+  Grid,
+  Stack,
+  TextField,
+  Typography,
+} from '@material-ui/core';
 import { UploadMultiFile } from '../../upload';
 import { postData, putData } from 'src/_helper/httpProvider';
 import { API_BASE_URL, URL_PUBLIC_IMAGES } from 'src/config/configUrl';
@@ -17,7 +20,6 @@ import { MIconButton } from 'src/components/@material-extend';
 import closeFill from '@iconify/icons-eva/close-fill';
 import { useCallback } from 'react';
 
-// ----------------------------------------------------------------------
 const LabelStyle = styled(Typography)(({ theme }) => ({
   ...theme.typography.subtitle2,
   color: theme.palette.text.secondary,
@@ -32,52 +34,41 @@ DanhMucNewForm.propTypes = {
   setLoad: PropTypes.func,
 };
 
-// ----------------------------------------------------------------------
-
 export default function DanhMucNewForm({ isEdit, current, setEdit, setLoad }) {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const NewSchema = Yup.object().shape({
-    dm_ten: Yup.string().required('Vui lòng nhập tên'),
-    dm_hinhanh: Yup.array(),
+    name: Yup.string().required('Vui lòng nhập tên'),
+    pictureName: Yup.array(),
   });
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      dm_ten: current?.dm_ten || '',
-      dm_hinhanh:
-      current?.dm_hinhanh?.map(
-        (e) => `${URL_PUBLIC_IMAGES + e.adm_hinh}`,
-      ) || [],
-      dm_hinhanh_old: current?.dm_hinhanh || [],
+      name: current?.name || '',
+      pictureName: current?.pictureName ? [`${URL_PUBLIC_IMAGES + current.pictureName}`] : [],
+      oldPictureName: current?.pictureName ? [`${URL_PUBLIC_IMAGES + current.pictureName}`] : [],
     },
     validationSchema: NewSchema,
     onSubmit: async (values, { resetForm }) => {
       try {
-        let _values = { ...values };
         const formDt = new FormData();
-        if (values.dm_hinhanh.length > 0) {
-          values.dm_hinhanh.map((value) => {
-            return formDt.append('dm_hinhanh', value);
+        if (values.pictureName.length > 0) {
+          values.pictureName.map((value) => {
+            return formDt.append('pictureName', value);
           });
-        };
-        formDt.append('data', JSON.stringify(_values));
+        }
+        formDt.append('name', values.name);
+  
         if (isEdit) {
-          await putData(API_BASE_URL + `/danhmuc/${current.id}/edit`, 
-            formDt,
-            {
-              'content-type': 'multipart/form-data',
-            },
-          );
+          await putData(API_BASE_URL + `/categories/${current.id}`, formDt, {
+            'content-type': 'multipart/form-data',
+          });
           if (setEdit) setEdit({ isEdit: false, current: {} });
         } else {
-          await postData(API_BASE_URL + `/danhmuc/create`, 
-            formDt,
-            {
-              'content-type': 'multipart/form-data',
-            },
-          );
+          await postData(API_BASE_URL + `/categories`, formDt, {
+            'content-type': 'multipart/form-data',
+          });
           resetForm();
         }
         if (setLoad) setLoad((e) => e + 1);
@@ -100,11 +91,18 @@ export default function DanhMucNewForm({ isEdit, current, setEdit, setLoad }) {
       }
     },
   });
-  const { errors,values, touched, handleSubmit, setFieldValue, getFieldProps } = formik;
+  const {
+    errors,
+    values,
+    touched,
+    handleSubmit,
+    setFieldValue,
+    getFieldProps,
+  } = formik;
   const handleDrop = useCallback(
     (acceptedFiles) => {
       setFieldValue(
-        'dm_hinhanh',
+        'pictureName',
         acceptedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
@@ -116,12 +114,12 @@ export default function DanhMucNewForm({ isEdit, current, setEdit, setLoad }) {
   );
 
   const handleRemoveAll = () => {
-    setFieldValue('dm_hinhanh', []);
+    setFieldValue('pictureName', []);
   };
 
   const handleRemove = (file) => {
-    const filteredItems = values.dm_hinhanh.filter((_file) => _file !== file);
-    setFieldValue('dm_hinhanh', filteredItems);
+    const filteredItems = values.pictureName.filter((_file) => _file !== file);
+    setFieldValue('pictureName', filteredItems);
   };
   return (
     <FormikProvider value={formik}>
@@ -133,9 +131,9 @@ export default function DanhMucNewForm({ isEdit, current, setEdit, setLoad }) {
                 <TextField
                   fullWidth
                   label="Tên danh mục"
-                  {...getFieldProps('dm_ten')}
-                  error={Boolean(touched.dm_ten && errors.dm_ten)}
-                  helperText={touched.dm_ten && errors.dm_ten}
+                  {...getFieldProps('name')}
+                  error={Boolean(touched.name && errors.name)}
+                  helperText={touched.name && errors.name}
                 />
                 <div>
                   <LabelStyle>Thêm hình ảnh</LabelStyle>
@@ -143,11 +141,11 @@ export default function DanhMucNewForm({ isEdit, current, setEdit, setLoad }) {
                     showPreview
                     maxSize={3145728}
                     accept="image/*"
-                    files={values.dm_hinhanh}
+                    files={values.pictureName}
                     onDrop={handleDrop}
                     onRemove={handleRemove}
                     onRemoveAll={handleRemoveAll}
-                    error={Boolean(touched.dm_hinhanh && errors.dm_hinhanh)}
+                    error={Boolean(touched.pictureName && errors.pictureName)}
                   />
                 </div>
 

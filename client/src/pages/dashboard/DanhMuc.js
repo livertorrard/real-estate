@@ -1,6 +1,5 @@
 import { Icon } from '@iconify/react';
 import { useState, useEffect } from 'react';
-// material
 import {
   Card,
   Table,
@@ -15,18 +14,15 @@ import {
   Switch,
   Grid,
   IconButton,
-  Avatar
+  Avatar,
 } from '@material-ui/core';
-// routes
 import { PATH_DASHBOARD } from '../../routes/paths';
-// hooks
 import useSettings from '../../hooks/useSettings';
-// components
 import Page from '../../components/Page';
 import Scrollbar from '../../components/Scrollbar';
 import SearchNotFound from '../../components/SearchNotFound';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-import { getData, postData } from 'src/_helper/httpProvider';
+import { getData, putData } from 'src/_helper/httpProvider';
 import { API_BASE_URL, URL_PUBLIC_IMAGES } from 'src/config/configUrl';
 import { useSnackbar } from 'notistack5';
 import { MIconButton } from 'src/components/@material-extend';
@@ -35,16 +31,12 @@ import DanhMucNewForm from 'src/components/admin-dashboards/danhmuc/DanhMucNewFo
 import DanhMucListToolbar from 'src/components/admin-dashboards/danhmuc/list/DanhMucListToolbar';
 import DanhMucListHead from 'src/components/admin-dashboards/danhmuc/list/DanhMucListHead';
 
-// ----------------------------------------------------------------------
-
 const TABLE_HEAD = [
   { id: 'tên', label: 'Tên', alignRight: false },
-  { id: 'anh', label: 'Hình ảnh', alignRight: false },
-  { id: 'status', label: 'Trạng thái', alignRight: false },
+  { id: 'status', label: 'Trang thái', alignRight: false },
+  { id: 'edit', label: 'Chỉnh sửa', alignRight: false },
   { id: '' },
 ];
-
-// ----------------------------------------------------------------------
 
 export default function DanhMucList() {
   const { themeStretch } = useSettings();
@@ -63,7 +55,7 @@ export default function DanhMucList() {
     (async () => {
       try {
         const res = await getData(
-          API_BASE_URL + `/danhmuc?search=${filterName}`,
+          API_BASE_URL + `/categories?search=${filterName}`,
         );
         setDatas(res.data);
       } catch (e) {
@@ -80,7 +72,7 @@ export default function DanhMucList() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = datas.map((n) => n.dm_id);
+      const newSelecteds = datas.map((n) => n.id);
       setSelected(newSelecteds);
       return;
     }
@@ -124,11 +116,9 @@ export default function DanhMucList() {
   const isRoleNotFound = datas.length === 0;
 
   const changeActiveRole = async (id, active) => {
-    console.log(id, active);
     try {
-      const res = await postData(API_BASE_URL + '/danhmuc/active', {
-        id: id,
-        active: active,
+      const res = await putData(API_BASE_URL + `/categories/active/${id}`, {
+        active: active ? 1 : 0,
       });
       setLoad((e) => e + 1);
       enqueueSnackbar(res.data, {
@@ -191,12 +181,12 @@ export default function DanhMucList() {
                           page * rowsPerPage + rowsPerPage,
                         )
                         .map((row) => {
-                          const { dm_id, dm_ten, dm_hinhanh, active } = row;
-                          const isItemSelected = selected.indexOf(dm_id) !== -1;
+                          const { id, name, pictureName, active } = row;
+                          const isItemSelected = selected.indexOf(id) !== -1;
                           return (
                             <TableRow
                               hover
-                              key={dm_id}
+                              key={id}
                               tabIndex={-1}
                               role="checkbox"
                               selected={isItemSelected}
@@ -205,9 +195,7 @@ export default function DanhMucList() {
                               <TableCell padding="checkbox">
                                 <Checkbox
                                   checked={isItemSelected}
-                                  onChange={(event) =>
-                                    handleClick(event, dm_id)
-                                  }
+                                  onChange={(event) => handleClick(event, id)}
                                 />
                               </TableCell>
                               <TableCell
@@ -220,16 +208,14 @@ export default function DanhMucList() {
                                   alignItems="center"
                                   spacing={2}
                                 >
-                                   <Avatar
-                                      variant="square"
-                                      alt=""
-                                      sx={{ mr: 1}}
-                                      src={`${
-                                        URL_PUBLIC_IMAGES + dm_hinhanh[0]?.adm_hinh
-                                      }`}
-                                    />
+                                  <Avatar
+                                    variant="square"
+                                    alt=""
+                                    sx={{ mr: 1 }}
+                                    src={`${URL_PUBLIC_IMAGES + pictureName}`}
+                                  />
                                   {/* <Typography variant="subtitle2" noWrap> */}
-                                    {dm_ten}
+                                  {name}
                                   {/* </Typography> */}
                                 </Stack>
                               </TableCell>
@@ -237,7 +223,7 @@ export default function DanhMucList() {
                                 <Switch
                                   checked={active === 1}
                                   onChange={() => {
-                                    changeActiveRole(dm_id, !active);
+                                    changeActiveRole(id, !active);
                                   }}
                                 />
                               </TableCell>
@@ -250,7 +236,7 @@ export default function DanhMucList() {
                                     onClick={() =>
                                       setEdit({
                                         isEdit: true,
-                                        current: { id: dm_id, dm_ten: dm_ten, dm_hinhanh: dm_hinhanh},
+                                        current: { id, name, pictureName },
                                       })
                                     }
                                   />

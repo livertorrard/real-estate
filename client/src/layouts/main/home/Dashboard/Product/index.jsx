@@ -4,6 +4,7 @@ import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import './index.scss';
 import { fCurrency } from 'src/utils/formatNumber';
+import { URL_PUBLIC_IMAGES } from 'src/config/configUrl';
 
 export default function Product(props) {
   const product_img_1 = '/images/product_img_1.png';
@@ -20,7 +21,7 @@ export default function Product(props) {
         >
           <img
             style={{ width: '800px', height: '250px' }}
-            src={`http://localhost:3005/public/images/${props.product.pictures[0].pictureName}`}
+            src={`${URL_PUBLIC_IMAGES + props.product.pictures[0].pictureName}`}
             alt="Cho thuê căn hộ, biệt thự cao cấp"
           />
         </Link>

@@ -1,5 +1,6 @@
 import { BaseEntity } from 'src/base.entity';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { PictureEntity } from 'src/pictures/entities/picture.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('Post')
 export class PostEntity extends BaseEntity {
@@ -12,9 +13,12 @@ export class PostEntity extends BaseEntity {
   @Column({ type: 'varchar', length: 10485760 })
   description: string;
 
-  @Column({ type: 'int', default: 1 })
-  active: number;
+  @Column({ type: 'boolean', default: false })
+  active: boolean;
 
   @Column({ type: 'varchar', length: 20 })
   code: string;
+
+  @OneToMany(() => PictureEntity, (picture) => picture.post)
+  pictures: PictureEntity[];
 }

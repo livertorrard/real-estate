@@ -3,7 +3,6 @@ import { Icon } from '@iconify/react';
 import searchFill from '@iconify/icons-eva/search-fill';
 import trash2Fill from '@iconify/icons-eva/trash-2-fill';
 import roundFilterList from '@iconify/icons-ic/round-filter-list';
-// material
 import { useTheme, styled } from '@material-ui/core/styles';
 import {
   Box,
@@ -21,8 +20,6 @@ import { MIconButton } from 'src/components/@material-extend';
 import closeFill from '@iconify/icons-eva/close-fill';
 import { useState } from 'react';
 import DialogConfirm from '../../DialogConfirm';
-
-// ----------------------------------------------------------------------
 
 const RootStyle = styled(Toolbar)(({ theme }) => ({
   height: 96,
@@ -44,8 +41,6 @@ const SearchStyle = styled(OutlinedInput)(({ theme }) => ({
   },
 }));
 
-// ----------------------------------------------------------------------
-
 DanhMucListToolbar.propTypes = {
   numSelected: PropTypes.number,
   filterName: PropTypes.string,
@@ -53,7 +48,7 @@ DanhMucListToolbar.propTypes = {
   setLoad: PropTypes.func,
   setSelected: PropTypes.func,
 };
-// ----------------------------------------------------------------------
+
 export default function DanhMucListToolbar({
   selected,
   filterName,
@@ -77,12 +72,13 @@ export default function DanhMucListToolbar({
 
   const deleteUser = async () => {
     try {
-      const res = await deleteData(API_BASE_URL + '/danhmuc/delete', {
-        arrID: JSON.stringify(selected),
-      });
+      await deleteData(
+        API_BASE_URL + `/categories?ids=${selected.join(',')}`,
+        {},
+      );
       if (setLoad) setLoad((e) => e + 1);
       if (setSelected) setSelected([]);
-      enqueueSnackbar(res.data, {
+      enqueueSnackbar('Xoá thành công', {
         variant: 'success',
         action: (key) => (
           <MIconButton size="small" onClick={() => closeSnackbar(key)}>

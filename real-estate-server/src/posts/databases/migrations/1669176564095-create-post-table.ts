@@ -16,19 +16,17 @@ export class CreatePostTable1669176564095 implements MigrationInterface {
           {
             name: 'name',
             type: 'varchar',
-            isUnique: true,
             length: '250',
           },
           {
             name: 'description',
             type: 'varchar',
-            isUnique: true,
             length: '1000000',
           },
           {
             name: 'active',
-            type: 'int',
-            default: 1,
+            type: 'boolean',
+            default: false,
           },
           {
             name: 'code',
@@ -50,7 +48,7 @@ export class CreatePostTable1669176564095 implements MigrationInterface {
           {
             name: 'deletedAt',
             type: 'timestamp',
-            default: 'now()',
+            default: 'null',
             isNullable: true,
           },
         ],

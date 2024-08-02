@@ -1,20 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-// material
 import { Container } from '@material-ui/core';
-// redux
-// routes
 import { PATH_DASHBOARD } from '../../routes/paths';
-// hooks
 import useSettings from '../../hooks/useSettings';
-// components
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import { API_BASE_URL } from 'src/config/configUrl';
 import { getData } from 'src/_helper/httpProvider';
 import BlogNewForm from 'src/components/admin-dashboards/blog/BlogNewForm';
 
-// ----------------------------------------------------------------------
 
 export default function BlogCreate() {
   const { themeStretch } = useSettings();
@@ -26,7 +20,7 @@ export default function BlogCreate() {
   useEffect(() => {
     (async () => {
       if (isEdit) {
-        const _res = await getData(API_BASE_URL + `/blog/${id}`);
+        const _res = await getData(API_BASE_URL + `/posts/${id}`);
         setCurrent(_res.data);
       }
     })();
@@ -40,7 +34,7 @@ export default function BlogCreate() {
           links={[
             { name: 'Quản lý', href: PATH_DASHBOARD.root },
             { name: 'Bài viết', href: PATH_DASHBOARD.blog.root },
-            { name: !isEdit ? 'Thêm bài viêt' : id },
+            { name: !isEdit ? 'Thêm bài viêt' : current.name },
           ]}
         />
 

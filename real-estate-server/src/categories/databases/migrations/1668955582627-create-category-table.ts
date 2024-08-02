@@ -36,6 +36,12 @@ export class CreateCategoryTable1668955582627 implements MigrationInterface {
             default: 'now()',
             isNullable: true,
           },
+          {
+            name: 'deletedAt',
+            type: 'timestamp',
+            default: 'null',
+            isNullable: true,
+          },
         ],
       }),
     );

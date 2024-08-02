@@ -6,7 +6,7 @@ import Container from '@mui/material/Container';
 import { Typography } from '@mui/material';
 import './index.scss';
 import { getData } from 'src/_helper/httpProvider';
-import { API_BASE_URL } from 'src/config/configUrl';
+import { API_BASE_URL, URL_PUBLIC_IMAGES } from 'src/config/configUrl';
 import { Link } from 'react-router-dom';
 
 export default function ListProductEspecical() {
@@ -42,7 +42,7 @@ export default function ListProductEspecical() {
               <Grid className="_item" key={index} item xs={12} sm={col_md}>
                 <div className="wrap_banner">
                   <img
-                    src={`http://localhost:3005/public/images/${product?.pictureName}`}
+                    src={`${URL_PUBLIC_IMAGES + product?.pictureName}`}
                     alt={product.name}
                   />
                   <div class="wr_title">

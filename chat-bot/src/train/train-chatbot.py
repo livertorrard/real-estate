@@ -15,7 +15,7 @@ classes = []
 documents = []
 
 ignore_words = ['?', '!']
-data_file = open('train/input-data/intents.json').read()
+data_file = open('src/train/input-data/intents.json').read()
 intents = json.loads(data_file)
 
 
@@ -43,8 +43,8 @@ print (len(classes), "classes", classes)
 print (len(words), "unique lemmatized words", words)
 
 
-pickle.dump(words,open('train/trained-data/words.pkl','wb'))
-pickle.dump(classes,open('train/trained-data/classes.pkl','wb'))
+pickle.dump(words,open('src/train/trained-data/words.pkl','wb'))
+pickle.dump(classes,open('src/train/trained-data/classes.pkl','wb'))
 
 # create our training data
 training = []
@@ -86,7 +86,7 @@ model.add(Dropout(0.5))
 model.add(Dense(len(train_y[0]), activation='softmax'))
 
 # Compile model. Stochastic gradient descent with Nesterov accelerated gradient gives good results for this model
-sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
+sgd = SGD(learning_rate=0.01, decay=1e-6, momentum=0.9, nesterov=True)
 model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
 
 #fitting and saving the model 

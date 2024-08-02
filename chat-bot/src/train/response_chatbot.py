@@ -9,9 +9,9 @@ from keras.models import load_model
 lemmatizer = WordNetLemmatizer()
 model = load_model('train/trained-data/chatbot_model.h5')
 
-intents = json.loads(open('train/input-data/intents.json').read())
-words = pickle.load(open('train/trained-data/words.pkl','rb'))
-classes = pickle.load(open('train/trained-data/classes.pkl','rb'))
+intents = json.loads(open('src/train/input-data/intents.json').read())
+words = pickle.load(open('src/train/trained-data/words.pkl','rb'))
+classes = pickle.load(open('src/train/trained-data/classes.pkl','rb'))
 
 def cleanUpSentence(sentence):
     # tokenize the pattern - split words into array

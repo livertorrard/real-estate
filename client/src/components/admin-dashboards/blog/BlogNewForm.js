@@ -1,9 +1,8 @@
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 import { useSnackbar } from 'notistack5';
-import { useCallback} from 'react';
+import { useCallback } from 'react';
 import { Form, FormikProvider, useFormik } from 'formik';
-// material
 import { styled } from '@material-ui/core/styles';
 import { LoadingButton } from '@material-ui/lab';
 import {
@@ -16,9 +15,6 @@ import {
   FormControlLabel,
   Icon,
 } from '@material-ui/core';
-// utils
-// routes
-//
 import { QuillEditor } from '../../editor';
 import { UploadMultiFile } from '../../upload';
 import { postData, putData } from 'src/_helper/httpProvider';
@@ -26,15 +22,11 @@ import { API_BASE_URL, URL_PUBLIC_IMAGES } from 'src/config/configUrl';
 import { MIconButton } from 'src/components/@material-extend';
 import closeFill from '@iconify/icons-eva/close-fill';
 
-// ----------------------------------------------------------------------
-
 const LabelStyle = styled(Typography)(({ theme }) => ({
   ...theme.typography.subtitle2,
   color: theme.palette.text.secondary,
   marginBottom: theme.spacing(1),
 }));
-
-// ----------------------------------------------------------------------
 
 BlogNewForm.propTypes = {
   isEdit: PropTypes.bool,
@@ -44,48 +36,46 @@ BlogNewForm.propTypes = {
 export default function BlogNewForm({ isEdit, currentProduct }) {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-
   const NewProductSchema = Yup.object().shape({
-    bv_ten: Yup.string().required('Vui lòng nhập tên bài viết'),
-    bv_ma: Yup.string().required('Vui lòng nhập mã bài viết'),
-    sp_mota: Yup.string(),
-    bv_hinhanh: Yup.array(),
+    name: Yup.string().required('Vui lòng nhập tên bài viết'),
+    code: Yup.string()
+      .max(20, 'Vui lòng nhập không quá 20 kí tự')
+      .required('Vui lòng nhập mã bài viết'),
+    description: Yup.string(),
+    file: Yup.array(),
   });
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      bv_ten: currentProduct?.bv_ten || '',
-      bv_ma: currentProduct?.bv_ma || '',
-      bv_mota: currentProduct?.bv_mota || '',
-      bv_hinhanh:
-        currentProduct?.bv_hinhanh?.map(
-          (e) => `${URL_PUBLIC_IMAGES + e.abv_hinh}`,
+      name: currentProduct?.name || '',
+      code: currentProduct?.code || '',
+      description: currentProduct?.description || '',
+      file:
+        currentProduct?.pictures?.map(
+          (e) => `${URL_PUBLIC_IMAGES + e.pictureName}`,
         ) || [],
-      active: Boolean(currentProduct?.active) || true,
-      bv_hinhanh_old: currentProduct?.bv_hinhanh || [],
+      active: Boolean(currentProduct?.active) ? 1 : 0,
     },
     validationSchema: NewProductSchema,
     onSubmit: async (values, { setSubmitting, resetForm, setErrors }) => {
-      let _values = { ...values };
       try {
         const formDt = new FormData();
-        if (values.bv_hinhanh.length > 0) {
-          values.bv_hinhanh.map((value) => {
-            return formDt.append('bv_hinhanh', value);
-          });
+        if (values.file.length > 0) {
+          formDt.append('file', values.file[0]);
         }
-        formDt.append('data', JSON.stringify(_values));
+
+        formDt.append('name', values.name);
+        formDt.append('code', values.code);
+        formDt.append('description', values.description);
+        formDt.append('active', values.active);
+
         if (isEdit) {
-          await putData(
-            API_BASE_URL + `/blog/${currentProduct.bv_id}`,
-            formDt,
-            {
-              'content-type': 'multipart/form-data',
-            },
-          );
+          await putData(API_BASE_URL + `/posts/${currentProduct.id}`, formDt, {
+            'content-type': 'multipart/form-data',
+          });
         } else {
-          await postData(API_BASE_URL + '/blog/create', formDt, {
+          await postData(API_BASE_URL + '/posts', formDt, {
             'content-type': 'multipart/form-data',
           });
           resetForm();
@@ -119,7 +109,7 @@ export default function BlogNewForm({ isEdit, currentProduct }) {
   const handleDrop = useCallback(
     (acceptedFiles) => {
       setFieldValue(
-        'bv_hinhanh',
+        'file',
         acceptedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
@@ -131,12 +121,12 @@ export default function BlogNewForm({ isEdit, currentProduct }) {
   );
 
   const handleRemoveAll = () => {
-    setFieldValue('bv_hinhanh', []);
+    setFieldValue('file', []);
   };
 
   const handleRemove = (file) => {
     const filteredItems = values.bv_hinhanh.filter((_file) => _file !== file);
-    setFieldValue('bv_hinhanh', filteredItems);
+    setFieldValue('file', filteredItems);
   };
 
   return (
@@ -145,30 +135,30 @@ export default function BlogNewForm({ isEdit, currentProduct }) {
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
             <Card sx={{ p: 3 }}>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      {...getFieldProps('active')}
-                      checked={values.active}
-                    />
-                  }
-                  label="Trạng thái (Ẩn/hiện)"
-                  sx={{ mb: 2 }}
-                />
+              <FormControlLabel
+                control={
+                  <Switch
+                    {...getFieldProps('active')}
+                    checked={values.active}
+                  />
+                }
+                label="Trạng thái (Ẩn/hiện)"
+                sx={{ mb: 2 }}
+              />
               <Stack spacing={3}>
                 <TextField
                   fullWidth
                   label="Tên bài viết"
-                  {...getFieldProps('bv_ten')}
-                  error={Boolean(touched.bv_ten && errors.bv_ten)}
-                  helperText={touched.bv_ten && errors.bv_ten}
+                  {...getFieldProps('name')}
+                  error={Boolean(touched.name && errors.name)}
+                  helperText={touched.name && errors.name}
                 />
                 <TextField
                   fullWidth
                   label="Mã bài viết"
-                  {...getFieldProps('bv_ma')}
-                  error={Boolean(touched.bv_ma && errors.bv_ma)}
-                  helperText={touched.bv_ma && errors.bv_ma}
+                  {...getFieldProps('code')}
+                  error={Boolean(touched.code && errors.code)}
+                  helperText={touched.code && errors.code}
                 />
 
                 <div>
@@ -176,9 +166,9 @@ export default function BlogNewForm({ isEdit, currentProduct }) {
                   <QuillEditor
                     simple
                     id="product-description"
-                    value={values.bv_mota}
+                    value={values.description}
                     placeholder="Mô tả bài viết"
-                    onChange={(val) => setFieldValue('bv_mota', val)}
+                    onChange={(val) => setFieldValue('description', val)}
                   />
                 </div>
 
@@ -188,22 +178,22 @@ export default function BlogNewForm({ isEdit, currentProduct }) {
                     showPreview
                     maxSize={3145728}
                     accept="image/*"
-                    files={values.bv_hinhanh}
+                    files={values.file}
                     onDrop={handleDrop}
                     onRemove={handleRemove}
                     onRemoveAll={handleRemoveAll}
-                    error={Boolean(touched.bv_hinhanh && errors.bv_hinhanh)}
+                    error={Boolean(touched.file && errors.file)}
                   />
                 </div>
 
                 <LoadingButton
-                type="submit"
-                fullWidth
-                variant="contained"
-                size="large"
-              >
-                {!isEdit ? 'Thêm bài viết' : 'Lưu'}
-              </LoadingButton>
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  size="large"
+                >
+                  {!isEdit ? 'Thêm bài viết' : 'Lưu'}
+                </LoadingButton>
               </Stack>
             </Card>
           </Grid>

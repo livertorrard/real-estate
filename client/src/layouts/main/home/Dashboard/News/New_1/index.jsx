@@ -1,6 +1,7 @@
 import './index.scss';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { URL_PUBLIC_IMAGES } from 'src/config/configUrl';
 
 export default function New_1(props) {
   return (
@@ -10,9 +11,9 @@ export default function New_1(props) {
           <div className="image-blog-left">
             <Link className="tag-a" to={`/tin-tuc/${props.new.id}`}>
               <img
-                src={`http://localhost:3000/public/`}
-                data-lazyload="//bizweb.dktcdn.net/thumb/1024x1024/100/336/794/articles/20180615142644-cd98.jpg?v=1540401640587"
-                title="Những lí do đầy thu hút của dự án chung cư New City"
+                src={`${URL_PUBLIC_IMAGES + props.new.pictures[0].pictureName}`}
+                data-lazyload=""
+                title=""
                 alt=""
               />
             </Link>

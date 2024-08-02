@@ -7,7 +7,7 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Grid from '@mui/material/Grid';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import './index.scss';
-import { API_BASE_URL } from 'src/config/configUrl';
+import { API_BASE_URL, URL_PUBLIC_IMAGES  } from 'src/config/configUrl';
 import { useParams } from 'react-router-dom';
 import { getData } from 'src/_helper/httpProvider';
 
@@ -20,15 +20,14 @@ export default function NewsDetail() {
 	React.useEffect(() => {
 		(async () => {
 		  try {
-			const resAllTin = await getData(API_BASE_URL + `/blogs`);
+			const resAllTin = await getData(API_BASE_URL + `/posts`);
 			setDataListNews(resAllTin.data);
 			if(resAllTin){
 				load = load + 1
 			}else{
 				load = load;
 			}
-			console.log(resAllTin.data, "hinhhhhhhhhh");
-			const res = await getData(API_BASE_URL + `/blog/${params.id}`);
+			const res = await getData(API_BASE_URL + `/posts/${params.id}`);
 			setDatas(res.data);
 		  } catch (e) {
 			console.log(e);
@@ -70,8 +69,8 @@ export default function NewsDetail() {
 									dataListNews.map((news, index) => {
 										return (
 											<li key={index} className="once-new">
-												<Link to={`/tin-tuc/${news.bv_id}`}><img id="imageListNews" src={`http://localhost:3000/public/${news.bv_hinhanh[0]?.abv_hinh}`} alt="" /></Link>
-												<Link to={`/tin-tuc/${news.bv_id}`} className="tag-a title">{news.bv_ten}</Link>
+												<Link to={`/tin-tuc/${news.id}`}><img id="imageListNews" src={`${URL_PUBLIC_IMAGES}${news.pictures[0].pictureName}`} alt="" /></Link>
+												<Link to={`/tin-tuc/${news.id}`} className="tag-a title">{news.name}</Link>
 											</li>
 										)
 									})
@@ -81,12 +80,12 @@ export default function NewsDetail() {
 					</Grid >
 					<Grid item xs={12} md={9} order={{ xs: 1, md: 2 }}>
 						<Box className="news-details">
-							<Typography className="title" variant="h7"><Link to="#" className="tag-a">{datas.bv_ten}</Link></Typography>
+							<Typography className="title" variant="h7"><Link to="#" className="tag-a">{datas.name}</Link></Typography>
 							<Box className="line-time-info">
-								<span><CalendarMonthIcon sx={{ position: 'relative', top: '5px' }}></CalendarMonthIcon> {datas.ngaytao}</span>
+								<span><CalendarMonthIcon sx={{ position: 'relative', top: '5px' }}></CalendarMonthIcon> {datas.createdAt}</span>
 							</Box>
 							<Box className="news-content">
-								<div id="editor-react-quiz" dangerouslySetInnerHTML={{ __html: datas.bv_mota }}></div>
+								<div id="editor-react-quiz" dangerouslySetInnerHTML={{ __html: datas.description }}></div>
 							</Box>
 							{/* <Box className="news-comments">
 								<Typography className="title" variant="h5">Viết bình luận của bạn:</Typography>

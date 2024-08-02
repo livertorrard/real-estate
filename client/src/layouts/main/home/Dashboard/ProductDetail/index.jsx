@@ -17,6 +17,7 @@ import { fCurrency } from 'src/utils/formatNumber';
 import Map from '../Map';
 import { Button } from '@material-ui/core';
 import DialogLienHe from '../DiaLogLienHe';
+import { URL_PUBLIC_IMAGES } from 'src/config/configUrl';
 
 export default function ProductDetail() {
   const [open, setOpen] = React.useState(false);
@@ -39,7 +40,7 @@ export default function ProductDetail() {
         );
         setDataTinCungChuDe(rs.data);
         setImgSrc(
-          `http://localhost:3005/public/images/${res.data.pictureName}`,
+          `${URL_PUBLIC_IMAGES + res.data.pictureName}`,
         );
       } catch (e) {
         console.log(e);
@@ -65,7 +66,7 @@ export default function ProductDetail() {
 
   const setImgThumbSrc = (imgSrc, index) => {
     setImgActive(index);
-    setImgSrc(`http://localhost:3005/public/images/${imgSrc}`);
+    setImgSrc(`${URL_PUBLIC_IMAGES + imgSrc}`);
   };
 
   return (
@@ -155,7 +156,7 @@ export default function ProductDetail() {
                         onClick={() => {
                           setImgThumbSrc(product.pictureName, index);
                         }}
-                        src={'http://localhost:3005/public/images/'+product.pictureName}
+                        src={`${URL_PUBLIC_IMAGES} + ${product.pictureName}`}
                         alt=""
                       />
                     </Grid>

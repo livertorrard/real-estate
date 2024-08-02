@@ -13,23 +13,8 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ProductEntity } from 'src/products/entities/product.entity';
 import { ProductService } from 'src/products/services/product.service';
-import { diskStorage } from 'multer';
-import path = require('path');
 import { DeleteProducts } from '../dto/delete-products.dto';
-
-export const storage = {
-  storage: diskStorage({
-    destination: './public/images',
-    filename: (req, file, cb) => {
-      const filename: string = path
-        .parse(file.originalname)
-        .name.replace(/\s/g, '');
-      const extension: string = path.parse(file.originalname).ext;
-
-      cb(null, `${filename}${extension}`);
-    },
-  }),
-};
+import { storage } from 'src/core/core-helper';
 
 @Controller('products')
 export class ProductController {
@@ -112,9 +97,9 @@ export class ProductController {
   }
 }
 
-export const imageFileFilter = (req, file, callback) => {
-  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-    return callback(new Error('Only image files are allowed!'), false);
-  }
-  callback(null, true);
-};
+// export const imageFileFilter = (req, file, callback) => {
+//   if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+//     return callback(new Error('Only image files are allowed!'), false);
+//   }
+//   callback(null, true);
+// };

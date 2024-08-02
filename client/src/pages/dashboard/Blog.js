@@ -2,8 +2,6 @@ import { Icon } from '@iconify/react';
 import { useState, useEffect } from 'react';
 import plusFill from '@iconify/icons-eva/plus-fill';
 import { Link as RouterLink } from 'react-router-dom';
-
-// material
 import {
   Card,
   Table,
@@ -19,16 +17,13 @@ import {
   Switch,
   Avatar,
 } from '@material-ui/core';
-// routes
 import { PATH_DASHBOARD } from '../../routes/paths';
-// hooks
 import useSettings from '../../hooks/useSettings';
-// components
 import Page from '../../components/Page';
 import Scrollbar from '../../components/Scrollbar';
 import SearchNotFound from '../../components/SearchNotFound';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-import { getData, postData } from 'src/_helper/httpProvider';
+import { getData, putData } from 'src/_helper/httpProvider';
 import { API_BASE_URL, URL_PUBLIC_IMAGES } from 'src/config/configUrl';
 import { useSnackbar } from 'notistack5';
 import { MIconButton } from 'src/components/@material-extend';
@@ -37,16 +32,12 @@ import BlogListToolbar from 'src/components/admin-dashboards/blog/list/BlogListT
 import BookListHead from 'src/components/admin-dashboards/blog/list/BlogListHead';
 import BlogMoreMenu from 'src/components/admin-dashboards/blog/list/BlogMoreMenu';
 
-// ----------------------------------------------------------------------
-
 const TABLE_HEAD = [
-  { id: 'bv_ma', label: 'Mã bài viết', alignRight: false },
-  { id: 'sp_ten', label: 'Tên bài viêt', alignRight: false },
-  { id: 'status', label: 'Trạng thái', alignRight: false },
+  { id: 'code', label: 'Mã bài viết', alignRight: false },
+  { id: 'name', label: 'Tên bài viêt', alignRight: false },
+  { id: 'active', label: 'Trạng thái', alignRight: false },
   { id: '' },
 ];
-
-// ----------------------------------------------------------------------
 
 export default function BlogList() {
   const { themeStretch } = useSettings();
@@ -63,9 +54,10 @@ export default function BlogList() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await getData(API_BASE_URL + `/blogs?search=${filterName}`);
+        const res = await getData(
+          API_BASE_URL + `/posts/all?search=${filterName}`,
+        );
         setDatas(res.data);
-        console.log(res.data, "select")
       } catch (e) {
         console.log(e);
       }
@@ -80,7 +72,7 @@ export default function BlogList() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = _datas.map((n) => n.bv_id);
+      const newSelecteds = _datas.map((n) => n.id);
       setSelected(newSelecteds);
       return;
     }
@@ -124,11 +116,9 @@ export default function BlogList() {
   const isUserNotFound = _datas.length === 0;
 
   const changeActiveUser = async (id, active) => {
-    console.log(id, active);
     try {
-      const res = await postData(API_BASE_URL + '/user/active', {
-        id: id,
-        active: active,
+      const res = await putData(API_BASE_URL + `/posts/${id}/active`, {
+        active,
       });
       setLoad((e) => e + 1);
       enqueueSnackbar(res.data, {
@@ -189,18 +179,13 @@ export default function BlogList() {
                   {_datas
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => {
-                      const {
-                        bv_id,
-                        bv_ma,
-                        bv_ten,
-                        bv_hinhanh,
-                        active,
-                      } = row;
-                      const isItemSelected = selected.indexOf(bv_id) !== -1;
+                      const { id, code, name, pictures, active } = row;
+                      const picture = pictures[0]?.pictureName;
+                      const isItemSelected = selected.indexOf(id) !== -1;
                       return (
                         <TableRow
                           hover
-                          key={bv_id}
+                          key={id}
                           tabIndex={-1}
                           role="checkbox"
                           selected={isItemSelected}
@@ -209,12 +194,10 @@ export default function BlogList() {
                           <TableCell padding="checkbox">
                             <Checkbox
                               checked={isItemSelected}
-                              onChange={(event) => handleClick(event, bv_id)}
+                              onChange={(event) => handleClick(event, id)}
                             />
                           </TableCell>
-                          <TableCell align="right">
-                             {bv_ma}
-                          </TableCell>
+                          <TableCell align="right">{code}</TableCell>
                           <TableCell align="left">
                             <Stack
                               direction="row"
@@ -223,26 +206,24 @@ export default function BlogList() {
                             >
                               <Avatar
                                 variant="square"
-                                alt={bv_ma}
-                                sx={{ mr: 1}}
-                                src={`${
-                                  URL_PUBLIC_IMAGES + bv_hinhanh[0]?.abv_hinh
-                                }`}
+                                alt={code}
+                                sx={{ mr: 1 }}
+                                src={`${URL_PUBLIC_IMAGES + picture}`}
                               />
-                              {bv_ten}
+                              {name}
                             </Stack>
                           </TableCell>
                           <TableCell align="left">
                             <Switch
-                              checked={active === 1}
+                              checked={active}
                               onChange={() => {
-                                changeActiveUser(bv_id, !active);
+                                changeActiveUser(id, !active);
                               }}
                             />
                           </TableCell>
 
                           <TableCell align="right">
-                            <BlogMoreMenu id={bv_id} />
+                            <BlogMoreMenu id={id} />
                           </TableCell>
                         </TableRow>
                       );
